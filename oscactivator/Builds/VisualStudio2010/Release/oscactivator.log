@@ -1,0 +1,46 @@
+﻿Der Buildvorgang wurde am 06.12.2012 14:51:28 gestartet.
+     1>Projekt "C:\Users\marinos\Promotion\Tools\oscactivator\oscactivator\Builds\VisualStudio2010\oscactivator.vcxproj" auf Knoten "2", build Ziel(e).
+     1>InitializeBuildStatus:
+         ".\Release\oscactivator.unsuccessfulbuild" wird erstellt, da "AlwaysCreate" angegeben wurde.
+       ClCompile:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I..\..\JuceLibraryCode /Zi /nologo /W4 /WX- /MP /O2 /Oy- /GL /D WIN32 /D _WINDOWS /D NDEBUG /D JUCER_VS2010_78A501D=1 /D _MBCS /Gm- /EHsc /MT /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo".\Release\\" /Fd".\Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\Source\Main.cpp
+         Main.cpp
+     1>..\..\Source\Main.cpp(22): warning C4996: 'juce::ResizableWindow::setContentComponent': wurde als veraltet deklariert
+                 c:\users\marinos\promotion\tools\oscactivator\oscactivator\jucelibrarycode\modules\juce_gui_basics\windows\juce_ResizableWindow.h(319): Siehe Deklaration von 'juce::ResizableWindow::setContentComponent'
+     1>..\..\Source\Main.cpp(56): warning C4100: 'commandLine': Unreferenzierter formaler Parameter
+     1>..\..\Source\Main.cpp(90): warning C4100: 'commandLine': Unreferenzierter formaler Parameter
+       ResourceCompile:
+         Alle Ausgaben sind aktuell.
+       Link:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:".\Release\oscactivator.exe" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:".\Release\oscactivator.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /PDB:".\Release\oscactivator.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\Release\oscactivator.lib" /MACHINE:X86 .\Release\resources.res
+         .\Release\Main.obj
+         .\Release\juce_audio_basics.obj
+         .\Release\juce_audio_devices.obj
+         .\Release\juce_audio_formats.obj
+         .\Release\juce_audio_processors.obj
+         .\Release\juce_core.obj
+         .\Release\juce_cryptography.obj
+         .\Release\juce_data_structures.obj
+         .\Release\juce_events.obj
+         .\Release\juce_graphics.obj
+         .\Release\juce_gui_basics.obj
+         .\Release\juce_gui_extra.obj
+         .\Release\juce_opengl.obj
+         .\Release\juce_video.obj
+         .\Release\MainComponent.obj
+         Code wird generiert.
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\jucelibrarycode\modules\juce_gui_basics\positioning\juce_relativerectangle.cpp(128): warning C4702: Unerreichbarer Code
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\jucelibrarycode\modules\juce_gui_basics\positioning\juce_relativecoordinatepositioner.cpp(130): warning C4702: Unerreichbarer Code
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\jucelibrarycode\modules\juce_gui_basics\positioning\juce_relativecoordinatepositioner.cpp(46): warning C4702: Unerreichbarer Code
+         Codegenerierung ist abgeschlossen.
+         oscactivator.vcxproj -> C:\Users\marinos\Promotion\Tools\oscactivator\oscactivator\Builds\VisualStudio2010\.\Release\oscactivator.exe
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:".\Release\oscactivator.exe;#1" /manifest .\Release\oscactivator.exe.intermediate.manifest
+       FinalizeBuildStatus:
+         Die Datei ".\Release\oscactivator.unsuccessfulbuild" wird gelöscht.
+         Aktualisieren des Timestamps von ".\Release\oscactivator.lastbuildstate".
+     1>Die Erstellung des Projekts "C:\Users\marinos\Promotion\Tools\oscactivator\oscactivator\Builds\VisualStudio2010\oscactivator.vcxproj" ist abgeschlossen, build Ziel(e).
+
+Das Erstellen war erfolgreich.
+
+Verstrichene Zeit 00:00:42.47

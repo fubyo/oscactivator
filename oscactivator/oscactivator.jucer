@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="JPk52u" name="oscactivator" projectType="guiapp" version="0.01"
+              bundleIdentifier="com.yourcompany.oscactivator" jucerVersion="3.0.0">
+  <EXPORTFORMATS>
+    <VS2010 targetFolder="Builds/VisualStudio2010" libraryType="1" juceFolder="..\juce\modules">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
+                       isDebug="1" optimisation="1" targetName="oscactivator"/>
+        <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
+                       isDebug="0" optimisation="2" targetName="oscactivator"/>
+      </CONFIGURATIONS>
+    </VS2010>
+  </EXPORTFORMATS>
+  <MAINGROUP id="jyqPA4" name="oscactivator">
+    <GROUP id="{4313B3C1-2DC4-D7E5-3C4E-FE529DD8DA69}" name="Source">
+      <FILE id="ikZBr9" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+    </GROUP>
+  </MAINGROUP>
+  <MODULES>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_gui_audio" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_video" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="1"/>
+  </MODULES>
+  <JUCEOPTIONS/>
+</JUCERPROJECT>

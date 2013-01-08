@@ -1,0 +1,42 @@
+﻿Der Buildvorgang wurde am 08.01.2013 16:03:11 gestartet.
+     1>Projekt "C:\Users\marinos\Promotion\Tools\oscactivator\oscactivator\Builds\VisualStudio2010\oscactivator.vcxproj" auf Knoten "2", build Ziel(e).
+     1>InitializeBuildStatus:
+         ".\Debug\oscactivator.unsuccessfulbuild" wird erstellt, da "AlwaysCreate" angegeben wurde.
+       ClCompile:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I..\..\JuceLibraryCode /ZI /nologo /W4 /WX- /MP /Od /Oy- /D WIN32 /D _WINDOWS /D DEBUG /D _DEBUG /D JUCER_VS2010_78A501D=1 /D _MBCS /Gm- /EHsc /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo".\Debug\\" /Fd".\Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\Source\InputsPanelComponent.cpp
+         InputsPanelComponent.cpp
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\inputspanelcomponent.cpp(243): warning C4100: 'source': Unreferenzierter formaler Parameter
+       ResourceCompile:
+         Alle Ausgaben sind aktuell.
+       Link:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:".\Debug\oscactivator.exe" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /NODEFAULTLIB:libcmt.lib /NODEFAULTLIB:msvcrt.lib /MANIFEST /ManifestFile:".\Debug\oscactivator.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:".\Debug\oscactivator.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\Debug\oscactivator.lib" /MACHINE:X86 .\Debug\resources.res
+         .\Debug\InputComponent.obj
+         .\Debug\InputsPanelComponent.obj
+         .\Debug\Main.obj
+         .\Debug\juce_audio_basics.obj
+         .\Debug\juce_audio_devices.obj
+         .\Debug\juce_audio_formats.obj
+         .\Debug\juce_audio_processors.obj
+         .\Debug\juce_core.obj
+         .\Debug\juce_cryptography.obj
+         .\Debug\juce_data_structures.obj
+         .\Debug\juce_events.obj
+         .\Debug\juce_graphics.obj
+         .\Debug\juce_gui_basics.obj
+         .\Debug\juce_gui_extra.obj
+         .\Debug\juce_opengl.obj
+         .\Debug\juce_video.obj
+         .\Debug\MainComponent.obj
+         .\Debug\MembershipGraphComponent.obj
+         LINK : .\Debug\oscactivator.exe wurde nicht gefunden oder beim letzten inkrementellen Linkvorgang nicht erstellt; vollständiger Link wird durchgeführt.
+         oscactivator.vcxproj -> C:\Users\marinos\Promotion\Tools\oscactivator\oscactivator\Builds\VisualStudio2010\.\Debug\oscactivator.exe
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:".\Debug\oscactivator.exe;#1" /manifest .\Debug\oscactivator.exe.intermediate.manifest
+       FinalizeBuildStatus:
+         Die Datei ".\Debug\oscactivator.unsuccessfulbuild" wird gelöscht.
+         Aktualisieren des Timestamps von ".\Debug\oscactivator.lastbuildstate".
+     1>Die Erstellung des Projekts "C:\Users\marinos\Promotion\Tools\oscactivator\oscactivator\Builds\VisualStudio2010\oscactivator.vcxproj" ist abgeschlossen, build Ziel(e).
+
+Das Erstellen war erfolgreich.
+
+Verstrichene Zeit 00:00:07.73
