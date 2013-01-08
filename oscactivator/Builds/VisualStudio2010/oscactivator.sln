@@ -1,0 +1,19 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{7CABC865-F390-4F52-54C1-820A1A5C7F34}") = "oscactivator", "oscactivator.vcxproj", "{80E8C682-DC41-F508-5542-E4FB859FF6A2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{80E8C682-DC41-F508-5542-E4FB859FF6A2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{80E8C682-DC41-F508-5542-E4FB859FF6A2}.Debug|Win32.Build.0 = Debug|Win32
+		{80E8C682-DC41-F508-5542-E4FB859FF6A2}.Release|Win32.ActiveCfg = Release|Win32
+		{80E8C682-DC41-F508-5542-E4FB859FF6A2}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
