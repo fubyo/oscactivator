@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  8 Jan 2013 3:11:41pm
+  Creation date:  15 Jan 2013 4:34:36pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -19,13 +19,16 @@
   ==============================================================================
 */
 
-#ifndef __JUCER_HEADER_INPUTSPANELCOMPONENT_INPUTSPANELCOMPONENT_A9034C61__
-#define __JUCER_HEADER_INPUTSPANELCOMPONENT_INPUTSPANELCOMPONENT_A9034C61__
+#ifndef __JUCER_HEADER_INPUTSPANELCOMPONENT_INPUTSPANELCOMPONENT_C3F35460__
+#define __JUCER_HEADER_INPUTSPANELCOMPONENT_INPUTSPANELCOMPONENT_C3F35460__
 
 //[Headers]     -- You can add your own extra header files here --
 #include "..\JuceLibraryCode\JuceHeader.h"
 #include <vector>
 using namespace std;
+
+#include "Pool.h"
+#include "OscManager.h"
 
 //[/Headers]
 
@@ -58,6 +61,8 @@ public:
 	void selectedRowsChanged (int lastRowSelected);
 
 	void changeListenerCallback (ChangeBroadcaster* source);
+
+	void updateCurrentValue();
     //[/UserMethods]
 
     void paint (Graphics& g);
@@ -83,7 +88,7 @@ private:
     TextButton* removeButton;
     MembershipGraphComponent* membershipGraph;
     Label* label;
-    TextEditor* textEditor;
+    TextEditor* currentValueEditor;
     TextEditor* textEditor2;
     Label* label2;
     TextButton* setButton;
@@ -96,4 +101,4 @@ private:
 };
 
 
-#endif   // __JUCER_HEADER_INPUTSPANELCOMPONENT_INPUTSPANELCOMPONENT_A9034C61__
+#endif   // __JUCER_HEADER_INPUTSPANELCOMPONENT_INPUTSPANELCOMPONENT_C3F35460__

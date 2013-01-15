@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  8 Jan 2013 3:11:41pm
+  Creation date:  15 Jan 2013 4:34:36pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -37,7 +37,7 @@ InputsPanelComponent::InputsPanelComponent ()
       removeButton (0),
       membershipGraph (0),
       label (0),
-      textEditor (0),
+      currentValueEditor (0),
       textEditor2 (0),
       label2 (0),
       setButton (0)
@@ -66,14 +66,14 @@ InputsPanelComponent::InputsPanelComponent ()
     label->setColour (TextEditor::textColourId, Colours::black);
     label->setColour (TextEditor::backgroundColourId, Colour (0x0));
 
-    addAndMakeVisible (textEditor = new TextEditor (L"new text editor"));
-    textEditor->setMultiLine (false);
-    textEditor->setReturnKeyStartsNewLine (false);
-    textEditor->setReadOnly (false);
-    textEditor->setScrollbarsShown (true);
-    textEditor->setCaretVisible (true);
-    textEditor->setPopupMenuEnabled (true);
-    textEditor->setText (String::empty);
+    addAndMakeVisible (currentValueEditor = new TextEditor (L"new text editor"));
+    currentValueEditor->setMultiLine (false);
+    currentValueEditor->setReturnKeyStartsNewLine (false);
+    currentValueEditor->setReadOnly (false);
+    currentValueEditor->setScrollbarsShown (true);
+    currentValueEditor->setCaretVisible (true);
+    currentValueEditor->setPopupMenuEnabled (true);
+    currentValueEditor->setText (String::empty);
 
     addAndMakeVisible (textEditor2 = new TextEditor (L"new text editor"));
     textEditor2->setMultiLine (false);
@@ -104,6 +104,8 @@ InputsPanelComponent::InputsPanelComponent ()
 
 	inputComponent->addChangeListener(this);
 	inputComponent->setVisible(false);
+
+	Pool::Instance()->reg("InputsPanelComponent", this);
     //[/UserPreSize]
 
     setSize (609, 600);
@@ -125,7 +127,7 @@ InputsPanelComponent::~InputsPanelComponent()
     deleteAndZero (removeButton);
     deleteAndZero (membershipGraph);
     deleteAndZero (label);
-    deleteAndZero (textEditor);
+    deleteAndZero (currentValueEditor);
     deleteAndZero (textEditor2);
     deleteAndZero (label2);
     deleteAndZero (setButton);
@@ -156,7 +158,7 @@ void InputsPanelComponent::resized()
     removeButton->setBounds (64, 16, 64, 24);
     membershipGraph->setBounds (8, 248, 592, 200);
     label->setBounds (8, 216, 120, 24);
-    textEditor->setBounds (104, 216, 144, 24);
+    currentValueEditor->setBounds (104, 216, 144, 24);
     textEditor2->setBounds (272, 216, 232, 24);
     label2->setBounds (248, 216, 24, 24);
     setButton->setBounds (512, 216, 86, 24);
@@ -190,9 +192,12 @@ void InputsPanelComponent::buttonClicked (Button* buttonThatWasClicked)
 
 		if (selectedrow!=-1 && selectedrow < (int)inputs.size())
 		{
+			OscManager::getInstance()->unregisterReceiver(inputs[selectedrow]->pValue);
+			delete inputs[selectedrow]->pValue;
+
 			inputs.remove(selectedrow);
 
-			if (inputs.size())
+			if (selectedrow<inputs.size())
 			{
 				inputComponent->setInput(*inputs[selectedrow]);
 			}
@@ -209,6 +214,7 @@ void InputsPanelComponent::buttonClicked (Button* buttonThatWasClicked)
     else if (buttonThatWasClicked == setButton)
     {
         //[UserButtonCode_setButton] -- add your button handler code here..
+		
         //[/UserButtonCode_setButton]
     }
 
@@ -238,25 +244,43 @@ void InputsPanelComponent::selectedRowsChanged (int lastRowSelected)
 		inputComponent->setInput(*inputs[lastRowSelected]);
 		inputComponent->setVisible(true);
 	}
+
+	updateCurrentValue();
 }
 
 void InputsPanelComponent::changeListenerCallback (ChangeBroadcaster* source)
 {
-	Input input=inputComponent->getInput();
-	int selectedRow=inputsListBox->getSelectedRow();
+	if (source==inputComponent)
+	{
+		Input input=inputComponent->getInput();
+		int selectedRow=inputsListBox->getSelectedRow();
 
+		if (selectedRow!=-1)
+		{
+			inputs[selectedRow]->name = input.name;
+			inputs[selectedRow]->oscaddress = input.oscaddress;
+			inputs[selectedRow]->port = input.port;
+			inputs[selectedRow]->parameterindex = input.parameterindex;
+
+			OscManager::getInstance()->unregisterReceiver(inputs[selectedRow]->pValue);
+			OscManager::getInstance()->registerReceiver(inputs[selectedRow]->oscaddress, inputs[selectedRow]->parameterindex, inputs[selectedRow]->port, inputs[selectedRow]->pValue);
+
+			inputsListBox->updateContent();
+			inputsListBox->repaintRow(selectedRow);
+		}
+	}
+}
+
+void InputsPanelComponent::updateCurrentValue()
+{
+	int selectedRow=inputsListBox->getSelectedRow();
 	if (selectedRow!=-1)
 	{
-		inputs[selectedRow]->name = input.name;
-		inputs[selectedRow]->oscaddress = input.oscaddress;
-		inputs[selectedRow]->port = input.port;
-		inputs[selectedRow]->parameterindex = input.parameterindex;
 		
-		inputsListBox->updateContent();
-		inputsListBox->repaintRow(selectedRow);
+		currentValueEditor->setText(String(*inputs[selectedRow]->pValue));
 	}
-
-	
+	else
+		currentValueEditor->setText(String(0));
 }
 
 //[/MiscUserCode]
@@ -298,7 +322,7 @@ BEGIN_JUCER_METADATA
          edBkgCol="0" labelText="Current value&#10;" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
-  <TEXTEDITOR name="new text editor" id="74e2d0b5591a67da" memberName="textEditor"
+  <TEXTEDITOR name="new text editor" id="74e2d0b5591a67da" memberName="currentValueEditor"
               virtualName="" explicitFocusOrder="0" pos="104 216 144 24" initialText=""
               multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
               caret="1" popupmenu="1"/>

@@ -10,6 +10,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "MainComponent.h"
+#include "OscManager.h"
 
 class MainWindow  : public DocumentWindow
 {
@@ -58,12 +59,15 @@ public:
         // Do your application's initialisation code here..
         mainWindow = new MainWindow();
 
+		OscManager::getInstance()->startThread();
     }
 
     void shutdown()
     {
         // Do your application's shutdown code here..
         mainWindow = 0;
+		OscManager::getInstance()->stop();
+		OscManager::deleteInstance();
     }
 
     //==============================================================================

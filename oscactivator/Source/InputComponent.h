@@ -34,17 +34,20 @@ public:
 		oscaddress = String("/address");
 		port = 3333;
 		parameterindex = 0;
+		pValue = new double[0];
+		*pValue = 0;
 	};
 
 	~Input()
 	{
-
+		
 	};
 
 	String name;
 	String oscaddress;
 	int port;
 	int parameterindex;
+	double* pValue; 
 };
 //[/Headers]
 

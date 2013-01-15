@@ -1,15 +1,37 @@
-﻿Der Buildvorgang wurde am 08.01.2013 16:03:11 gestartet.
+﻿Der Buildvorgang wurde am 15.01.2013 18:49:02 gestartet.
      1>Projekt "C:\Users\marinos\Promotion\Tools\oscactivator\oscactivator\Builds\VisualStudio2010\oscactivator.vcxproj" auf Knoten "2", build Ziel(e).
      1>InitializeBuildStatus:
          ".\Debug\oscactivator.unsuccessfulbuild" wird erstellt, da "AlwaysCreate" angegeben wurde.
        ClCompile:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I..\..\JuceLibraryCode /ZI /nologo /W4 /WX- /MP /Od /Oy- /D WIN32 /D _WINDOWS /D DEBUG /D _DEBUG /D JUCER_VS2010_78A501D=1 /D _MBCS /Gm- /EHsc /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo".\Debug\\" /Fd".\Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\Source\InputsPanelComponent.cpp
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I..\..\JuceLibraryCode /ZI /nologo /W4 /WX- /MP /Od /Oy- /D WIN32 /D _WINDOWS /D DEBUG /D _DEBUG /D JUCER_VS2010_78A501D=1 /D _MBCS /Gm- /EHsc /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo".\Debug\\" /Fd".\Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\Source\InputComponent.cpp ..\..\Source\InputsPanelComponent.cpp ..\..\Source\Main.cpp ..\..\Source\MainComponent.cpp ..\..\Source\OscManager.cpp
+         InputComponent.cpp
          InputsPanelComponent.cpp
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\inputspanelcomponent.cpp(243): warning C4100: 'source': Unreferenzierter formaler Parameter
+         Main.cpp
+         MainComponent.cpp
+         OscManager.cpp
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\inputcomponent.cpp(224): warning C4100: 'editor': Unreferenzierter formaler Parameter
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\main.cpp(57): warning C4100: 'commandLine': Unreferenzierter formaler Parameter
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\main.cpp(95): warning C4100: 'commandLine': Unreferenzierter formaler Parameter
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\oscmanager.cpp(35): warning C4018: '<': Konflikt zwischen 'signed' und 'unsigned'
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\oscmanager.cpp(76): warning C4018: '<': Konflikt zwischen 'signed' und 'unsigned'
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\oscmanager.cpp(158): warning C4018: '<': Konflikt zwischen 'signed' und 'unsigned'
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\oscmanager.cpp(151): warning C4100: 'remoteEndpoint': Unreferenzierter formaler Parameter
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\oscmanager.cpp(154): warning C4189: 'currentTime': Lokale Variable ist initialisiert aber nicht referenziert
        ResourceCompile:
          Alle Ausgaben sind aktuell.
        Link:
          c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:".\Debug\oscactivator.exe" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /NODEFAULTLIB:libcmt.lib /NODEFAULTLIB:msvcrt.lib /MANIFEST /ManifestFile:".\Debug\oscactivator.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:".\Debug\oscactivator.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\Debug\oscactivator.lib" /MACHINE:X86 .\Debug\resources.res
+         .\Debug\IpEndpointName.obj
+         .\Debug\NetworkingUtils.obj
+         .\Debug\UdpSocket.obj
+         .\Debug\OscOutboundPacketStream.obj
+         .\Debug\OscPrintReceivedElements.obj
+         .\Debug\OscReceivedElements.obj
+         .\Debug\OscTypes.obj
          .\Debug\InputComponent.obj
          .\Debug\InputsPanelComponent.obj
          .\Debug\Main.obj
@@ -28,6 +50,8 @@
          .\Debug\juce_video.obj
          .\Debug\MainComponent.obj
          .\Debug\MembershipGraphComponent.obj
+         .\Debug\OscManager.obj
+         .\Debug\Pool.obj
          LINK : .\Debug\oscactivator.exe wurde nicht gefunden oder beim letzten inkrementellen Linkvorgang nicht erstellt; vollständiger Link wird durchgeführt.
          oscactivator.vcxproj -> C:\Users\marinos\Promotion\Tools\oscactivator\oscactivator\Builds\VisualStudio2010\.\Debug\oscactivator.exe
        Manifest:
@@ -39,4 +63,4 @@
 
 Das Erstellen war erfolgreich.
 
-Verstrichene Zeit 00:00:07.73
+Verstrichene Zeit 00:00:09.88

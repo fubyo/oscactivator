@@ -295,6 +295,9 @@
     <Filter Include="Juce Library Code">
       <UniqueIdentifier>{8B4D1BAA-6DB4-CAEC-A0FA-271F354D5C61}</UniqueIdentifier>
     </Filter>
+    <Filter Include="oscpack">
+      <UniqueIdentifier>{f0c4e9ca-f983-4b72-ad60-7739b6366baf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\Main.cpp">
@@ -1376,6 +1379,33 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\InputsPanelComponent.cpp">
       <Filter>oscactivator\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\OscManager.cpp">
+      <Filter>oscactivator\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Pool.cpp">
+      <Filter>oscactivator\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\oscpack\osc\OscPrintReceivedElements.cpp">
+      <Filter>oscpack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\oscpack\osc\OscReceivedElements.cpp">
+      <Filter>oscpack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\oscpack\osc\OscTypes.cpp">
+      <Filter>oscpack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\oscpack\osc\OscOutboundPacketStream.cpp">
+      <Filter>oscpack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\oscpack\ip\IpEndpointName.cpp">
+      <Filter>oscpack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\oscpack\ip\win32\NetworkingUtils.cpp">
+      <Filter>oscpack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\oscpack\ip\win32\UdpSocket.cpp">
+      <Filter>oscpack</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2638,6 +2668,51 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\InputsPanelComponent.h">
       <Filter>oscactivator\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\OscManager.h">
+      <Filter>oscactivator\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Pool.h">
+      <Filter>oscactivator\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\oscpack\osc\OscOutboundPacketStream.h">
+      <Filter>oscpack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\oscpack\osc\OscPacketListener.h">
+      <Filter>oscpack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\oscpack\osc\OscPrintReceivedElements.h">
+      <Filter>oscpack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\oscpack\osc\OscReceivedElements.h">
+      <Filter>oscpack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\oscpack\osc\OscTypes.h">
+      <Filter>oscpack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\oscpack\osc\MessageMappingOscPacketListener.h">
+      <Filter>oscpack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\oscpack\osc\OscException.h">
+      <Filter>oscpack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\oscpack\osc\OscHostEndianness.h">
+      <Filter>oscpack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\oscpack\ip\IpEndpointName.h">
+      <Filter>oscpack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\oscpack\ip\NetworkingUtils.h">
+      <Filter>oscpack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\oscpack\ip\PacketListener.h">
+      <Filter>oscpack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\oscpack\ip\TimerListener.h">
+      <Filter>oscpack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\oscpack\ip\UdpSocket.h">
+      <Filter>oscpack</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
