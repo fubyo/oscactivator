@@ -193,7 +193,7 @@ void InputsPanelComponent::buttonClicked (Button* buttonThatWasClicked)
 		if (selectedrow!=-1 && selectedrow < (int)inputs.size())
 		{
 			OscManager::getInstance()->unregisterReceiver(inputs[selectedrow]->pValue);
-			delete inputs[selectedrow]->pValue;
+			delete[] inputs[selectedrow]->pValue;
 
 			inputs.remove(selectedrow);
 

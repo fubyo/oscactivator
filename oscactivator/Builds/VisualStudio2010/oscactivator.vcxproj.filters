@@ -298,6 +298,9 @@
     <Filter Include="oscpack">
       <UniqueIdentifier>{f0c4e9ca-f983-4b72-ad60-7739b6366baf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="fuzzylite">
+      <UniqueIdentifier>{c507fc7b-0b82-47b9-aa35-d139872e793f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\Main.cpp">
@@ -1406,6 +1409,114 @@
     </ClCompile>
     <ClCompile Include="..\..\oscpack\ip\win32\UdpSocket.cpp">
       <Filter>oscpack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\fuzzylite\RectangularTerm.cpp">
+      <Filter>fuzzylite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\fuzzylite\RuleBlock.cpp">
+      <Filter>fuzzylite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\fuzzylite\ShoulderTerm.cpp">
+      <Filter>fuzzylite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\fuzzylite\SingletonTerm.cpp">
+      <Filter>fuzzylite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\fuzzylite\StrOp.cpp">
+      <Filter>fuzzylite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\fuzzylite\TakagiSugenoConsequent.cpp">
+      <Filter>fuzzylite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\fuzzylite\TakagiSugenoRule.cpp">
+      <Filter>fuzzylite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\fuzzylite\TakagiSugenoTerm.cpp">
+      <Filter>fuzzylite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\fuzzylite\TrapezoidalTerm.cpp">
+      <Filter>fuzzylite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\fuzzylite\TriangularTerm.cpp">
+      <Filter>fuzzylite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\fuzzylite\AreaCentroidAlgorithm.cpp">
+      <Filter>fuzzylite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\fuzzylite\CompoundTerm.cpp">
+      <Filter>fuzzylite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\fuzzylite\DescriptiveAntecedent.cpp">
+      <Filter>fuzzylite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\fuzzylite\DiscreteTerm.cpp">
+      <Filter>fuzzylite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\fuzzylite\FunctionTerm.cpp">
+      <Filter>fuzzylite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\fuzzylite\FuzzyAnd.cpp">
+      <Filter>fuzzylite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\fuzzylite\FuzzyAntecedent.cpp">
+      <Filter>fuzzylite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\fuzzylite\FuzzyConsequent.cpp">
+      <Filter>fuzzylite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\fuzzylite\FuzzyDefuzzifier.cpp">
+      <Filter>fuzzylite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\fuzzylite\FuzzyEngine.cpp">
+      <Filter>fuzzylite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\fuzzylite\FuzzyException.cpp">
+      <Filter>fuzzylite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\fuzzylite\FuzzyExceptions.cpp">
+      <Filter>fuzzylite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\fuzzylite\FuzzyModulation.cpp">
+      <Filter>fuzzylite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\fuzzylite\FuzzyOperation.cpp">
+      <Filter>fuzzylite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\fuzzylite\FuzzyOperator.cpp">
+      <Filter>fuzzylite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\fuzzylite\FuzzyOr.cpp">
+      <Filter>fuzzylite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\fuzzylite\FuzzyRule.cpp">
+      <Filter>fuzzylite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\fuzzylite\Hedge.cpp">
+      <Filter>fuzzylite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\fuzzylite\HedgeSet.cpp">
+      <Filter>fuzzylite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\fuzzylite\InfixToPostfix.cpp">
+      <Filter>fuzzylite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\fuzzylite\InputLVar.cpp">
+      <Filter>fuzzylite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\fuzzylite\LinguisticTerm.cpp">
+      <Filter>fuzzylite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\fuzzylite\LinguisticVariable.cpp">
+      <Filter>fuzzylite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\fuzzylite\MamdaniConsequent.cpp">
+      <Filter>fuzzylite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\fuzzylite\MamdaniRule.cpp">
+      <Filter>fuzzylite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\fuzzylite\OutputLVar.cpp">
+      <Filter>fuzzylite</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2713,6 +2824,123 @@
     </ClInclude>
     <ClInclude Include="..\..\oscpack\ip\UdpSocket.h">
       <Filter>oscpack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\ShoulderTerm.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\SingletonTerm.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\StrOp.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\TakagiSugenoConsequent.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\TakagiSugenoRule.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\TakagiSugenoTerm.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\TrapezoidalTerm.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\TriangularTerm.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\AreaCentroidAlgorithm.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\CompoundTerm.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\defs.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\DescriptiveAntecedent.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\DiscreteTerm.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\flScalar.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\FunctionTerm.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\FuzzyAnd.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\FuzzyAntecedent.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\FuzzyConsequent.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\FuzzyDefuzzifier.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\FuzzyEngine.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\FuzzyException.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\FuzzyExceptions.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\FuzzyLite.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\FuzzyModulation.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\FuzzyOperation.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\FuzzyOperator.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\FuzzyOr.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\FuzzyRule.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\Hedge.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\HedgeSet.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\InfixToPostfix.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\InputLVar.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\LinguisticTerm.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\LinguisticVariable.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\MamdaniConsequent.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\MamdaniRule.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\OutputLVar.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\RectangularTerm.h">
+      <Filter>fuzzylite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\fuzzylite\fuzzylite\RuleBlock.h">
+      <Filter>fuzzylite</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -34,7 +34,7 @@ public:
 		oscaddress = String("/address");
 		port = 3333;
 		parameterindex = 0;
-		pValue = new double[0];
+		pValue = new double[1];
 		*pValue = 0;
 	};
 
