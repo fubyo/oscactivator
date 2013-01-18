@@ -1,10 +1,10 @@
-﻿Der Buildvorgang wurde am 16.01.2013 18:07:08 gestartet.
+﻿Der Buildvorgang wurde am 18.01.2013 19:50:34 gestartet.
      1>Projekt "C:\Users\marinos\Promotion\Tools\oscactivator\oscactivator\Builds\VisualStudio2010\oscactivator.vcxproj" auf Knoten "2", build Ziel(e).
      1>InitializeBuildStatus:
          ".\Debug\oscactivator.unsuccessfulbuild" wird erstellt, da "AlwaysCreate" angegeben wurde.
        ClCompile:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I..\..\JuceLibraryCode /ZI /nologo /W4 /WX- /MP /Od /Oy- /D WIN32 /D _WINDOWS /D DEBUG /D _DEBUG /D JUCER_VS2010_78A501D=1 /D _MBCS /Gm- /EHsc /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo".\Debug\\" /Fd".\Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\Source\MainComponent.cpp
-         MainComponent.cpp
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I..\..\JuceLibraryCode /ZI /nologo /W4 /WX- /MP /Od /Oy- /D WIN32 /D _WINDOWS /D DEBUG /D _DEBUG /D JUCER_VS2010_78A501D=1 /D _MBCS /Gm- /EHsc /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo".\Debug\\" /Fd".\Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\Source\TermManager.cpp
+         TermManager.cpp
      1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
      1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\fuzzyantecedent.h(58): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
      1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\descriptiveantecedent.h(62): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
@@ -12,6 +12,9 @@
      1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\mamdaniconsequent.h(55): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
      1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\mamdanirule.h(36): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
      1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\takagisugenoconsequent.h(53): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(14): warning C4100: 'Min': Unreferenzierter formaler Parameter
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(19): warning C4100: 'Max': Unreferenzierter formaler Parameter
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(24): warning C4100: 'value': Unreferenzierter formaler Parameter
        ResourceCompile:
          Alle Ausgaben sind aktuell.
        Link:
@@ -60,6 +63,7 @@
          .\Debug\OscReceivedElements.obj
          .\Debug\OscTypes.obj
          .\Debug\InputComponent.obj
+         .\Debug\TermManager.obj
          .\Debug\InputsPanelComponent.obj
          .\Debug\Main.obj
          .\Debug\juce_audio_basics.obj
@@ -90,4 +94,4 @@
 
 Das Erstellen war erfolgreich.
 
-Verstrichene Zeit 00:00:09.85
+Verstrichene Zeit 00:00:10.42
