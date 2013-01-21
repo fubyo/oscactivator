@@ -33,6 +33,7 @@ MembershipGraphComponent::MembershipGraphComponent ()
 {
 
     //[UserPreSize]
+	termManager=0;
     //[/UserPreSize]
 
     setSize (600, 400);
@@ -62,6 +63,22 @@ void MembershipGraphComponent::paint (Graphics& g)
     g.fillAll (Colours::bisque);
 
     //[UserPaint] Add your own custom painting code here..
+	double width = 592;
+	double height = 200;
+
+	g.setColour(Colours::black);
+	if (termManager)
+	{	double min = termManager->getMin();
+		double max = termManager->getMax();
+		double difference = max-min;
+		for (int i=0; i<termManager->terms.size(); i++)
+		{
+			g.drawLine( (termManager->terms[i]->a()-min)*width/difference, height-1, (termManager->terms[i]->b()-min)*width/difference, 0);
+			g.drawLine( (termManager->terms[i]->b()-min)*width/difference, 0, (termManager->terms[i]->c()-min)*width/difference, 0);
+			g.drawLine( (termManager->terms[i]->c()-min)*width/difference, 0, (termManager->terms[i]->d()-min)*width/difference, height-1);
+		}
+	} 
+
     //[/UserPaint]
 }
 
@@ -74,6 +91,11 @@ void MembershipGraphComponent::resized()
 
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
+void MembershipGraphComponent::setTermManager(TermManager* pTermManager)
+{
+	termManager = pTermManager;
+	repaint();
+}
 //[/MiscUserCode]
 
 

@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  15 Jan 2013 4:34:36pm
+  Creation date:  21 Jan 2013 7:10:29pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -38,7 +38,7 @@ InputsPanelComponent::InputsPanelComponent ()
       membershipGraph (0),
       label (0),
       currentValueEditor (0),
-      textEditor2 (0),
+      termEditor (0),
       label2 (0),
       setButton (0)
 {
@@ -75,14 +75,14 @@ InputsPanelComponent::InputsPanelComponent ()
     currentValueEditor->setPopupMenuEnabled (true);
     currentValueEditor->setText (String::empty);
 
-    addAndMakeVisible (textEditor2 = new TextEditor (L"new text editor"));
-    textEditor2->setMultiLine (false);
-    textEditor2->setReturnKeyStartsNewLine (false);
-    textEditor2->setReadOnly (false);
-    textEditor2->setScrollbarsShown (true);
-    textEditor2->setCaretVisible (true);
-    textEditor2->setPopupMenuEnabled (true);
-    textEditor2->setText (String::empty);
+    addAndMakeVisible (termEditor = new TextEditor (L"new text editor"));
+    termEditor->setMultiLine (false);
+    termEditor->setReturnKeyStartsNewLine (false);
+    termEditor->setReadOnly (false);
+    termEditor->setScrollbarsShown (true);
+    termEditor->setCaretVisible (true);
+    termEditor->setPopupMenuEnabled (true);
+    termEditor->setText (String::empty);
 
     addAndMakeVisible (label2 = new Label (L"new label",
                                            L"is"));
@@ -128,7 +128,7 @@ InputsPanelComponent::~InputsPanelComponent()
     deleteAndZero (membershipGraph);
     deleteAndZero (label);
     deleteAndZero (currentValueEditor);
-    deleteAndZero (textEditor2);
+    deleteAndZero (termEditor);
     deleteAndZero (label2);
     deleteAndZero (setButton);
 
@@ -159,7 +159,7 @@ void InputsPanelComponent::resized()
     membershipGraph->setBounds (8, 248, 592, 200);
     label->setBounds (8, 216, 120, 24);
     currentValueEditor->setBounds (104, 216, 144, 24);
-    textEditor2->setBounds (272, 216, 232, 24);
+    termEditor->setBounds (272, 216, 232, 24);
     label2->setBounds (248, 216, 24, 24);
     setButton->setBounds (512, 216, 86, 24);
     //[UserResized] Add your own custom resize handling here..
@@ -194,6 +194,7 @@ void InputsPanelComponent::buttonClicked (Button* buttonThatWasClicked)
 		{
 			OscManager::getInstance()->unregisterReceiver(inputs[selectedrow]->pValue);
 			delete[] inputs[selectedrow]->pValue;
+			delete inputs[selectedrow]->termManager;
 
 			inputs.remove(selectedrow);
 
@@ -214,7 +215,11 @@ void InputsPanelComponent::buttonClicked (Button* buttonThatWasClicked)
     else if (buttonThatWasClicked == setButton)
     {
         //[UserButtonCode_setButton] -- add your button handler code here..
-		
+		if (inputsListBox->getSelectedRow()!=-1)
+		{
+			inputs[inputsListBox->getSelectedRow()]->termManager->addTerm(termEditor->getText(), *inputs[inputsListBox->getSelectedRow()]->pValue);
+			membershipGraph->setTermManager(inputs[inputsListBox->getSelectedRow()]->termManager);
+		}
         //[/UserButtonCode_setButton]
     }
 
@@ -243,6 +248,8 @@ void InputsPanelComponent::selectedRowsChanged (int lastRowSelected)
 	{
 		inputComponent->setInput(*inputs[lastRowSelected]);
 		inputComponent->setVisible(true);
+
+		membershipGraph->setTermManager(inputs[lastRowSelected]->termManager);
 	}
 
 	updateCurrentValue();
@@ -276,7 +283,7 @@ void InputsPanelComponent::updateCurrentValue()
 	int selectedRow=inputsListBox->getSelectedRow();
 	if (selectedRow!=-1)
 	{
-		
+
 		currentValueEditor->setText(String(*inputs[selectedRow]->pValue));
 	}
 	else
@@ -326,7 +333,7 @@ BEGIN_JUCER_METADATA
               virtualName="" explicitFocusOrder="0" pos="104 216 144 24" initialText=""
               multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
               caret="1" popupmenu="1"/>
-  <TEXTEDITOR name="new text editor" id="76a41ecfc22e8bd1" memberName="textEditor2"
+  <TEXTEDITOR name="new text editor" id="76a41ecfc22e8bd1" memberName="termEditor"
               virtualName="" explicitFocusOrder="0" pos="272 216 232 24" initialText=""
               multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
               caret="1" popupmenu="1"/>

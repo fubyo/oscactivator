@@ -24,10 +24,18 @@
 
 //[Headers]     -- You can add your own extra header files here --
 #include "..\JuceLibraryCode\JuceHeader.h"
+#include "TermManager.h"
 
 class Input
 {
 public:
+	String name;
+	String oscaddress;
+	int port;
+	int parameterindex;
+	double* pValue;
+	TermManager* termManager;
+
 	Input()
 	{
 		name = String("New input");
@@ -36,18 +44,13 @@ public:
 		parameterindex = 0;
 		pValue = new double[1];
 		*pValue = 0;
+		termManager = new TermManager();
 	};
 
 	~Input()
 	{
-		
-	};
 
-	String name;
-	String oscaddress;
-	int port;
-	int parameterindex;
-	double* pValue; 
+	};
 };
 //[/Headers]
 

@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  15 Jan 2013 4:34:36pm
+  Creation date:  21 Jan 2013 7:10:29pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -19,8 +19,8 @@
   ==============================================================================
 */
 
-#ifndef __JUCER_HEADER_INPUTSPANELCOMPONENT_INPUTSPANELCOMPONENT_C3F35460__
-#define __JUCER_HEADER_INPUTSPANELCOMPONENT_INPUTSPANELCOMPONENT_C3F35460__
+#ifndef __JUCER_HEADER_INPUTSPANELCOMPONENT_INPUTSPANELCOMPONENT_CA8F70CD__
+#define __JUCER_HEADER_INPUTSPANELCOMPONENT_INPUTSPANELCOMPONENT_CA8F70CD__
 
 //[Headers]     -- You can add your own extra header files here --
 #include "..\JuceLibraryCode\JuceHeader.h"
@@ -29,7 +29,7 @@ using namespace std;
 
 #include "Pool.h"
 #include "OscManager.h"
-
+#include "MembershipGraphComponent.h"
 //[/Headers]
 
 #include "C:/Users/marinos/Promotion/Tools/oscactivator/oscactivator/Source/InputComponent.h"
@@ -89,7 +89,7 @@ private:
     MembershipGraphComponent* membershipGraph;
     Label* label;
     TextEditor* currentValueEditor;
-    TextEditor* textEditor2;
+    TextEditor* termEditor;
     Label* label2;
     TextButton* setButton;
 
@@ -101,4 +101,4 @@ private:
 };
 
 
-#endif   // __JUCER_HEADER_INPUTSPANELCOMPONENT_INPUTSPANELCOMPONENT_C3F35460__
+#endif   // __JUCER_HEADER_INPUTSPANELCOMPONENT_INPUTSPANELCOMPONENT_CA8F70CD__
