@@ -195,6 +195,7 @@ void InputsPanelComponent::buttonClicked (Button* buttonThatWasClicked)
 			OscManager::getInstance()->unregisterReceiver(inputs[selectedrow]->pValue);
 			delete[] inputs[selectedrow]->pValue;
 			delete inputs[selectedrow]->termManager;
+			membershipGraph->setTermManager(0);
 
 			inputs.remove(selectedrow);
 
