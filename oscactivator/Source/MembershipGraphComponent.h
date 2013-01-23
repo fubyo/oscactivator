@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  7 Jan 2013 4:43:56pm
+  Creation date:  23 Jan 2013 5:58:35pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -19,8 +19,8 @@
   ==============================================================================
 */
 
-#ifndef __JUCER_HEADER_MEMBERSHIPGRAPHCOMPONENT_MEMBERSHIPGRAPHCOMPONENT_64F32355__
-#define __JUCER_HEADER_MEMBERSHIPGRAPHCOMPONENT_MEMBERSHIPGRAPHCOMPONENT_64F32355__
+#ifndef __JUCER_HEADER_MEMBERSHIPGRAPHCOMPONENT_MEMBERSHIPGRAPHCOMPONENT_A667E173__
+#define __JUCER_HEADER_MEMBERSHIPGRAPHCOMPONENT_MEMBERSHIPGRAPHCOMPONENT_A667E173__
 
 //[Headers]     -- You can add your own extra header files here --
 #include "..\JuceLibraryCode\JuceHeader.h"
@@ -51,6 +51,8 @@ public:
 
     void paint (Graphics& g);
     void resized();
+    void mouseDown (const MouseEvent& e);
+    bool keyPressed (const KeyPress& key);
 
 
 
@@ -60,6 +62,7 @@ public:
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
 	TermManager* termManager;
+	int selectionIndex;
     //[/UserVariables]
 
     //==============================================================================
@@ -72,4 +75,4 @@ private:
 };
 
 
-#endif   // __JUCER_HEADER_MEMBERSHIPGRAPHCOMPONENT_MEMBERSHIPGRAPHCOMPONENT_64F32355__
+#endif   // __JUCER_HEADER_MEMBERSHIPGRAPHCOMPONENT_MEMBERSHIPGRAPHCOMPONENT_A667E173__

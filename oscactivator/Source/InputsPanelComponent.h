@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  21 Jan 2013 7:10:29pm
+  Creation date:  23 Jan 2013 6:10:04pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -19,8 +19,8 @@
   ==============================================================================
 */
 
-#ifndef __JUCER_HEADER_INPUTSPANELCOMPONENT_INPUTSPANELCOMPONENT_CA8F70CD__
-#define __JUCER_HEADER_INPUTSPANELCOMPONENT_INPUTSPANELCOMPONENT_CA8F70CD__
+#ifndef __JUCER_HEADER_INPUTSPANELCOMPONENT_INPUTSPANELCOMPONENT_45E40DC4__
+#define __JUCER_HEADER_INPUTSPANELCOMPONENT_INPUTSPANELCOMPONENT_45E40DC4__
 
 //[Headers]     -- You can add your own extra header files here --
 #include "..\JuceLibraryCode\JuceHeader.h"
@@ -68,6 +68,7 @@ public:
     void paint (Graphics& g);
     void resized();
     void buttonClicked (Button* buttonThatWasClicked);
+    bool keyPressed (const KeyPress& key);
 
 
 
@@ -101,4 +102,4 @@ private:
 };
 
 
-#endif   // __JUCER_HEADER_INPUTSPANELCOMPONENT_INPUTSPANELCOMPONENT_CA8F70CD__
+#endif   // __JUCER_HEADER_INPUTSPANELCOMPONENT_INPUTSPANELCOMPONENT_45E40DC4__

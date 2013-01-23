@@ -95,6 +95,7 @@ void OscManager::run()
 		}
 
 		cs.exit();
+		sleep(10);
 	}
 }
 
@@ -139,6 +140,7 @@ void SocketThread::run()
 	if (!threadShouldExit())
 	{
 		s->Run();
+		sleep(10);
 	}
 	
 }
