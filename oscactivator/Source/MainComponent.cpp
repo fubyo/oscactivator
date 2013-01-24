@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  7 Jan 2013 6:39:48pm
+  Creation date:  24 Jan 2013 6:31:33pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -71,7 +71,7 @@ void MainComponent::paint (Graphics& g)
 
 void MainComponent::resized()
 {
-    mainComponent->setBounds (8, 8, 608, 456);
+    mainComponent->setBounds (8, 8, 608, 488);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -96,7 +96,7 @@ BEGIN_JUCER_METADATA
                  fixedSize="0" initialWidth="800" initialHeight="600">
   <BACKGROUND backgroundColour="ffffffff"/>
   <JUCERCOMP name="" id="47aa1619bb61a812" memberName="mainComponent" virtualName=""
-             explicitFocusOrder="0" pos="8 8 608 456" sourceFile="InputsPanelComponent.cpp"
+             explicitFocusOrder="0" pos="8 8 608 488" sourceFile="InputsPanelComponent.cpp"
              constructorParams=""/>
 </JUCER_COMPONENT>
 

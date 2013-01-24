@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  23 Jan 2013 6:10:04pm
+  Creation date:  24 Jan 2013 6:30:23pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -19,8 +19,8 @@
   ==============================================================================
 */
 
-#ifndef __JUCER_HEADER_INPUTSPANELCOMPONENT_INPUTSPANELCOMPONENT_45E40DC4__
-#define __JUCER_HEADER_INPUTSPANELCOMPONENT_INPUTSPANELCOMPONENT_45E40DC4__
+#ifndef __JUCER_HEADER_INPUTSPANELCOMPONENT_INPUTSPANELCOMPONENT_C0243015__
+#define __JUCER_HEADER_INPUTSPANELCOMPONENT_INPUTSPANELCOMPONENT_C0243015__
 
 //[Headers]     -- You can add your own extra header files here --
 #include "..\JuceLibraryCode\JuceHeader.h"
@@ -93,6 +93,8 @@ private:
     TextEditor* termEditor;
     Label* label2;
     TextButton* setButton;
+    TextEditor* minEditor;
+    TextEditor* maxEditor;
 
 
     //==============================================================================
@@ -102,4 +104,4 @@ private:
 };
 
 
-#endif   // __JUCER_HEADER_INPUTSPANELCOMPONENT_INPUTSPANELCOMPONENT_45E40DC4__
+#endif   // __JUCER_HEADER_INPUTSPANELCOMPONENT_INPUTSPANELCOMPONENT_C0243015__

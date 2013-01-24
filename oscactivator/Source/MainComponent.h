@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  7 Jan 2013 6:39:48pm
+  Creation date:  24 Jan 2013 6:31:33pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -19,8 +19,8 @@
   ==============================================================================
 */
 
-#ifndef __JUCER_HEADER_MAINCOMPONENT_MAINCOMPONENT_F2C18A7E__
-#define __JUCER_HEADER_MAINCOMPONENT_MAINCOMPONENT_F2C18A7E__
+#ifndef __JUCER_HEADER_MAINCOMPONENT_MAINCOMPONENT_13782DDF__
+#define __JUCER_HEADER_MAINCOMPONENT_MAINCOMPONENT_13782DDF__
 
 //[Headers]     -- You can add your own extra header files here --
 #include "..\JuceLibraryCode\JuceHeader.h"
@@ -28,7 +28,7 @@
 #include "../fuzzylite/FuzzyLite.h"
 //[/Headers]
 
-
+#include "InputsPanelComponent.h"
 
 
 //==============================================================================
@@ -74,4 +74,4 @@ private:
 };
 
 
-#endif   // __JUCER_HEADER_MAINCOMPONENT_MAINCOMPONENT_F2C18A7E__
+#endif   // __JUCER_HEADER_MAINCOMPONENT_MAINCOMPONENT_13782DDF__

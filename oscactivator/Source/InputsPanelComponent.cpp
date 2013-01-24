@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  23 Jan 2013 6:10:04pm
+  Creation date:  24 Jan 2013 6:30:23pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -40,7 +40,9 @@ InputsPanelComponent::InputsPanelComponent ()
       currentValueEditor (0),
       termEditor (0),
       label2 (0),
-      setButton (0)
+      setButton (0),
+      minEditor (0),
+      maxEditor (0)
 {
     addAndMakeVisible (groupComponent = new GroupComponent (L"new group",
                                                             L"Input properties"));
@@ -96,6 +98,24 @@ InputsPanelComponent::InputsPanelComponent ()
     setButton->setButtonText (L"Set");
     setButton->addListener (this);
 
+    addAndMakeVisible (minEditor = new TextEditor (L"new text editor"));
+    minEditor->setMultiLine (false);
+    minEditor->setReturnKeyStartsNewLine (false);
+    minEditor->setReadOnly (false);
+    minEditor->setScrollbarsShown (true);
+    minEditor->setCaretVisible (true);
+    minEditor->setPopupMenuEnabled (true);
+    minEditor->setText (String::empty);
+
+    addAndMakeVisible (maxEditor = new TextEditor (L"new text editor"));
+    maxEditor->setMultiLine (false);
+    maxEditor->setReturnKeyStartsNewLine (false);
+    maxEditor->setReadOnly (false);
+    maxEditor->setScrollbarsShown (true);
+    maxEditor->setCaretVisible (true);
+    maxEditor->setPopupMenuEnabled (true);
+    maxEditor->setText (String::empty);
+
 
     //[UserPreSize]
 	inputsListBox->setMultipleSelectionEnabled(false);
@@ -108,7 +128,7 @@ InputsPanelComponent::InputsPanelComponent ()
 	Pool::Instance()->reg("InputsPanelComponent", this);
     //[/UserPreSize]
 
-    setSize (609, 600);
+    setSize (609, 500);
 
 
     //[Constructor] You can add your own custom stuff here..
@@ -131,6 +151,8 @@ InputsPanelComponent::~InputsPanelComponent()
     deleteAndZero (termEditor);
     deleteAndZero (label2);
     deleteAndZero (setButton);
+    deleteAndZero (minEditor);
+    deleteAndZero (maxEditor);
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -144,6 +166,12 @@ void InputsPanelComponent::paint (Graphics& g)
     //[/UserPrePaint]
 
     g.fillAll (Colours::white);
+
+    g.setColour (Colours::black);
+    g.fillRect (9, 450, 1, 28);
+
+    g.setColour (Colours::black);
+    g.fillRect (600, 450, 1, 28);
 
     //[UserPaint] Add your own custom painting code here..
     //[/UserPaint]
@@ -162,6 +190,8 @@ void InputsPanelComponent::resized()
     termEditor->setBounds (272, 216, 232, 24);
     label2->setBounds (248, 216, 24, 24);
     setButton->setBounds (512, 216, 86, 24);
+    minEditor->setBounds (14, 452, 150, 24);
+    maxEditor->setBounds (447, 453, 150, 24);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -218,7 +248,12 @@ void InputsPanelComponent::buttonClicked (Button* buttonThatWasClicked)
         //[UserButtonCode_setButton] -- add your button handler code here..
 		if (inputsListBox->getSelectedRow()!=-1)
 		{
-			inputs[inputsListBox->getSelectedRow()]->termManager->addTerm(termEditor->getText(), *inputs[inputsListBox->getSelectedRow()]->pValue);
+			double currentValue=*inputs[inputsListBox->getSelectedRow()]->pValue;
+
+			if (abs(currentValueEditor->getText().getDoubleValue()-*inputs[inputsListBox->getSelectedRow()]->pValue)>0.00001)
+				currentValue = currentValueEditor->getText().getDoubleValue();
+
+			inputs[inputsListBox->getSelectedRow()]->termManager->addTerm(termEditor->getText(), currentValue);
 			membershipGraph->setTermManager(inputs[inputsListBox->getSelectedRow()]->termManager);
 		}
         //[/UserButtonCode_setButton]
@@ -314,11 +349,14 @@ BEGIN_JUCER_METADATA
                  parentClasses="public Component, public ListBoxModel, public ChangeListener"
                  constructorParams="" variableInitialisers="" snapPixels="8" snapActive="1"
                  snapShown="1" overlayOpacity="0.330000013" fixedSize="1" initialWidth="609"
-                 initialHeight="600">
+                 initialHeight="500">
   <METHODS>
     <METHOD name="keyPressed (const KeyPress&amp; key)"/>
   </METHODS>
-  <BACKGROUND backgroundColour="ffffffff"/>
+  <BACKGROUND backgroundColour="ffffffff">
+    <RECT pos="9 450 1 28" fill="solid: ff000000" hasStroke="0"/>
+    <RECT pos="600 450 1 28" fill="solid: ff000000" hasStroke="0"/>
+  </BACKGROUND>
   <GROUPCOMPONENT name="new group" id="36cc91e9cc81f4f4" memberName="groupComponent"
                   virtualName="" explicitFocusOrder="0" pos="168 8 432 184" title="Input properties"/>
   <JUCERCOMP name="" id="99372601315dfd7b" memberName="inputComponent" virtualName=""
@@ -357,6 +395,14 @@ BEGIN_JUCER_METADATA
   <TEXTBUTTON name="new button" id="c4309cd0fddcd2aa" memberName="setButton"
               virtualName="" explicitFocusOrder="0" pos="512 216 86 24" buttonText="Set"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
+  <TEXTEDITOR name="new text editor" id="7527e80cac92e6bf" memberName="minEditor"
+              virtualName="" explicitFocusOrder="0" pos="14 452 150 24" initialText=""
+              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
+              caret="1" popupmenu="1"/>
+  <TEXTEDITOR name="new text editor" id="e86da1c8d0ae8716" memberName="maxEditor"
+              virtualName="" explicitFocusOrder="0" pos="447 453 150 24" initialText=""
+              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
+              caret="1" popupmenu="1"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA
