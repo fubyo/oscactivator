@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  24 Jan 2013 6:30:23pm
+  Creation date:  25 Jan 2013 3:12:23pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -126,6 +126,10 @@ InputsPanelComponent::InputsPanelComponent ()
 	inputComponent->setVisible(false);
 
 	Pool::Instance()->reg("InputsPanelComponent", this);
+
+
+	minEditor->addListener(this);
+	maxEditor->addListener(this);
     //[/UserPreSize]
 
     setSize (609, 500);
@@ -232,10 +236,16 @@ void InputsPanelComponent::buttonClicked (Button* buttonThatWasClicked)
 			if (selectedrow<inputs.size())
 			{
 				inputComponent->setInput(*inputs[selectedrow]);
+
+				minEditor->setText(String(inputs[selectedrow]->termManager->getMin()));
+				maxEditor->setText(String(inputs[selectedrow]->termManager->getMax()));
 			}
 			else
 			{
 				inputComponent->setVisible(false);
+
+				minEditor->setText(String());
+				maxEditor->setText(String());
 			}
 
 			inputsListBox->updateContent();
@@ -293,6 +303,9 @@ void InputsPanelComponent::selectedRowsChanged (int lastRowSelected)
 		inputComponent->setInput(*inputs[lastRowSelected]);
 		inputComponent->setVisible(true);
 
+		minEditor->setText(String(inputs[lastRowSelected]->termManager->getMin()));
+		maxEditor->setText(String(inputs[lastRowSelected]->termManager->getMax()));
+
 		membershipGraph->setTermManager(inputs[lastRowSelected]->termManager);
 	}
 
@@ -334,6 +347,25 @@ void InputsPanelComponent::updateCurrentValue()
 		currentValueEditor->setText(String(0));
 }
 
+void InputsPanelComponent::textEditorReturnKeyPressed (TextEditor &editor)
+{
+	int selectedRow=inputsListBox->getSelectedRow();
+
+	if (selectedRow!=-1)
+	{
+		if (&editor == minEditor)
+		{
+			inputs[selectedRow]->termManager->setMin(editor.getText().getDoubleValue());
+			membershipGraph->repaint();
+		}
+		else if (&editor == maxEditor)
+		{
+			inputs[selectedRow]->termManager->setMax(editor.getText().getDoubleValue());
+			membershipGraph->repaint();
+		}
+	}
+}
+
 //[/MiscUserCode]
 
 
@@ -346,7 +378,7 @@ void InputsPanelComponent::updateCurrentValue()
 BEGIN_JUCER_METADATA
 
 <JUCER_COMPONENT documentType="Component" className="InputsPanelComponent" componentName=""
-                 parentClasses="public Component, public ListBoxModel, public ChangeListener"
+                 parentClasses="public Component, public ListBoxModel, public ChangeListener, public TextEditor::Listener"
                  constructorParams="" variableInitialisers="" snapPixels="8" snapActive="1"
                  snapShown="1" overlayOpacity="0.330000013" fixedSize="1" initialWidth="609"
                  initialHeight="500">

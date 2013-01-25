@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  24 Jan 2013 6:30:23pm
+  Creation date:  25 Jan 2013 3:12:23pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -19,8 +19,8 @@
   ==============================================================================
 */
 
-#ifndef __JUCER_HEADER_INPUTSPANELCOMPONENT_INPUTSPANELCOMPONENT_C0243015__
-#define __JUCER_HEADER_INPUTSPANELCOMPONENT_INPUTSPANELCOMPONENT_C0243015__
+#ifndef __JUCER_HEADER_INPUTSPANELCOMPONENT_INPUTSPANELCOMPONENT_2A14F424__
+#define __JUCER_HEADER_INPUTSPANELCOMPONENT_INPUTSPANELCOMPONENT_2A14F424__
 
 //[Headers]     -- You can add your own extra header files here --
 #include "..\JuceLibraryCode\JuceHeader.h"
@@ -47,6 +47,7 @@ using namespace std;
 class InputsPanelComponent  : public Component,
                               public ListBoxModel,
                               public ChangeListener,
+                              public TextEditor::Listener,
                               public ButtonListener
 {
 public:
@@ -61,6 +62,8 @@ public:
 	void selectedRowsChanged (int lastRowSelected);
 
 	void changeListenerCallback (ChangeBroadcaster* source);
+
+	void textEditorReturnKeyPressed (TextEditor &editor);
 
 	void updateCurrentValue();
     //[/UserMethods]
@@ -104,4 +107,4 @@ private:
 };
 
 
-#endif   // __JUCER_HEADER_INPUTSPANELCOMPONENT_INPUTSPANELCOMPONENT_C0243015__
+#endif   // __JUCER_HEADER_INPUTSPANELCOMPONENT_INPUTSPANELCOMPONENT_2A14F424__
