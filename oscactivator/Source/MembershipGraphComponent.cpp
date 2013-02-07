@@ -97,7 +97,7 @@ void MembershipGraphComponent::paint (Graphics& g)
 				g.setColour(Colours::black);
 
 			g.drawEllipse(x, y, 5, 5, 2);
-			g.drawText(String(termManager->terms[i]->name().c_str()), x, y, 100, 20, juce::Justification::left,true);
+			g.drawText(String(termManager->terms[i]->name().c_str()), x, y-20, 100, 20, juce::Justification::left,true);
 		}
 
 	}

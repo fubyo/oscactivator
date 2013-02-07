@@ -265,6 +265,9 @@ void InputsPanelComponent::buttonClicked (Button* buttonThatWasClicked)
 
 			inputs[inputsListBox->getSelectedRow()]->termManager->addTerm(termEditor->getText(), currentValue);
 			membershipGraph->setTermManager(inputs[inputsListBox->getSelectedRow()]->termManager);
+
+			minEditor->setText(String(inputs[inputsListBox->getSelectedRow()]->termManager->getMin()), false);
+			maxEditor->setText(String(inputs[inputsListBox->getSelectedRow()]->termManager->getMax()), false);		
 		}
         //[/UserButtonCode_setButton]
     }
