@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  24 Jan 2013 6:31:33pm
+  Creation date:  13 Feb 2013 6:02:39pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -23,6 +23,8 @@
 //[/Headers]
 
 #include "MainComponent.h"
+#include "InputsPanelComponent.h"
+#include "OutputsPanelComponent.h"
 
 
 //[MiscUserDefs] You can add your own user definitions and misc code here...
@@ -30,9 +32,15 @@
 
 //==============================================================================
 MainComponent::MainComponent ()
-    : mainComponent (0)
+    : tabbedComponent (0)
 {
-    addAndMakeVisible (mainComponent = new InputsPanelComponent());
+    addAndMakeVisible (tabbedComponent = new TabbedComponent (TabbedButtonBar::TabsAtTop));
+    tabbedComponent->setTabBarDepth (30);
+    tabbedComponent->addTab (L"Inputs", Colours::white, new InputsPanelComponent(), true);
+    tabbedComponent->addTab (L"Outputs", Colours::white, new OutputsPanelComponent(), true);
+    tabbedComponent->addTab (L"Rules", Colours::white, 0, false);
+    tabbedComponent->setCurrentTabIndex (0);
+
 
     //[UserPreSize]
     //[/UserPreSize]
@@ -50,7 +58,7 @@ MainComponent::~MainComponent()
     //[Destructor_pre]. You can add your own custom destruction code here..
     //[/Destructor_pre]
 
-    deleteAndZero (mainComponent);
+    deleteAndZero (tabbedComponent);
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -71,7 +79,7 @@ void MainComponent::paint (Graphics& g)
 
 void MainComponent::resized()
 {
-    mainComponent->setBounds (8, 8, 608, 488);
+    tabbedComponent->setBounds (0, 0, 616, 520);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -95,9 +103,16 @@ BEGIN_JUCER_METADATA
                  snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330000013"
                  fixedSize="0" initialWidth="800" initialHeight="600">
   <BACKGROUND backgroundColour="ffffffff"/>
-  <JUCERCOMP name="" id="47aa1619bb61a812" memberName="mainComponent" virtualName=""
-             explicitFocusOrder="0" pos="8 8 608 488" sourceFile="InputsPanelComponent.cpp"
-             constructorParams=""/>
+  <TABBEDCOMPONENT name="new tabbed component" id="9963c9520c37d7c6" memberName="tabbedComponent"
+                   virtualName="" explicitFocusOrder="0" pos="0 0 616 520" orientation="top"
+                   tabBarDepth="30" initialTab="0">
+    <TAB name="Inputs" colour="ffffffff" useJucerComp="1" contentClassName=""
+         constructorParams="" jucerComponentFile="InputsPanelComponent.cpp"/>
+    <TAB name="Outputs" colour="ffffffff" useJucerComp="1" contentClassName=""
+         constructorParams="" jucerComponentFile="OutputsPanelComponent.cpp"/>
+    <TAB name="Rules" colour="ffffffff" useJucerComp="0" contentClassName=""
+         constructorParams="" jucerComponentFile=""/>
+  </TABBEDCOMPONENT>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

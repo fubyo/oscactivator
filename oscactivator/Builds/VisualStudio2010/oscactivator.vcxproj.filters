@@ -1521,6 +1521,12 @@
     <ClCompile Include="..\..\Source\TermManager.cpp">
       <Filter>oscactivator\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\OutputComponent.cpp">
+      <Filter>oscactivator\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\OutputsPanelComponent.cpp">
+      <Filter>oscactivator\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_basics\buffers\juce_AudioDataConverters.h">
@@ -2946,6 +2952,12 @@
       <Filter>fuzzylite</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\TermManager.h">
+      <Filter>oscactivator\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\OutputComponent.h">
+      <Filter>oscactivator\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\OutputsPanelComponent.h">
       <Filter>oscactivator\Source</Filter>
     </ClInclude>
   </ItemGroup>

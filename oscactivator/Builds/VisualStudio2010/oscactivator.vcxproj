@@ -168,6 +168,8 @@
     <ClCompile Include="..\..\oscpack\osc\OscReceivedElements.cpp" />
     <ClCompile Include="..\..\oscpack\osc\OscTypes.cpp" />
     <ClCompile Include="..\..\Source\InputComponent.cpp" />
+    <ClCompile Include="..\..\Source\OutputComponent.cpp" />
+    <ClCompile Include="..\..\Source\OutputsPanelComponent.cpp" />
     <ClCompile Include="..\..\Source\TermManager.cpp" />
     <ClCompile Include="..\..\Source\InputsPanelComponent.cpp" />
     <ClCompile Include="..\..\Source\Main.cpp" />
@@ -1685,6 +1687,8 @@
     <ClInclude Include="..\..\oscpack\osc\OscReceivedElements.h" />
     <ClInclude Include="..\..\oscpack\osc\OscTypes.h" />
     <ClInclude Include="..\..\Source\InputComponent.h" />
+    <ClInclude Include="..\..\Source\OutputComponent.h" />
+    <ClInclude Include="..\..\Source\OutputsPanelComponent.h" />
     <ClInclude Include="..\..\Source\TermManager.h" />
     <ClInclude Include="..\..\Source\InputsPanelComponent.h" />
     <ClInclude Include="..\..\Source\MainComponent.h" />
