@@ -22,7 +22,7 @@ public:
 
         setContentOwned (mainComponent, true);
 
-        centreWithSize (800, 600);
+        centreWithSize (620, 580);
 
 		setResizable(true, true);
         setVisible (true);

@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  13 Feb 2013 6:02:39pm
+  Creation date:  14 Feb 2013 5:17:08pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -79,7 +79,7 @@ void MainComponent::paint (Graphics& g)
 
 void MainComponent::resized()
 {
-    tabbedComponent->setBounds (0, 0, 616, 520);
+    tabbedComponent->setBounds (0, 0, 616, 560);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -104,7 +104,7 @@ BEGIN_JUCER_METADATA
                  fixedSize="0" initialWidth="800" initialHeight="600">
   <BACKGROUND backgroundColour="ffffffff"/>
   <TABBEDCOMPONENT name="new tabbed component" id="9963c9520c37d7c6" memberName="tabbedComponent"
-                   virtualName="" explicitFocusOrder="0" pos="0 0 616 520" orientation="top"
+                   virtualName="" explicitFocusOrder="0" pos="0 0 616 560" orientation="top"
                    tabBarDepth="30" initialTab="0">
     <TAB name="Inputs" colour="ffffffff" useJucerComp="1" contentClassName=""
          constructorParams="" jucerComponentFile="InputsPanelComponent.cpp"/>

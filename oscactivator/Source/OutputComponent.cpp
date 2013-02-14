@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  13 Feb 2013 6:02:41pm
+  Creation date:  14 Feb 2013 5:25:35pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -37,7 +37,7 @@ OutputComponent::OutputComponent ()
       nameEditor (0),
       addressEditor (0),
       portEditor (0),
-      textEditor (0),
+      hostEditor (0),
       statesToggleButton (0)
 {
     addAndMakeVisible (namelabel = new Label (L"new label",
@@ -101,14 +101,14 @@ OutputComponent::OutputComponent ()
     portEditor->setPopupMenuEnabled (true);
     portEditor->setText (String::empty);
 
-    addAndMakeVisible (textEditor = new TextEditor (L"new text editor"));
-    textEditor->setMultiLine (false);
-    textEditor->setReturnKeyStartsNewLine (false);
-    textEditor->setReadOnly (false);
-    textEditor->setScrollbarsShown (true);
-    textEditor->setCaretVisible (true);
-    textEditor->setPopupMenuEnabled (true);
-    textEditor->setText (String::empty);
+    addAndMakeVisible (hostEditor = new TextEditor (L"new text editor"));
+    hostEditor->setMultiLine (false);
+    hostEditor->setReturnKeyStartsNewLine (false);
+    hostEditor->setReadOnly (false);
+    hostEditor->setScrollbarsShown (true);
+    hostEditor->setCaretVisible (true);
+    hostEditor->setPopupMenuEnabled (true);
+    hostEditor->setText (String::empty);
 
     addAndMakeVisible (statesToggleButton = new ToggleButton (L"new toggle button"));
     statesToggleButton->setButtonText (L"Send state changes");
@@ -120,6 +120,7 @@ OutputComponent::OutputComponent ()
 
     setSize (400, 160);
 
+	nameEditor->addListener(this);
 
     //[Constructor] You can add your own custom stuff here..
     //[/Constructor]
@@ -137,7 +138,7 @@ OutputComponent::~OutputComponent()
     deleteAndZero (nameEditor);
     deleteAndZero (addressEditor);
     deleteAndZero (portEditor);
-    deleteAndZero (textEditor);
+    deleteAndZero (hostEditor);
     deleteAndZero (statesToggleButton);
 
 
@@ -166,7 +167,7 @@ void OutputComponent::resized()
     nameEditor->setBounds (112, 8, 272, 24);
     addressEditor->setBounds (112, 40, 272, 24);
     portEditor->setBounds (304, 72, 80, 24);
-    textEditor->setBounds (112, 104, 272, 24);
+    hostEditor->setBounds (112, 104, 272, 24);
     statesToggleButton->setBounds (243, 136, 150, 24);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
@@ -190,6 +191,29 @@ void OutputComponent::buttonClicked (Button* buttonThatWasClicked)
 
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
+void OutputComponent::setOutput(Output output)
+{
+	nameEditor->setText(output.name);
+	addressEditor->setText(output.oscaddress);
+	portEditor->setText(String(output.port));
+	hostEditor->setText(output.host);
+}
+
+Output OutputComponent::getOutput()
+{
+	Output output;
+	output.name = nameEditor->getText();
+	output.oscaddress = addressEditor->getText();
+	output.host = hostEditor->getText();
+	output.port = portEditor->getText().getIntValue();
+
+	return output;
+}
+
+void OutputComponent::textEditorTextChanged(TextEditor& editor)
+{
+	sendChangeMessage();
+}
 //[/MiscUserCode]
 
 
@@ -239,7 +263,7 @@ BEGIN_JUCER_METADATA
               virtualName="" explicitFocusOrder="2" pos="304 72 80 24" initialText=""
               multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
               caret="1" popupmenu="1"/>
-  <TEXTEDITOR name="new text editor" id="dba648f8c79b927f" memberName="textEditor"
+  <TEXTEDITOR name="new text editor" id="dba648f8c79b927f" memberName="hostEditor"
               virtualName="" explicitFocusOrder="0" pos="112 104 272 24" initialText=""
               multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
               caret="1" popupmenu="1"/>

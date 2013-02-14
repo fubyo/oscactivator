@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  13 Feb 2013 6:02:40pm
+  Creation date:  14 Feb 2013 5:16:28pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -36,13 +36,13 @@ OutputsPanelComponent::OutputsPanelComponent ()
       removeButton (0),
       membershipGraph (0),
       label (0),
-      currentValueEditor (0),
       termEditor (0),
       label2 (0),
       setButton (0),
       minEditor (0),
       maxEditor (0),
-      outputComponent (0)
+      outputComponent (0),
+      valueSlider (0)
 {
     addAndMakeVisible (groupComponent = new GroupComponent (L"new group",
                                                             L"Output properties"));
@@ -66,15 +66,6 @@ OutputsPanelComponent::OutputsPanelComponent ()
     label->setEditable (false, false, false);
     label->setColour (TextEditor::textColourId, Colours::black);
     label->setColour (TextEditor::backgroundColourId, Colour (0x0));
-
-    addAndMakeVisible (currentValueEditor = new TextEditor (L"new text editor"));
-    currentValueEditor->setMultiLine (false);
-    currentValueEditor->setReturnKeyStartsNewLine (false);
-    currentValueEditor->setReadOnly (false);
-    currentValueEditor->setScrollbarsShown (true);
-    currentValueEditor->setCaretVisible (true);
-    currentValueEditor->setPopupMenuEnabled (true);
-    currentValueEditor->setText (String::empty);
 
     addAndMakeVisible (termEditor = new TextEditor (L"new text editor"));
     termEditor->setMultiLine (false);
@@ -116,8 +107,26 @@ OutputsPanelComponent::OutputsPanelComponent ()
     maxEditor->setText (String::empty);
 
     addAndMakeVisible (outputComponent = new OutputComponent());
+    addAndMakeVisible (valueSlider = new Slider (L"new slider"));
+    valueSlider->setRange (0, 10, 0);
+    valueSlider->setSliderStyle (Slider::LinearHorizontal);
+    valueSlider->setTextBoxStyle (Slider::TextBoxLeft, false, 80, 20);
+    valueSlider->addListener (this);
+
 
     //[UserPreSize]
+	outputsListBox->setMultipleSelectionEnabled(false);
+	outputsListBox->setModel(this);
+	outputsListBox->setColour(outputsListBox->backgroundColourId, Colours::lightgrey);
+
+	outputComponent->addChangeListener(this);
+	outputComponent->setVisible(false);
+
+	Pool::Instance()->reg("OutputsPanelComponent", this);
+
+
+	minEditor->addListener(this);
+	maxEditor->addListener(this);
     //[/UserPreSize]
 
     setSize (609, 600);
@@ -138,13 +147,13 @@ OutputsPanelComponent::~OutputsPanelComponent()
     deleteAndZero (removeButton);
     deleteAndZero (membershipGraph);
     deleteAndZero (label);
-    deleteAndZero (currentValueEditor);
     deleteAndZero (termEditor);
     deleteAndZero (label2);
     deleteAndZero (setButton);
     deleteAndZero (minEditor);
     deleteAndZero (maxEditor);
     deleteAndZero (outputComponent);
+    deleteAndZero (valueSlider);
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -175,15 +184,15 @@ void OutputsPanelComponent::resized()
     outputsListBox->setBounds (8, 48, 150, 160);
     addButton->setBounds (8, 16, 47, 24);
     removeButton->setBounds (64, 16, 64, 24);
-    membershipGraph->setBounds (8, 257, 592, 200);
-    label->setBounds (8, 219, 120, 24);
-    currentValueEditor->setBounds (104, 219, 144, 24);
-    termEditor->setBounds (272, 219, 232, 24);
-    label2->setBounds (248, 219, 24, 24);
-    setButton->setBounds (512, 219, 86, 24);
-    minEditor->setBounds (14, 461, 150, 24);
-    maxEditor->setBounds (447, 462, 150, 24);
+    membershipGraph->setBounds (8, 259, 592, 200);
+    label->setBounds (8, 222, 120, 24);
+    termEditor->setBounds (368, 221, 136, 24);
+    label2->setBounds (344, 222, 24, 24);
+    setButton->setBounds (512, 221, 86, 24);
+    minEditor->setBounds (14, 463, 150, 24);
+    maxEditor->setBounds (447, 464, 150, 24);
     outputComponent->setBounds (184, 32, 400, 168);
+    valueSlider->setBounds (104, 222, 240, 24);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -196,16 +205,59 @@ void OutputsPanelComponent::buttonClicked (Button* buttonThatWasClicked)
     if (buttonThatWasClicked == addButton)
     {
         //[UserButtonCode_addButton] -- add your button handler code here..
+		outputs.add(new Output());
+
+		outputsListBox->updateContent();
         //[/UserButtonCode_addButton]
     }
     else if (buttonThatWasClicked == removeButton)
     {
         //[UserButtonCode_removeButton] -- add your button handler code here..
+		int selectedrow=outputsListBox->getSelectedRow();
+
+		if (selectedrow!=-1 && selectedrow < (int)outputs.size())
+		{
+			delete[] outputs[selectedrow]->pValue;
+			delete outputs[selectedrow]->termManager;
+			membershipGraph->setTermManager(0);
+
+			outputs.remove(selectedrow);
+
+			if (selectedrow<outputs.size())
+			{
+				outputComponent->setOutput(*outputs[selectedrow]);
+
+				minEditor->setText(String(outputs[selectedrow]->termManager->getMin()));
+				maxEditor->setText(String(outputs[selectedrow]->termManager->getMax()));
+			}
+			else
+			{
+				outputComponent->setVisible(false);
+
+				minEditor->setText(String());
+				maxEditor->setText(String());
+			}
+
+			outputsListBox->updateContent();
+		}
         //[/UserButtonCode_removeButton]
     }
     else if (buttonThatWasClicked == setButton)
     {
         //[UserButtonCode_setButton] -- add your button handler code here..
+		if (outputsListBox->getSelectedRow()!=-1)
+		{
+			double currentValue=*outputs[outputsListBox->getSelectedRow()]->pValue;
+
+			if (abs(valueSlider->getValue()-*outputs[outputsListBox->getSelectedRow()]->pValue)>0.00001)
+				currentValue = valueSlider->getValue();
+
+			outputs[outputsListBox->getSelectedRow()]->termManager->addTerm(termEditor->getText(), currentValue);
+			membershipGraph->setTermManager(outputs[outputsListBox->getSelectedRow()]->termManager);
+
+			minEditor->setText(String(outputs[outputsListBox->getSelectedRow()]->termManager->getMin()), false);
+			maxEditor->setText(String(outputs[outputsListBox->getSelectedRow()]->termManager->getMax()), false);		
+		}
         //[/UserButtonCode_setButton]
     }
 
@@ -213,9 +265,25 @@ void OutputsPanelComponent::buttonClicked (Button* buttonThatWasClicked)
     //[/UserbuttonClicked_Post]
 }
 
+void OutputsPanelComponent::sliderValueChanged (Slider* sliderThatWasMoved)
+{
+    //[UsersliderValueChanged_Pre]
+    //[/UsersliderValueChanged_Pre]
+
+    if (sliderThatWasMoved == valueSlider)
+    {
+        //[UserSliderCode_valueSlider] -- add your slider handling code here..
+        //[/UserSliderCode_valueSlider]
+    }
+
+    //[UsersliderValueChanged_Post]
+    //[/UsersliderValueChanged_Post]
+}
+
 bool OutputsPanelComponent::keyPressed (const KeyPress& key)
 {
     //[UserCode_keyPressed] -- Add your code here...
+	membershipGraph->keyPressed(key);
     return false;  // Return true if your handler uses this key event, or false to allow it to be passed-on.
     //[/UserCode_keyPressed]
 }
@@ -225,22 +293,83 @@ bool OutputsPanelComponent::keyPressed (const KeyPress& key)
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
 void OutputsPanelComponent::paintListBoxItem (int rowNumber, Graphics& g, int width, int height, bool rowIsSelected)
 {
+	if (rowIsSelected)
+		g.fillAll(Colours::lightblue);
+	else
+		g.fillAll(Colours::lightgrey);
 
+	g.setColour(Colours::black);
+	g.drawText(outputs[rowNumber]->name, 0, 0, width, height, juce::Justification::centredLeft, false);
 }
 
 void OutputsPanelComponent::selectedRowsChanged (int lastRowSelected)
 {
-	
+	if (lastRowSelected!=-1)
+	{
+		outputComponent->setOutput(*outputs[lastRowSelected]);
+		outputComponent->setVisible(true);
+
+		minEditor->setText(String(outputs[lastRowSelected]->termManager->getMin()));
+		maxEditor->setText(String(outputs[lastRowSelected]->termManager->getMax()));
+
+		membershipGraph->setTermManager(outputs[lastRowSelected]->termManager);
+	}
+
+	//updateCurrentValue();
 }
 
 void OutputsPanelComponent::changeListenerCallback (ChangeBroadcaster* source)
 {
-	
+	if (source==outputComponent)
+	{
+		Output output=outputComponent->getOutput();
+		int selectedRow=outputsListBox->getSelectedRow();
+
+		if (selectedRow!=-1)
+		{
+			outputs[selectedRow]->name = output.name;
+			outputs[selectedRow]->oscaddress = output.oscaddress;
+			outputs[selectedRow]->port = output.port;
+			outputs[selectedRow]->host = output.host;
+
+			outputsListBox->updateContent();
+			outputsListBox->repaintRow(selectedRow);
+		}
+	}
+}
+
+void OutputsPanelComponent::updateCurrentValue()
+{
+	int selectedRow=outputsListBox->getSelectedRow();
+	if (selectedRow!=-1)
+	{
+		valueSlider->setValue(*outputs[selectedRow]->pValue);
+	}
+	else
+		valueSlider->setValue(0);
 }
 
 void OutputsPanelComponent::textEditorReturnKeyPressed (TextEditor &editor)
 {
-	
+	int selectedRow=outputsListBox->getSelectedRow();
+
+	if (selectedRow!=-1)
+	{
+		if (&editor == minEditor)
+		{
+			valueSlider->setRange(minEditor->getText().getDoubleValue(), maxEditor->getText().getDoubleValue());
+			outputs[selectedRow]->termManager->setMin(editor.getText().getDoubleValue());
+			membershipGraph->repaint();
+			valueSlider->repaint();
+		}
+		else if (&editor == maxEditor)
+		{
+			valueSlider->setRange(minEditor->getText().getDoubleValue(), maxEditor->getText().getDoubleValue());
+			outputs[selectedRow]->termManager->setMax(editor.getText().getDoubleValue());
+			membershipGraph->repaint();
+			valueSlider->repaint();
+		}
+	}
 }
 //[/MiscUserCode]
 
@@ -277,40 +406,40 @@ BEGIN_JUCER_METADATA
               virtualName="" explicitFocusOrder="0" pos="64 16 64 24" buttonText="Remove"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <JUCERCOMP name="" id="67fcacf009fa4790" memberName="membershipGraph" virtualName=""
-             explicitFocusOrder="0" pos="8 257 592 200" sourceFile="MembershipGraphComponent.cpp"
+             explicitFocusOrder="0" pos="8 259 592 200" sourceFile="MembershipGraphComponent.cpp"
              constructorParams=""/>
   <LABEL name="new label" id="d65c34a4a966a503" memberName="label" virtualName=""
-         explicitFocusOrder="0" pos="8 219 120 24" edTextCol="ff000000"
+         explicitFocusOrder="0" pos="8 222 120 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Current value&#10;" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="0" italic="0" justification="33"/>
-  <TEXTEDITOR name="new text editor" id="74e2d0b5591a67da" memberName="currentValueEditor"
-              virtualName="" explicitFocusOrder="0" pos="104 219 144 24" initialText=""
-              multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
-              caret="1" popupmenu="1"/>
   <TEXTEDITOR name="new text editor" id="76a41ecfc22e8bd1" memberName="termEditor"
-              virtualName="" explicitFocusOrder="0" pos="272 219 232 24" initialText=""
+              virtualName="" explicitFocusOrder="0" pos="368 221 136 24" initialText=""
               multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
               caret="1" popupmenu="1"/>
   <LABEL name="new label" id="a9860cbed91414aa" memberName="label2" virtualName=""
-         explicitFocusOrder="0" pos="248 219 24 24" edTextCol="ff000000"
+         explicitFocusOrder="0" pos="344 222 24 24" edTextCol="ff000000"
          edBkgCol="0" labelText="is" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
   <TEXTBUTTON name="new button" id="c4309cd0fddcd2aa" memberName="setButton"
-              virtualName="" explicitFocusOrder="0" pos="512 219 86 24" buttonText="Set"
+              virtualName="" explicitFocusOrder="0" pos="512 221 86 24" buttonText="Set"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TEXTEDITOR name="new text editor" id="7527e80cac92e6bf" memberName="minEditor"
-              virtualName="" explicitFocusOrder="0" pos="14 461 150 24" initialText=""
+              virtualName="" explicitFocusOrder="0" pos="14 463 150 24" initialText=""
               multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
               caret="1" popupmenu="1"/>
   <TEXTEDITOR name="new text editor" id="e86da1c8d0ae8716" memberName="maxEditor"
-              virtualName="" explicitFocusOrder="0" pos="447 462 150 24" initialText=""
+              virtualName="" explicitFocusOrder="0" pos="447 464 150 24" initialText=""
               multiline="0" retKeyStartsLine="0" readonly="0" scrollbars="1"
               caret="1" popupmenu="1"/>
   <JUCERCOMP name="" id="669420e8ddc78026" memberName="outputComponent" virtualName=""
              explicitFocusOrder="0" pos="184 32 400 168" sourceFile="OutputComponent.cpp"
              constructorParams=""/>
+  <SLIDER name="new slider" id="a54bff35f1acf7bc" memberName="valueSlider"
+          virtualName="" explicitFocusOrder="0" pos="104 222 240 24" min="0"
+          max="10" int="0" style="LinearHorizontal" textBoxPos="TextBoxLeft"
+          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

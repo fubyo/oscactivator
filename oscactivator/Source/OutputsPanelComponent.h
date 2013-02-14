@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  13 Feb 2013 6:02:40pm
+  Creation date:  14 Feb 2013 5:16:28pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -19,11 +19,12 @@
   ==============================================================================
 */
 
-#ifndef __JUCER_HEADER_OUTPUTSPANELCOMPONENT_OUTPUTSPANELCOMPONENT_3EA1FB3E__
-#define __JUCER_HEADER_OUTPUTSPANELCOMPONENT_OUTPUTSPANELCOMPONENT_3EA1FB3E__
+#ifndef __JUCER_HEADER_OUTPUTSPANELCOMPONENT_OUTPUTSPANELCOMPONENT_F6A728F__
+#define __JUCER_HEADER_OUTPUTSPANELCOMPONENT_OUTPUTSPANELCOMPONENT_F6A728F__
 
 //[Headers]     -- You can add your own extra header files here --
 #include "..\JuceLibraryCode\JuceHeader.h"
+#include "Pool.h"
 //[/Headers]
 
 #include "MembershipGraphComponent.h"
@@ -42,7 +43,8 @@ class OutputsPanelComponent  : public Component,
                                public ListBoxModel,
                                public ChangeListener,
                                public TextEditor::Listener,
-                               public ButtonListener
+                               public ButtonListener,
+                               public SliderListener
 {
 public:
     //==============================================================================
@@ -57,11 +59,14 @@ public:
 
 	void changeListenerCallback (ChangeBroadcaster* source);
 	void textEditorReturnKeyPressed (TextEditor &editor);
+
+	void updateCurrentValue();
     //[/UserMethods]
 
     void paint (Graphics& g);
     void resized();
     void buttonClicked (Button* buttonThatWasClicked);
+    void sliderValueChanged (Slider* sliderThatWasMoved);
     bool keyPressed (const KeyPress& key);
 
 
@@ -82,13 +87,13 @@ private:
     TextButton* removeButton;
     MembershipGraphComponent* membershipGraph;
     Label* label;
-    TextEditor* currentValueEditor;
     TextEditor* termEditor;
     Label* label2;
     TextButton* setButton;
     TextEditor* minEditor;
     TextEditor* maxEditor;
     OutputComponent* outputComponent;
+    Slider* valueSlider;
 
 
     //==============================================================================
@@ -98,4 +103,4 @@ private:
 };
 
 
-#endif   // __JUCER_HEADER_OUTPUTSPANELCOMPONENT_OUTPUTSPANELCOMPONENT_3EA1FB3E__
+#endif   // __JUCER_HEADER_OUTPUTSPANELCOMPONENT_OUTPUTSPANELCOMPONENT_F6A728F__

@@ -114,16 +114,16 @@ void MembershipGraphComponent::resized()
 void MembershipGraphComponent::mouseDown (const MouseEvent& e)
 {
     //[UserCode_mouseDown] -- Add your code here...
-	double width = 592;
-	double height = 200;
-	double min = termManager->getMin();
-	double max = termManager->getMax();
-	double difference = max-min;
-
-	selectionIndex = -1;
-
 	if (termManager)
 	{
+		double width = 592;
+		double height = 200;
+		double min = termManager->getMin();
+		double max = termManager->getMax();
+		double difference = max-min;
+
+		selectionIndex = -1;
+
 		for (int i=0; i<termManager->terms.size(); i++)
 		{
 			float x=0,y=0;

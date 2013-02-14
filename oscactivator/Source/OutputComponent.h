@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  13 Feb 2013 6:02:41pm
+  Creation date:  14 Feb 2013 5:25:35pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -19,8 +19,8 @@
   ==============================================================================
 */
 
-#ifndef __JUCER_HEADER_OUTPUTCOMPONENT_OUTPUTCOMPONENT_28E3A54D__
-#define __JUCER_HEADER_OUTPUTCOMPONENT_OUTPUTCOMPONENT_28E3A54D__
+#ifndef __JUCER_HEADER_OUTPUTCOMPONENT_OUTPUTCOMPONENT_2134744C__
+#define __JUCER_HEADER_OUTPUTCOMPONENT_OUTPUTCOMPONENT_2134744C__
 
 //[Headers]     -- You can add your own extra header files here --
 #include "..\JuceLibraryCode\JuceHeader.h"
@@ -32,16 +32,16 @@ public:
 	String name;
 	String oscaddress;
 	int port;
-	int parameterindex;
+	String host;
 	double* pValue;
 	TermManager* termManager;
 
 	Output()
 	{
-		name = String("New input");
+		name = String("New output");
 		oscaddress = String("/address");
-		port = 3333;
-		parameterindex = 0;
+		port = 4444;
+		host = String("127.0.0.1");
 		pValue = new double[1];
 		*pValue = 0;
 		termManager = new TermManager();
@@ -76,6 +76,10 @@ public:
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
+	void setOutput(Output output);
+	Output getOutput();
+
+	void textEditorTextChanged (TextEditor& editor);
     //[/UserMethods]
 
     void paint (Graphics& g);
@@ -99,7 +103,7 @@ private:
     TextEditor* nameEditor;
     TextEditor* addressEditor;
     TextEditor* portEditor;
-    TextEditor* textEditor;
+    TextEditor* hostEditor;
     ToggleButton* statesToggleButton;
 
 
@@ -110,4 +114,4 @@ private:
 };
 
 
-#endif   // __JUCER_HEADER_OUTPUTCOMPONENT_OUTPUTCOMPONENT_28E3A54D__
+#endif   // __JUCER_HEADER_OUTPUTCOMPONENT_OUTPUTCOMPONENT_2134744C__

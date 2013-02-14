@@ -219,6 +219,7 @@ public:
             if (allowNudgingOfOtherValues && newValue > (double) valueMax.getValue())
                 setMaxValue (newValue, notification, false);
 
+
             newValue = jmin ((double) valueMax.getValue(), newValue);
         }
         else

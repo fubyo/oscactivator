@@ -208,12 +208,6 @@ void InputsPanelComponent::buttonClicked (Button* buttonThatWasClicked)
     if (buttonThatWasClicked == addButton)
     {
         //[UserButtonCode_addButton] -- add your button handler code here..
-		Input input;
-		input.name=String("New input");
-		input.oscaddress=String("/address");
-		input.parameterindex=0;
-		input.port=3333;
-
 		inputs.add(new Input());
 
 		inputsListBox->updateContent();
@@ -250,7 +244,6 @@ void InputsPanelComponent::buttonClicked (Button* buttonThatWasClicked)
 
 			inputsListBox->updateContent();
 		}
-
         //[/UserButtonCode_removeButton]
     }
     else if (buttonThatWasClicked == setButton)
@@ -343,7 +336,6 @@ void InputsPanelComponent::updateCurrentValue()
 	int selectedRow=inputsListBox->getSelectedRow();
 	if (selectedRow!=-1)
 	{
-
 		currentValueEditor->setText(String(*inputs[selectedRow]->pValue));
 	}
 	else
