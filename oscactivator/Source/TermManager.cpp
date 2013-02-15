@@ -69,7 +69,7 @@ void TermManager::setMax(double Max)
 {
 	if (Max>max)
 	{
-		if (terms.size())
+		if (terms.size()==1)
 		{
 			if (terms[0]->membership(max)==0)
 			{
@@ -81,7 +81,11 @@ void TermManager::setMax(double Max)
 				terms[0]->setD(Max);
 			}
 		}
-		
+		else if (terms.size())
+		{
+			terms[terms.size()-1]->setC(Max);
+			terms[terms.size()-1]->setD(Max);
+		}
 	}
 	else if (Max<max && Max>min)
 	{

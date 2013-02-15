@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  14 Feb 2013 5:16:28pm
+  Creation date:  15 Feb 2013 6:19:51pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -108,7 +108,7 @@ OutputsPanelComponent::OutputsPanelComponent ()
 
     addAndMakeVisible (outputComponent = new OutputComponent());
     addAndMakeVisible (valueSlider = new Slider (L"new slider"));
-    valueSlider->setRange (0, 10, 0);
+    valueSlider->setRange (0, 1, 0);
     valueSlider->setSliderStyle (Slider::LinearHorizontal);
     valueSlider->setTextBoxStyle (Slider::TextBoxLeft, false, 80, 20);
     valueSlider->addListener (this);
@@ -127,6 +127,7 @@ OutputsPanelComponent::OutputsPanelComponent ()
 
 	minEditor->addListener(this);
 	maxEditor->addListener(this);
+
     //[/UserPreSize]
 
     setSize (609, 600);
@@ -256,7 +257,7 @@ void OutputsPanelComponent::buttonClicked (Button* buttonThatWasClicked)
 			membershipGraph->setTermManager(outputs[outputsListBox->getSelectedRow()]->termManager);
 
 			minEditor->setText(String(outputs[outputsListBox->getSelectedRow()]->termManager->getMin()), false);
-			maxEditor->setText(String(outputs[outputsListBox->getSelectedRow()]->termManager->getMax()), false);		
+			maxEditor->setText(String(outputs[outputsListBox->getSelectedRow()]->termManager->getMax()), false);
 		}
         //[/UserButtonCode_setButton]
     }
@@ -438,7 +439,7 @@ BEGIN_JUCER_METADATA
              constructorParams=""/>
   <SLIDER name="new slider" id="a54bff35f1acf7bc" memberName="valueSlider"
           virtualName="" explicitFocusOrder="0" pos="104 222 240 24" min="0"
-          max="10" int="0" style="LinearHorizontal" textBoxPos="TextBoxLeft"
+          max="1" int="0" style="LinearHorizontal" textBoxPos="TextBoxLeft"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
 </JUCER_COMPONENT>
 

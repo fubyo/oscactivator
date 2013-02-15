@@ -138,6 +138,7 @@ void MembershipGraphComponent::mouseDown (const MouseEvent& e)
 		}
 
 		repaint();
+		this->setWantsKeyboardFocus(true);
 	}
     //[/UserCode_mouseDown]
 }
