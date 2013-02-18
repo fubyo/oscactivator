@@ -274,6 +274,20 @@ void OutputsPanelComponent::sliderValueChanged (Slider* sliderThatWasMoved)
     if (sliderThatWasMoved == valueSlider)
     {
         //[UserSliderCode_valueSlider] -- add your slider handling code here..
+		int selectedRow = outputsListBox->getSelectedRow();
+		if (selectedRow!=-1)
+		{
+			double value = valueSlider->getValue();
+			*outputs[selectedRow]->pValue = value;
+
+			osc::OutboundPacketStream p(outputs[selectedRow]->buffer, 128);
+
+			p << osc::BeginMessage( outputs[selectedRow]->oscaddress.toUTF8() )
+              << (float)value
+			  << osc::EndMessage;
+
+			 outputs[selectedRow]->socket->Send( p.Data(), p.Size() );        
+		}
         //[/UserSliderCode_valueSlider]
     }
 
@@ -332,6 +346,8 @@ void OutputsPanelComponent::changeListenerCallback (ChangeBroadcaster* source)
 			outputs[selectedRow]->oscaddress = output.oscaddress;
 			outputs[selectedRow]->port = output.port;
 			outputs[selectedRow]->host = output.host;
+
+			outputs[selectedRow]->prepareSocket();
 
 			outputsListBox->updateContent();
 			outputsListBox->repaintRow(selectedRow);

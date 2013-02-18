@@ -121,6 +121,10 @@ OutputComponent::OutputComponent ()
     setSize (400, 160);
 
 	nameEditor->addListener(this);
+	addressEditor->addListener(this);
+	portEditor->addListener(this);
+	hostEditor->addListener(this);
+
 
     //[Constructor] You can add your own custom stuff here..
     //[/Constructor]

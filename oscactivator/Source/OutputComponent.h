@@ -25,6 +25,7 @@
 //[Headers]     -- You can add your own extra header files here --
 #include "..\JuceLibraryCode\JuceHeader.h"
 #include "TermManager.h"
+#include "OscManager.h"
 
 class Output
 {
@@ -36,6 +37,10 @@ public:
 	double* pValue;
 	TermManager* termManager;
 
+	char* buffer;
+	UdpTransmitSocket* socket;
+	osc::OutboundPacketStream* packetStream;
+
 	Output()
 	{
 		name = String("New output");
@@ -45,7 +50,20 @@ public:
 		pValue = new double[1];
 		*pValue = 0;
 		termManager = new TermManager();
+
+		socket = 0;
+		buffer = new char[128];
+
+		prepareSocket();
 	};
+
+	void prepareSocket()
+	{
+		if (socket)
+			delete socket;
+
+		socket = new UdpTransmitSocket(IpEndpointName(host.toUTF8(), port));
+	}
 
 	~Output()
 	{
