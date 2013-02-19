@@ -41,6 +41,8 @@ public:
 	UdpTransmitSocket* socket;
 	osc::OutboundPacketStream* packetStream;
 
+	bool exampleRelevance;
+
 	Output()
 	{
 		name = String("New output");
@@ -50,6 +52,8 @@ public:
 		pValue = new double[1];
 		*pValue = 0;
 		termManager = new TermManager();
+
+		exampleRelevance=false;
 
 		socket = 0;
 		buffer = new char[128];

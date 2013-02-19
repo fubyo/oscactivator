@@ -211,6 +211,10 @@ void InputsPanelComponent::buttonClicked (Button* buttonThatWasClicked)
 		inputs.add(new Input());
 
 		inputsListBox->updateContent();
+
+		ListBox* inputsRelevanceListBox = (ListBox*)Pool::Instance()->getObject("InputsList");
+		if (inputsRelevanceListBox)
+			inputsRelevanceListBox->updateContent();
         //[/UserButtonCode_addButton]
     }
     else if (buttonThatWasClicked == removeButton)
@@ -243,6 +247,10 @@ void InputsPanelComponent::buttonClicked (Button* buttonThatWasClicked)
 			}
 
 			inputsListBox->updateContent();
+
+			ListBox* inputsRelevanceListBox = (ListBox*)Pool::Instance()->getObject("InputsList");
+			if (inputsRelevanceListBox)
+				inputsRelevanceListBox->updateContent();
 		}
         //[/UserButtonCode_removeButton]
     }

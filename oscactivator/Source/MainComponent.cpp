@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  14 Feb 2013 5:17:08pm
+  Creation date:  19 Feb 2013 4:09:26pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -25,6 +25,7 @@
 #include "MainComponent.h"
 #include "InputsPanelComponent.h"
 #include "OutputsPanelComponent.h"
+#include "RulesPanelComponent.h"
 
 
 //[MiscUserDefs] You can add your own user definitions and misc code here...
@@ -38,7 +39,7 @@ MainComponent::MainComponent ()
     tabbedComponent->setTabBarDepth (30);
     tabbedComponent->addTab (L"Inputs", Colours::white, new InputsPanelComponent(), true);
     tabbedComponent->addTab (L"Outputs", Colours::white, new OutputsPanelComponent(), true);
-    tabbedComponent->addTab (L"Rules", Colours::white, 0, false);
+    tabbedComponent->addTab (L"Rules", Colours::white, new RulesPanelComponent(), true);
     tabbedComponent->setCurrentTabIndex (0);
 
 
@@ -110,8 +111,8 @@ BEGIN_JUCER_METADATA
          constructorParams="" jucerComponentFile="InputsPanelComponent.cpp"/>
     <TAB name="Outputs" colour="ffffffff" useJucerComp="1" contentClassName=""
          constructorParams="" jucerComponentFile="OutputsPanelComponent.cpp"/>
-    <TAB name="Rules" colour="ffffffff" useJucerComp="0" contentClassName=""
-         constructorParams="" jucerComponentFile=""/>
+    <TAB name="Rules" colour="ffffffff" useJucerComp="1" contentClassName=""
+         constructorParams="" jucerComponentFile="RulesPanelComponent.cpp"/>
   </TABBEDCOMPONENT>
 </JUCER_COMPONENT>
 

@@ -61,6 +61,8 @@ public:
 	void textEditorReturnKeyPressed (TextEditor &editor);
 
 	void updateCurrentValue();
+
+	OwnedArray<Output> outputs;
     //[/UserMethods]
 
     void paint (Graphics& g);
@@ -77,7 +79,6 @@ public:
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
 	int numberOfOutputs;
-	OwnedArray<Output> outputs;
     //[/UserVariables]
 
     //==============================================================================

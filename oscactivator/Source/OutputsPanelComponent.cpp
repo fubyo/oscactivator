@@ -209,6 +209,10 @@ void OutputsPanelComponent::buttonClicked (Button* buttonThatWasClicked)
 		outputs.add(new Output());
 
 		outputsListBox->updateContent();
+
+		ListBox* outputsRelevanceListBox = (ListBox*)Pool::Instance()->getObject("OutputsList");
+		if (outputsRelevanceListBox)
+			outputsRelevanceListBox->updateContent();
         //[/UserButtonCode_addButton]
     }
     else if (buttonThatWasClicked == removeButton)
@@ -240,6 +244,10 @@ void OutputsPanelComponent::buttonClicked (Button* buttonThatWasClicked)
 			}
 
 			outputsListBox->updateContent();
+
+			ListBox* outputsRelevanceListBox = (ListBox*)Pool::Instance()->getObject("OutputsList");
+			if (outputsRelevanceListBox)
+				outputsRelevanceListBox->updateContent();
 		}
         //[/UserButtonCode_removeButton]
     }

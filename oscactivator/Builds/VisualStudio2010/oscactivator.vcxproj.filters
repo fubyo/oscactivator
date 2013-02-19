@@ -1527,6 +1527,18 @@
     <ClCompile Include="..\..\Source\OutputsPanelComponent.cpp">
       <Filter>oscactivator\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\RuleGenerator.cpp">
+      <Filter>oscactivator\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Example.cpp">
+      <Filter>oscactivator\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\RulesPanelComponent.cpp">
+      <Filter>oscactivator\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MultipleSelectionListBoxModel.cpp">
+      <Filter>oscactivator\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_basics\buffers\juce_AudioDataConverters.h">
@@ -2958,6 +2970,18 @@
       <Filter>oscactivator\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\OutputsPanelComponent.h">
+      <Filter>oscactivator\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\RuleGenerator.h">
+      <Filter>oscactivator\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Example.h">
+      <Filter>oscactivator\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\RulesPanelComponent.h">
+      <Filter>oscactivator\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MultipleSelectionListBoxModel.h">
       <Filter>oscactivator\Source</Filter>
     </ClInclude>
   </ItemGroup>

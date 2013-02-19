@@ -35,6 +35,7 @@ public:
 	int parameterindex;
 	double* pValue;
 	TermManager* termManager;
+	bool exampleRelevance;
 
 	Input()
 	{
@@ -45,6 +46,7 @@ public:
 		pValue = new double[1];
 		*pValue = 0;
 		termManager = new TermManager();
+		exampleRelevance=false;
 	};
 
 	~Input()
