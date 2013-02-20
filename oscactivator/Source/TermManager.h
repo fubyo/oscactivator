@@ -13,7 +13,7 @@ class TermManager
 	double getMidPointOfTrapezoidTable(String termName);
 	void sortTerms();
 	int getIndex(String termName);
-	int getIndex(double value);
+	
 
 public:
 	
@@ -26,7 +26,9 @@ public:
 	double getMax();
 
 	void addTerm(String termName, double value);
-	void removeTerm(int index); 
+	void removeTerm(int index);
+	
+	int getIndex(double value); 
 
 	TermManager(void);
 	~TermManager(void);

@@ -74,7 +74,7 @@ RulesPanelComponent::RulesPanelComponent ()
     updateRulesButton->addListener (this);
 
     addAndMakeVisible (examplesNumberLabel = new Label (L"new label",
-                                                        L"# examples in the queue"));
+                                                        L"0 examples in the queue"));
     examplesNumberLabel->setFont (Font (15.0000f, Font::plain));
     examplesNumberLabel->setJustificationType (Justification::centredLeft);
     examplesNumberLabel->setEditable (false, false, false);
@@ -162,16 +162,19 @@ void RulesPanelComponent::buttonClicked (Button* buttonThatWasClicked)
     if (buttonThatWasClicked == addExampleButton)
     {
         //[UserButtonCode_addExampleButton] -- add your button handler code here..
+		addExample();
         //[/UserButtonCode_addExampleButton]
     }
     else if (buttonThatWasClicked == updateRulesButton)
     {
         //[UserButtonCode_updateRulesButton] -- add your button handler code here..
+		updateRules();
         //[/UserButtonCode_updateRulesButton]
     }
     else if (buttonThatWasClicked == clearExamplesButton)
     {
         //[UserButtonCode_clearExamplesButton] -- add your button handler code here..
+		clearExamples();
         //[/UserButtonCode_clearExamplesButton]
     }
 
@@ -192,6 +195,53 @@ bool RulesPanelComponent::keyPressed (const KeyPress& key)
 void RulesPanelComponent::changeListenerCallback (ChangeBroadcaster* source)
 {
 
+}
+
+void RulesPanelComponent::addExample()
+{
+	InputsPanelComponent* ipc = (InputsPanelComponent*)Pool::Instance()->getObject("InputsPanelComponent");
+	OutputsPanelComponent* opc = (OutputsPanelComponent*)Pool::Instance()->getObject("OutputsPanelComponent");
+
+	if (ipc && opc)
+	{
+		Example example;
+	
+		Array<ValueRelevance> inputs;
+		for (int i=0; i<inputsListBox->getModel()->getNumRows(); i++)
+		{
+			ValueRelevance vr;
+			vr.value = *ipc->inputs[i]->pValue;
+			vr.relevance = ipc->inputs[i]->exampleRelevance;
+
+			inputs.add(vr);
+		}
+
+		Array<ValueRelevance> outputs;
+		for (int i=0; i<outputsListBox->getModel()->getNumRows(); i++)
+		{
+			ValueRelevance vr;
+			vr.value = *opc->outputs[i]->pValue;
+			vr.relevance = opc->outputs[i]->exampleRelevance;
+
+			outputs.add(vr);
+		}
+
+		example.setExample(inputs, outputs);
+		ruleGenerator.addExample(example);
+
+		examplesNumberLabel->setText(String(ruleGenerator.getNumberOfQueuedExamples()) + String("  examples in the queue"), true);
+	}
+}
+
+void RulesPanelComponent::updateRules()
+{
+	ruleGenerator.updateRulebase();
+}
+
+void RulesPanelComponent::clearExamples()
+{
+	ruleGenerator.clearExamples();
+	examplesNumberLabel->setText(String(ruleGenerator.getNumberOfQueuedExamples()) + String("  examples in the queue"), true);
 }
 //[/MiscUserCode]
 

@@ -25,6 +25,10 @@
 //[Headers]     -- You can add your own extra header files here --
 #include "..\JuceLibraryCode\JuceHeader.h"
 #include "MultipleSelectionListBoxModel.h"
+#include "RuleGenerator.h"
+#include "Pool.h"
+#include "InputsPanelComponent.h"
+#include "OutputsPanelComponent.h"
 //[/Headers]
 
 
@@ -64,6 +68,10 @@ public:
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
+	RuleGenerator ruleGenerator;
+	void addExample();
+	void updateRules();
+	void clearExamples();
     //[/UserVariables]
 
     //==============================================================================

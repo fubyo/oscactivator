@@ -1,14 +1,376 @@
-﻿Der Buildvorgang wurde am 19.02.2013 17:08:05 gestartet.
+﻿Der Buildvorgang wurde am 20.02.2013 18:02:34 gestartet.
      1>Projekt "C:\Users\marinos\Promotion\Tools\oscactivator\oscactivator\Builds\VisualStudio2010\oscactivator.vcxproj" auf Knoten "2", build Ziel(e).
      1>InitializeBuildStatus:
          ".\Debug\oscactivator.unsuccessfulbuild" wird erstellt, da "AlwaysCreate" angegeben wurde.
        ClCompile:
-         Alle Ausgaben sind aktuell.
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I..\..\JuceLibraryCode /ZI /nologo /W4 /WX- /MP /Od /Oy- /D WIN32 /D _WINDOWS /D DEBUG /D _DEBUG /D JUCER_VS2010_78A501D=1 /D _MBCS /Gm- /EHsc /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo".\Debug\\" /Fd".\Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\Source\InputComponent.cpp ..\..\Source\InputsPanelComponent.cpp ..\..\Source\Main.cpp ..\..\Source\MainComponent.cpp ..\..\Source\MembershipGraphComponent.cpp ..\..\Source\MultipleSelectionListBoxModel.cpp ..\..\Source\OscManager.cpp ..\..\Source\OutputComponent.cpp ..\..\Source\OutputsPanelComponent.cpp ..\..\Source\RuleGenerator.cpp ..\..\Source\RulesPanelComponent.cpp ..\..\Source\TermManager.cpp
+         InputComponent.cpp
+         InputsPanelComponent.cpp
+         Main.cpp
+         MainComponent.cpp
+         MembershipGraphComponent.cpp
+         MultipleSelectionListBoxModel.cpp
+         OscManager.cpp
+         OutputComponent.cpp
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\fuzzyantecedent.h(58): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\descriptiveantecedent.h(62): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\fuzzyconsequent.h(51): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\fuzzyantecedent.h(58): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\mamdaniconsequent.h(55): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\descriptiveantecedent.h(62): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\mamdanirule.h(36): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\fuzzyantecedent.h(58): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\descriptiveantecedent.h(62): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\takagisugenoconsequent.h(53): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\fuzzyconsequent.h(51): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\fuzzyconsequent.h(51): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\mamdaniconsequent.h(55): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\mamdanirule.h(36): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\mamdaniconsequent.h(55): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\mamdanirule.h(36): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\takagisugenoconsequent.h(53): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\fuzzyantecedent.h(58): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\descriptiveantecedent.h(62): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\takagisugenoconsequent.h(53): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\fuzzyantecedent.h(58): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\fuzzyconsequent.h(51): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\descriptiveantecedent.h(62): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\main.cpp(57): warning C4100: 'commandLine': Unreferenzierter formaler Parameter
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\main.cpp(95): warning C4100: 'commandLine': Unreferenzierter formaler Parameter
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\inputcomponent.cpp(224): warning C4100: 'editor': Unreferenzierter formaler Parameter
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\fuzzyconsequent.h(51): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\outputcomponent.cpp(217): warning C4100: 'editor': Unreferenzierter formaler Parameter
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\mamdaniconsequent.h(55): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\mamdanirule.h(36): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\fuzzyantecedent.h(58): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\descriptiveantecedent.h(62): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\takagisugenoconsequent.h(53): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\fuzzyconsequent.h(51): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\mamdaniconsequent.h(55): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\mamdanirule.h(36): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\takagisugenoconsequent.h(53): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\fuzzyantecedent.h(58): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\descriptiveantecedent.h(62): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\fuzzyantecedent.h(58): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\descriptiveantecedent.h(62): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\mamdaniconsequent.h(55): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\mamdanirule.h(36): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(82): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(82): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(82): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\fuzzyconsequent.h(51): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(83): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(83): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(84): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(84): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(84): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(91): warning C4244: '=': Konvertierung von 'double' in 'float', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(92): warning C4244: '=': Konvertierung von 'double' in 'float', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(100): warning C4244: 'Argument': Konvertierung von 'float' in 'int', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(100): warning C4244: 'Argument': Konvertierung von 'float' in 'int', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(131): warning C4244: '=': Konvertierung von 'double' in 'float', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(132): warning C4244: '=': Konvertierung von 'double' in 'float', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\fuzzyconsequent.h(51): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\takagisugenoconsequent.h(53): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\mamdaniconsequent.h(55): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\mamdanirule.h(36): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\mamdaniconsequent.h(55): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\mamdanirule.h(36): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\oscmanager.cpp(35): warning C4018: '<': Konflikt zwischen 'signed' und 'unsigned'
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\takagisugenoconsequent.h(53): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\takagisugenoconsequent.h(53): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\oscmanager.cpp(76): warning C4018: '<': Konflikt zwischen 'signed' und 'unsigned'
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\oscmanager.cpp(160): warning C4018: '<': Konflikt zwischen 'signed' und 'unsigned'
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\oscmanager.cpp(153): warning C4100: 'remoteEndpoint': Unreferenzierter formaler Parameter
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\oscmanager.cpp(156): warning C4189: 'currentTime': Lokale Variable ist initialisiert aber nicht referenziert
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\multipleselectionlistboxmodel.cpp(39): warning C4100: 'lastRowSelected': Unreferenzierter formaler Parameter
+         OutputsPanelComponent.cpp
+         RuleGenerator.cpp
+         RulesPanelComponent.cpp
+         TermManager.cpp
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\fuzzyantecedent.h(58): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\descriptiveantecedent.h(62): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\fuzzyconsequent.h(51): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\mamdaniconsequent.h(55): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\mamdanirule.h(36): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\takagisugenoconsequent.h(53): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\fuzzyantecedent.h(58): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\descriptiveantecedent.h(62): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\fuzzyantecedent.h(58): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\descriptiveantecedent.h(62): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\fuzzyantecedent.h(58): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\descriptiveantecedent.h(62): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\fuzzyconsequent.h(51): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\fuzzyconsequent.h(51): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\fuzzyconsequent.h(51): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\mamdaniconsequent.h(55): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\mamdanirule.h(36): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\mamdaniconsequent.h(55): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\mamdanirule.h(36): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\mamdaniconsequent.h(55): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\mamdanirule.h(36): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\takagisugenoconsequent.h(53): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\takagisugenoconsequent.h(53): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\fuzzylite\fuzzylite\takagisugenoconsequent.h(53): warning C4290: C++-Ausnahmespezifikation ignoriert, es sei denn, es wird angezeigt, dass eine Funktion nicht __declspec(nothrow) ist
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(21): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(23): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(27): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(28): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(46): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(50): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(51): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(55): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(56): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(57): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(60): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(74): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(76): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(80): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(81): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(86): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(87): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(107): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(111): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(112): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(116): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(117): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(118): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(121): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(137): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(142): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(143): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(147): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(158): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(178): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(180): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(184): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(186): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(195): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(197): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(203): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(204): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(209): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(210): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(220): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(221): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(226): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(227): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(237): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(238): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(242): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(244): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(251): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(254): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(272): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(274): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(278): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(280): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(290): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(292): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(298): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(299): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(304): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(305): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(315): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(316): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(321): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(322): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(335): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(337): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(341): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(342): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(372): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(374): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(378): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(381): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(386): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(388): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(397): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(402): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(406): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(413): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(414): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(419): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(420): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(430): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(433): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(437): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(439): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(443): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(445): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(455): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(460): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(467): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(474): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(475): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(480): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(481): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(501): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(502): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(503): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(504): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(515): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(516): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(517): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(518): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(527): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(528): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(529): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(530): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(542): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(543): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(544): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(545): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(579): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(585): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(586): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(594): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(595): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(600): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(601): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(631): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(636): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(637): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(638): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(646): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(650): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(651): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(652): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(663): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(667): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(668): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(669): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(680): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(682): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(691): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(692): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(693): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(709): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(716): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(717): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(735): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(743): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(744): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(745): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(758): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(763): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(764): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(773): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(775): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(780): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(781): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(790): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(794): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(799): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(800): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(816): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(817): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(818): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(828): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(829): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(830): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(577): warning C4189: 'b': Lokale Variable ist initialisiert aber nicht referenziert
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(861): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(862): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(864): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(861): warning C4189: 'debug': Lokale Variable ist initialisiert aber nicht referenziert
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(883): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(887): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(897): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(898): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(903): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(904): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulegenerator.cpp(54): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulegenerator.cpp(74): warning C4244: 'Argument': Konvertierung von 'double' in 'fl::flScalar', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulespanelcomponent.cpp(185): warning C4100: 'key': Unreferenzierter formaler Parameter
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulespanelcomponent.cpp(195): warning C4100: 'source': Unreferenzierter formaler Parameter
        ResourceCompile:
          Alle Ausgaben sind aktuell.
        Link:
-         Alle Ausgaben sind aktuell.
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:".\Debug\oscactivator.exe" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /NODEFAULTLIB:libcmt.lib /NODEFAULTLIB:msvcrt.lib /MANIFEST /ManifestFile:".\Debug\oscactivator.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:".\Debug\oscactivator.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\Debug\oscactivator.lib" /MACHINE:X86 .\Debug\resources.res
+         .\Debug\AreaCentroidAlgorithm.obj
+         .\Debug\CompoundTerm.obj
+         .\Debug\DescriptiveAntecedent.obj
+         .\Debug\DiscreteTerm.obj
+         .\Debug\FunctionTerm.obj
+         .\Debug\FuzzyAnd.obj
+         .\Debug\FuzzyAntecedent.obj
+         .\Debug\FuzzyConsequent.obj
+         .\Debug\FuzzyDefuzzifier.obj
+         .\Debug\FuzzyEngine.obj
+         .\Debug\FuzzyException.obj
+         .\Debug\FuzzyExceptions.obj
+         .\Debug\FuzzyModulation.obj
+         .\Debug\FuzzyOperation.obj
+         .\Debug\FuzzyOperator.obj
+         .\Debug\FuzzyOr.obj
+         .\Debug\FuzzyRule.obj
+         .\Debug\Hedge.obj
+         .\Debug\HedgeSet.obj
+         .\Debug\InfixToPostfix.obj
+         .\Debug\InputLVar.obj
+         .\Debug\LinguisticTerm.obj
+         .\Debug\LinguisticVariable.obj
+         .\Debug\MamdaniConsequent.obj
+         .\Debug\MamdaniRule.obj
+         .\Debug\OutputLVar.obj
+         .\Debug\RectangularTerm.obj
+         .\Debug\RuleBlock.obj
+         .\Debug\ShoulderTerm.obj
+         .\Debug\SingletonTerm.obj
+         .\Debug\StrOp.obj
+         .\Debug\TakagiSugenoConsequent.obj
+         .\Debug\TakagiSugenoRule.obj
+         .\Debug\TakagiSugenoTerm.obj
+         .\Debug\TrapezoidalTerm.obj
+         .\Debug\TriangularTerm.obj
+         .\Debug\IpEndpointName.obj
+         .\Debug\NetworkingUtils.obj
+         .\Debug\UdpSocket.obj
+         .\Debug\OscOutboundPacketStream.obj
+         .\Debug\OscPrintReceivedElements.obj
+         .\Debug\OscReceivedElements.obj
+         .\Debug\OscTypes.obj
+         .\Debug\Example.obj
+         .\Debug\InputComponent.obj
+         .\Debug\MultipleSelectionListBoxModel.obj
+         .\Debug\OutputComponent.obj
+         .\Debug\OutputsPanelComponent.obj
+         .\Debug\RuleGenerator.obj
+         .\Debug\RulesPanelComponent.obj
+         .\Debug\TermManager.obj
+         .\Debug\InputsPanelComponent.obj
+         .\Debug\Main.obj
+         .\Debug\juce_audio_basics.obj
+         .\Debug\juce_audio_devices.obj
+         .\Debug\juce_audio_formats.obj
+         .\Debug\juce_audio_processors.obj
+         .\Debug\juce_core.obj
+         .\Debug\juce_cryptography.obj
+         .\Debug\juce_data_structures.obj
+         .\Debug\juce_events.obj
+         .\Debug\juce_graphics.obj
+         .\Debug\juce_gui_basics.obj
+         .\Debug\juce_gui_extra.obj
+         .\Debug\juce_opengl.obj
+         .\Debug\juce_video.obj
+         .\Debug\MainComponent.obj
+         .\Debug\MembershipGraphComponent.obj
+         .\Debug\OscManager.obj
+         .\Debug\Pool.obj
+         LINK : .\Debug\oscactivator.exe wurde nicht gefunden oder beim letzten inkrementellen Linkvorgang nicht erstellt; vollständiger Link wird durchgeführt.
          oscactivator.vcxproj -> C:\Users\marinos\Promotion\Tools\oscactivator\oscactivator\Builds\VisualStudio2010\.\Debug\oscactivator.exe
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:".\Debug\oscactivator.exe;#1" /manifest .\Debug\oscactivator.exe.intermediate.manifest
        FinalizeBuildStatus:
          Die Datei ".\Debug\oscactivator.unsuccessfulbuild" wird gelöscht.
          Aktualisieren des Timestamps von ".\Debug\oscactivator.lastbuildstate".
@@ -16,4 +378,4 @@
 
 Das Erstellen war erfolgreich.
 
-Verstrichene Zeit 00:00:00.62
+Verstrichene Zeit 00:00:16.72
