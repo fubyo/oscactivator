@@ -38,5 +38,12 @@ void MultipleSelectionListBoxModel::paintListBoxItem (int rowNumber, Graphics& g
 
 void MultipleSelectionListBoxModel::selectedRowsChanged (int lastRowSelected)
 {
+	if (outputList)
+	{
 
+	}
+	else
+	{
+
+	}
 }

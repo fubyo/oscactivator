@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  19 Feb 2013 4:29:34pm
+  Creation date:  21 Feb 2013 5:38:22pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -19,8 +19,8 @@
   ==============================================================================
 */
 
-#ifndef __JUCER_HEADER_RULESPANELCOMPONENT_RULESPANELCOMPONENT_A3A947D2__
-#define __JUCER_HEADER_RULESPANELCOMPONENT_RULESPANELCOMPONENT_A3A947D2__
+#ifndef __JUCER_HEADER_RULESPANELCOMPONENT_RULESPANELCOMPONENT_22A7274E__
+#define __JUCER_HEADER_RULESPANELCOMPONENT_RULESPANELCOMPONENT_22A7274E__
 
 //[Headers]     -- You can add your own extra header files here --
 #include "..\JuceLibraryCode\JuceHeader.h"
@@ -84,6 +84,8 @@ private:
     TextButton* updateRulesButton;
     Label* examplesNumberLabel;
     TextButton* clearExamplesButton;
+    TextEditor* ruleTextEditor;
+    TextButton* deleteRulesButton;
 
 
     //==============================================================================
@@ -93,4 +95,4 @@ private:
 };
 
 
-#endif   // __JUCER_HEADER_RULESPANELCOMPONENT_RULESPANELCOMPONENT_A3A947D2__
+#endif   // __JUCER_HEADER_RULESPANELCOMPONENT_RULESPANELCOMPONENT_22A7274E__

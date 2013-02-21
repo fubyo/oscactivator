@@ -51,7 +51,7 @@ void RuleGenerator::createRulesFromQueuedExamples()
 				rule.inputTermIndeces.add(inputTermIndex);
 				
 				TermManager* termManager=ipc->inputs[ii]->termManager;
-				float membership = termManager->terms[ii]->membership(queuedExamples[i].inputValues[ii].value);
+				float membership = termManager->terms[inputTermIndex]->membership((float)queuedExamples[i].inputValues[ii].value);
 				
 				rule.inputDegree*=membership;
 				rule.inputMembership.add(membership);
@@ -71,7 +71,7 @@ void RuleGenerator::createRulesFromQueuedExamples()
 				rule.outputTermIndeces.add(outputTermIndex);
 				
 				TermManager* termManager=opc->outputs[ii]->termManager;
-				float membership = termManager->terms[ii]->membership(queuedExamples[i].outputValues[ii].value);
+				float membership = termManager->terms[outputTermIndex]->membership(queuedExamples[i].outputValues[ii].value);
 				
 				rule.outputDegrees.add(rule.inputDegree*membership);
 				rule.outputMembership.add(membership);
@@ -84,7 +84,8 @@ void RuleGenerator::createRulesFromQueuedExamples()
 			}
 		}
 
-		queuedRules.add(rule); //add a rule for each example
+		Rule* newQueuedRule = new Rule(rule);
+		queuedRules.add(newQueuedRule); //add a rule for each example
 	}
 
 	queuedExamples.clear();
@@ -98,33 +99,63 @@ void RuleGenerator::mergeNewRulesToRuleBase()
 
 		while (ruleIndex<rules.size())  //for each old rule
 		{
-			bool inputsConflicting = areInputsConflicting(queuedRules[i], rules[ruleIndex]);
-			Array<int> outputsConflicting = areOutputsConflicting(queuedRules[i], rules[ruleIndex]);
+			bool inputsConflicting = areInputsConflicting(*queuedRules[i], *rules[ruleIndex]);
+			Array<int> outputsConflicting = areOutputsConflicting(*queuedRules[i], *rules[ruleIndex]);
+			Array<int> outputsCorrelating = isHavingSimilarEffectsToSomeOutputs(*queuedRules[i], *rules[ruleIndex]);
 
 			if (inputsConflicting && outputsConflicting.size())
 			{
 				while (outputsConflicting.size())
 				{
-					if (queuedRules[i].outputDegrees[outputsConflicting[0]]>rules[ruleIndex].outputDegrees[outputsConflicting[0]])
+					if (queuedRules[i]->outputDegrees[outputsConflicting[0]]>=rules[ruleIndex]->outputDegrees[outputsConflicting[0]])
 					{
-						rules[ruleIndex].outputDegrees.set(outputsConflicting[0], 0);
-						rules[ruleIndex].outputMembership.set(outputsConflicting[0] ,-1);
-						rules[ruleIndex].outputTermIndeces.set(outputsConflicting[0] ,-1);
+						rules[ruleIndex]->outputDegrees.set(outputsConflicting[0], 0);
+						rules[ruleIndex]->outputMembership.set(outputsConflicting[0] ,-1);
+						rules[ruleIndex]->outputTermIndeces.set(outputsConflicting[0] ,-1);
 					}
 					else
 					{
-						queuedRules[i].outputDegrees.set(outputsConflicting[0], 0);
-						queuedRules[i].outputMembership.set(outputsConflicting[0] ,-1);
-						queuedRules[i].outputTermIndeces.set(outputsConflicting[0] ,-1);
+						queuedRules[i]->outputDegrees.set(outputsConflicting[0], 0);
+						queuedRules[i]->outputMembership.set(outputsConflicting[0] ,-1);
+						queuedRules[i]->outputTermIndeces.set(outputsConflicting[0] ,-1);
 					}
 					outputsConflicting.remove(0);
+				}
+			}
+			else if (outputsCorrelating.size())
+			{
+				while (outputsCorrelating.size())
+				{
+					int outputIndex = outputsCorrelating[0];
+
+					if (queuedRules[i]->outputDegrees[outputIndex]>=rules[ruleIndex]->outputDegrees[outputIndex])
+					{
+						rules[ruleIndex]->outputMembership.set(outputIndex ,queuedRules[i]->outputMembership[outputIndex]);
+						rules[ruleIndex]->outputDegrees.set(outputIndex, rules[ruleIndex]->outputMembership[outputIndex]*rules[ruleIndex]->inputDegree);
+
+						queuedRules[i]->outputDegrees.set(outputIndex, 0);
+						queuedRules[i]->outputMembership.set(outputIndex ,-1);
+						queuedRules[i]->outputTermIndeces.set(outputIndex ,-1);
+					}
+					else
+					{
+						queuedRules[i]->outputMembership.set(outputIndex ,rules[ruleIndex]->outputMembership[outputIndex]);
+						queuedRules[i]->outputDegrees.set(outputIndex, queuedRules[i]->outputMembership[outputIndex]*queuedRules[i]->inputDegree);
+
+						rules[ruleIndex]->outputDegrees.set(outputIndex, 0);
+						rules[ruleIndex]->outputMembership.set(outputIndex ,-1);
+						rules[ruleIndex]->outputTermIndeces.set(outputIndex ,-1);
+					}
+
+					outputsCorrelating.remove(0);
 				}
 			}
 
 			ruleIndex++;
 		}
 
-		rules.add(queuedRules[i]);
+		Rule *newRule = new Rule(*queuedRules[i]);
+		rules.add(newRule);
 	}
 
 	queuedRules.clear();
@@ -134,9 +165,9 @@ void RuleGenerator::mergeNewRulesToRuleBase()
 	while (ruleIndex<rules.size())
 	{
 		bool outputContribution = false;
-		for (int i=0; i<rules[ruleIndex].outputTermIndeces.size(); i++)
+		for (int i=0; i<rules[ruleIndex]->outputTermIndeces.size(); i++)
 		{
-			if (rules[ruleIndex].outputTermIndeces[i]!=-1)
+			if (rules[ruleIndex]->outputTermIndeces[i]!=-1)
 				outputContribution=true;
 		}
 
@@ -192,6 +223,85 @@ Array<int> RuleGenerator::areOutputsConflicting(Rule firstrule, Rule secondrule)
 	}
 
 	return result;
+}
+
+Array<int> RuleGenerator::isHavingSimilarEffectsToSomeOutputs(Rule newrule, Rule oldrule)
+{
+	bool inputsAreSimilar = (newrule.inputTermIndeces == oldrule.inputTermIndeces);
+
+	Array<int> result;
+
+	if (inputsAreSimilar)
+	{
+		for (int i=0; i < newrule.outputTermIndeces.size(); i++)
+		{
+			if (newrule.outputTermIndeces[i]!=-1 && newrule.outputTermIndeces[i]==oldrule.outputTermIndeces[i])
+				result.add(i);
+		}
+	}
+
+	return result;
+}
+
+String RuleGenerator::getRuleText()
+{
+	String text;
+
+	for (int i=0; i<rules.size(); i++)
+	{
+		text+=getRuleText(*rules[i]);
+	}
+
+	return text;
+}
+
+String RuleGenerator::getRuleText(Rule rule)
+{
+	String text;
+	text += String("If ");
+
+	bool firstConditionAdded = false;
+	for (int i=0; i<rule.inputTermIndeces.size(); i++)
+	{
+		if (rule.inputTermIndeces[i]!=-1)
+		{
+			if (firstConditionAdded)
+				text += String(" and ");
+
+			text += ipc->inputs[i]->name+String(" is ");
+			text +=String(ipc->inputs[i]->termManager->terms[rule.inputTermIndeces[i]]->name().c_str());
+			
+			if (!firstConditionAdded)
+				firstConditionAdded = true;
+		}
+	}
+
+	text += String(", then ");
+
+	bool firstResultAdded = false;
+	for (int i=0; i<rule.outputTermIndeces.size(); i++)
+	{
+		if (rule.outputTermIndeces[i]!=-1)
+		{
+			if (firstResultAdded)
+				text += String(" and ");
+
+			text += opc->outputs[i]->name+String(" is ");
+			text +=String(opc->outputs[i]->termManager->terms[rule.outputTermIndeces[i]]->name().c_str());
+			
+			if (!firstResultAdded)
+				firstResultAdded = true;
+		}
+	}
+
+	text += String(".\n");
+
+	return text;
+}
+
+void RuleGenerator::deleteAllRules()
+{
+	rules.clear();
 }
 
 Rule::Rule()

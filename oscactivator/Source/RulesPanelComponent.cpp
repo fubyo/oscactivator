@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  19 Feb 2013 4:29:34pm
+  Creation date:  21 Feb 2013 5:38:22pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -38,7 +38,9 @@ RulesPanelComponent::RulesPanelComponent ()
       addExampleButton (0),
       updateRulesButton (0),
       examplesNumberLabel (0),
-      clearExamplesButton (0)
+      clearExamplesButton (0),
+      ruleTextEditor (0),
+      deleteRulesButton (0)
 {
     addAndMakeVisible (groupComponent = new GroupComponent (L"new group",
                                                             L"Example demonstration"));
@@ -74,7 +76,7 @@ RulesPanelComponent::RulesPanelComponent ()
     updateRulesButton->addListener (this);
 
     addAndMakeVisible (examplesNumberLabel = new Label (L"new label",
-                                                        L"0 examples in the queue"));
+                                                        L"# examples in the queue"));
     examplesNumberLabel->setFont (Font (15.0000f, Font::plain));
     examplesNumberLabel->setJustificationType (Justification::centredLeft);
     examplesNumberLabel->setEditable (false, false, false);
@@ -84,6 +86,19 @@ RulesPanelComponent::RulesPanelComponent ()
     addAndMakeVisible (clearExamplesButton = new TextButton (String::empty));
     clearExamplesButton->setButtonText (L"Clear examples");
     clearExamplesButton->addListener (this);
+
+    addAndMakeVisible (ruleTextEditor = new TextEditor (L"new text editor"));
+    ruleTextEditor->setMultiLine (true);
+    ruleTextEditor->setReturnKeyStartsNewLine (true);
+    ruleTextEditor->setReadOnly (false);
+    ruleTextEditor->setScrollbarsShown (true);
+    ruleTextEditor->setCaretVisible (true);
+    ruleTextEditor->setPopupMenuEnabled (true);
+    ruleTextEditor->setText (String::empty);
+
+    addAndMakeVisible (deleteRulesButton = new TextButton (L"new button"));
+    deleteRulesButton->setButtonText (L"Delete all rules");
+    deleteRulesButton->addListener (this);
 
 
     //[UserPreSize]
@@ -121,6 +136,8 @@ RulesPanelComponent::~RulesPanelComponent()
     deleteAndZero (updateRulesButton);
     deleteAndZero (examplesNumberLabel);
     deleteAndZero (clearExamplesButton);
+    deleteAndZero (ruleTextEditor);
+    deleteAndZero (deleteRulesButton);
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -150,6 +167,8 @@ void RulesPanelComponent::resized()
     updateRulesButton->setBounds (344, 192, 246, 24);
     examplesNumberLabel->setBounds (344, 80, 150, 24);
     clearExamplesButton->setBounds (464, 56, 128, 24);
+    ruleTextEditor->setBounds (16, 248, 576, 336);
+    deleteRulesButton->setBounds (432, 256, 150, 24);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -169,6 +188,7 @@ void RulesPanelComponent::buttonClicked (Button* buttonThatWasClicked)
     {
         //[UserButtonCode_updateRulesButton] -- add your button handler code here..
 		updateRules();
+		ruleTextEditor->setText(ruleGenerator.getRuleText());
         //[/UserButtonCode_updateRulesButton]
     }
     else if (buttonThatWasClicked == clearExamplesButton)
@@ -176,6 +196,13 @@ void RulesPanelComponent::buttonClicked (Button* buttonThatWasClicked)
         //[UserButtonCode_clearExamplesButton] -- add your button handler code here..
 		clearExamples();
         //[/UserButtonCode_clearExamplesButton]
+    }
+    else if (buttonThatWasClicked == deleteRulesButton)
+    {
+        //[UserButtonCode_deleteRulesButton] -- add your button handler code here..
+		ruleGenerator.deleteAllRules();
+		ruleTextEditor->setText(ruleGenerator.getRuleText());
+        //[/UserButtonCode_deleteRulesButton]
     }
 
     //[UserbuttonClicked_Post]
@@ -205,13 +232,13 @@ void RulesPanelComponent::addExample()
 	if (ipc && opc)
 	{
 		Example example;
-	
+
 		Array<ValueRelevance> inputs;
 		for (int i=0; i<inputsListBox->getModel()->getNumRows(); i++)
 		{
 			ValueRelevance vr;
 			vr.value = *ipc->inputs[i]->pValue;
-			vr.relevance = ipc->inputs[i]->exampleRelevance;
+			vr.relevance=inputsListBox->isRowSelected(i);
 
 			inputs.add(vr);
 		}
@@ -221,7 +248,7 @@ void RulesPanelComponent::addExample()
 		{
 			ValueRelevance vr;
 			vr.value = *opc->outputs[i]->pValue;
-			vr.relevance = opc->outputs[i]->exampleRelevance;
+			vr.relevance=outputsListBox->isRowSelected(i);
 
 			outputs.add(vr);
 		}
@@ -236,6 +263,7 @@ void RulesPanelComponent::addExample()
 void RulesPanelComponent::updateRules()
 {
 	ruleGenerator.updateRulebase();
+	examplesNumberLabel->setText(String(ruleGenerator.getNumberOfQueuedExamples()) + String("  examples in the queue"), true);
 }
 
 void RulesPanelComponent::clearExamples()
@@ -294,6 +322,13 @@ BEGIN_JUCER_METADATA
          fontsize="15" bold="0" italic="0" justification="33"/>
   <TEXTBUTTON name="" id="4d4810bd2145df80" memberName="clearExamplesButton"
               virtualName="" explicitFocusOrder="0" pos="464 56 128 24" buttonText="Clear examples"
+              connectedEdges="0" needsCallback="1" radioGroupId="0"/>
+  <TEXTEDITOR name="new text editor" id="2430255fc9439a83" memberName="ruleTextEditor"
+              virtualName="" explicitFocusOrder="0" pos="16 248 576 336" initialText=""
+              multiline="1" retKeyStartsLine="1" readonly="0" scrollbars="1"
+              caret="1" popupmenu="1"/>
+  <TEXTBUTTON name="new button" id="3d50325343f48754" memberName="deleteRulesButton"
+              virtualName="" explicitFocusOrder="0" pos="432 256 150 24" buttonText="Delete all rules"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
 </JUCER_COMPONENT>
 

@@ -91,7 +91,7 @@ namespace fl {
             return fuzzyOperator().modulation().execute(modulation(),
                     FuzzyOperation::Scale(a(), b(), crisp, 0, 1));
         }
-        if (crisp < c()) {
+        if (crisp <= c()) {
             return fuzzyOperator().modulation().execute(modulation(), flScalar(1.0));
         }
         if (crisp < d()) {

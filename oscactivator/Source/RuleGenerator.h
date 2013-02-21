@@ -19,6 +19,29 @@ public:
 
 	Rule();
 	~Rule();
+
+	Rule &operator= (const Rule &other)
+	{
+		importance = other.importance;
+		inputDegree = other.inputDegree;
+		outputDegrees = other.outputDegrees;
+		inputTermIndeces = other.inputTermIndeces;
+		inputMembership = other.inputMembership;
+		outputTermIndeces = other.outputTermIndeces;
+		outputMembership = other.outputMembership;
+		return *this;
+	}
+
+	Rule(const Rule& other)
+	{
+		importance = other.importance;
+		inputDegree = other.inputDegree;
+		outputDegrees = other.outputDegrees;
+		inputTermIndeces = other.inputTermIndeces;
+		inputMembership = other.inputMembership;
+		outputTermIndeces = other.outputTermIndeces;
+		outputMembership = other.outputMembership;
+	}
 };
 
 class RuleGenerator
@@ -27,18 +50,21 @@ class RuleGenerator
 	OutputsPanelComponent* opc;
 
 	Array<Example> queuedExamples;
-	Array<Rule> queuedRules;
-	Array<Rule> rules;
+	OwnedArray<Rule> queuedRules;
+	OwnedArray<Rule> rules;
 
 	fl::FuzzyEngine engine;
 
 	bool areInputsConflicting(Rule firstrule, Rule secondrule);
 	Array<int> areOutputsConflicting(Rule firstrule, Rule secondrule);
+	Array<int> isHavingSimilarEffectsToSomeOutputs(Rule newrule, Rule oldrule);
 
 	void createRulesFromQueuedExamples();
 	void mergeNewRulesToRuleBase();
 	int getIndexOfBestInputTerm(int inputIndex, double value);
 	int getIndexOfBestOutputTerm(int outputIndex, double value);
+
+	String getRuleText(Rule rule);
 
 public:
 	RuleGenerator(void);
@@ -48,4 +74,7 @@ public:
 	void clearExamples();
 	void updateRulebase();
 	int getNumberOfQueuedExamples();
+	void deleteAllRules();
+
+	String getRuleText();
 };
