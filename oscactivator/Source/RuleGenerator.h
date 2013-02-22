@@ -14,8 +14,10 @@ public:
 	Array<double> outputDegrees;
 	Array<int> inputTermIndeces;
 	Array<double> inputMembership;
+	Array<double> inputValues;
 	Array<int> outputTermIndeces;
 	Array<double> outputMembership;
+	Array<double> outputValues;
 
 	Rule();
 	~Rule();
@@ -29,6 +31,8 @@ public:
 		inputMembership = other.inputMembership;
 		outputTermIndeces = other.outputTermIndeces;
 		outputMembership = other.outputMembership;
+		inputValues = other.inputValues;
+		outputValues = other.outputValues;
 		return *this;
 	}
 
@@ -41,6 +45,8 @@ public:
 		inputMembership = other.inputMembership;
 		outputTermIndeces = other.outputTermIndeces;
 		outputMembership = other.outputMembership;
+		inputValues = other.inputValues;
+		outputValues = other.outputValues;
 	}
 };
 
@@ -49,7 +55,7 @@ class RuleGenerator
 	InputsPanelComponent* ipc;
 	OutputsPanelComponent* opc;
 
-	Array<Example> queuedExamples;
+	OwnedArray<Example> queuedExamples;
 	OwnedArray<Rule> queuedRules;
 	OwnedArray<Rule> rules;
 
@@ -63,6 +69,8 @@ class RuleGenerator
 	void mergeNewRulesToRuleBase();
 	int getIndexOfBestInputTerm(int inputIndex, double value);
 	int getIndexOfBestOutputTerm(int outputIndex, double value);
+	void recalculateDegrees(int ruleIndex);
+	void updateMembershipAndTermIndeces(int index);
 
 	String getRuleText(Rule rule);
 
@@ -75,6 +83,9 @@ public:
 	void updateRulebase();
 	int getNumberOfQueuedExamples();
 	void deleteAllRules();
+
+	void removeInput(int index);
+	void removeOutput(int index);
 
 	String getRuleText();
 };

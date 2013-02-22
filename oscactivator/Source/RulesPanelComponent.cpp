@@ -113,6 +113,7 @@ RulesPanelComponent::RulesPanelComponent ()
 
 	Pool::Instance()->reg("OutputsList", outputsListBox);
 	Pool::Instance()->reg("InputsList", inputsListBox);
+	Pool::Instance()->reg("RulesPanelComponent", this);
     //[/UserPreSize]
 
     setSize (609, 600);
@@ -188,7 +189,6 @@ void RulesPanelComponent::buttonClicked (Button* buttonThatWasClicked)
     {
         //[UserButtonCode_updateRulesButton] -- add your button handler code here..
 		updateRules();
-		ruleTextEditor->setText(ruleGenerator.getRuleText());
         //[/UserButtonCode_updateRulesButton]
     }
     else if (buttonThatWasClicked == clearExamplesButton)
@@ -264,12 +264,25 @@ void RulesPanelComponent::updateRules()
 {
 	ruleGenerator.updateRulebase();
 	examplesNumberLabel->setText(String(ruleGenerator.getNumberOfQueuedExamples()) + String("  examples in the queue"), true);
+	ruleTextEditor->setText(ruleGenerator.getRuleText());
 }
 
 void RulesPanelComponent::clearExamples()
 {
 	ruleGenerator.clearExamples();
 	examplesNumberLabel->setText(String(ruleGenerator.getNumberOfQueuedExamples()) + String("  examples in the queue"), true);
+}
+
+void RulesPanelComponent::inputRemoved(int index)
+{
+	ruleGenerator.removeInput(index);
+	updateRules();
+}
+
+void RulesPanelComponent::outputRemoved(int index)
+{
+	ruleGenerator.removeOutput(index);
+	updateRules();
 }
 //[/MiscUserCode]
 

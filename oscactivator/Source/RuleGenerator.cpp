@@ -4,6 +4,8 @@ RuleGenerator::RuleGenerator(void)
 {
 	ipc = (InputsPanelComponent*)Pool::Instance()->getObject("InputsPanelComponent");
 	opc = (OutputsPanelComponent*)Pool::Instance()->getObject("OutputsPanelComponent");
+
+	Pool::Instance()->reg("RuleGenerator", this);
 }
 
 RuleGenerator::~RuleGenerator(void)
@@ -13,7 +15,8 @@ RuleGenerator::~RuleGenerator(void)
 
 void RuleGenerator::addExample(Example example)
 {
-	queuedExamples.add(example);
+	Example* newExample = new Example(example);
+	queuedExamples.add(newExample);
 }
 
 void RuleGenerator::clearExamples()
@@ -43,44 +46,48 @@ void RuleGenerator::createRulesFromQueuedExamples()
 		Rule rule;
 		rule.inputDegree = 1;
 		
-		for (int ii=0; ii<queuedExamples[i].inputValues.size(); ii++) //iterate over the inputs of the example
+		for (int ii=0; ii<queuedExamples[i]->inputValues.size(); ii++) //iterate over the inputs of the example
 		{
-			if (queuedExamples[i].inputValues[ii].relevance) //if input is relevant
+			if (queuedExamples[i]->inputValues[ii].relevance) //if input is relevant
 			{
-				int inputTermIndex=getIndexOfBestInputTerm(ii, queuedExamples[i].inputValues[ii].value);
+				int inputTermIndex=getIndexOfBestInputTerm(ii, queuedExamples[i]->inputValues[ii].value);
 				rule.inputTermIndeces.add(inputTermIndex);
 				
 				TermManager* termManager=ipc->inputs[ii]->termManager;
-				float membership = termManager->terms[inputTermIndex]->membership((float)queuedExamples[i].inputValues[ii].value);
+				float membership = termManager->terms[inputTermIndex]->membership((float)queuedExamples[i]->inputValues[ii].value);
 				
 				rule.inputDegree*=membership;
 				rule.inputMembership.add(membership);
+				rule.inputValues.add(queuedExamples[i]->inputValues[ii].value);
 			}
 			else //if input is not relevant
 			{
 				rule.inputTermIndeces.add(-1);
 				rule.inputMembership.add(-1);
+				rule.inputValues.add(0);
 			}
 		}
 
-		for (int ii=0; ii<queuedExamples[i].outputValues.size(); ii++) //iterate over the outputs of the example
+		for (int ii=0; ii<queuedExamples[i]->outputValues.size(); ii++) //iterate over the outputs of the example
 		{
-			if (queuedExamples[i].outputValues[ii].relevance) //if output is relevant
+			if (queuedExamples[i]->outputValues[ii].relevance) //if output is relevant
 			{
-				int outputTermIndex=getIndexOfBestOutputTerm(ii, queuedExamples[i].outputValues[ii].value);
+				int outputTermIndex=getIndexOfBestOutputTerm(ii, queuedExamples[i]->outputValues[ii].value);
 				rule.outputTermIndeces.add(outputTermIndex);
 				
 				TermManager* termManager=opc->outputs[ii]->termManager;
-				float membership = termManager->terms[outputTermIndex]->membership(queuedExamples[i].outputValues[ii].value);
+				float membership = termManager->terms[outputTermIndex]->membership(queuedExamples[i]->outputValues[ii].value);
 				
 				rule.outputDegrees.add(rule.inputDegree*membership);
 				rule.outputMembership.add(membership);
+				rule.outputValues.add(queuedExamples[i]->outputValues[ii].value);
 			}
 			else //if output is not relevant
 			{
 				rule.outputDegrees.add(0);
 				rule.outputTermIndeces.add(-1);
 				rule.outputMembership.add(-1);
+				rule.outputValues.add(0);
 			}
 		}
 
@@ -131,6 +138,7 @@ void RuleGenerator::mergeNewRulesToRuleBase()
 					if (queuedRules[i]->outputDegrees[outputIndex]>=rules[ruleIndex]->outputDegrees[outputIndex])
 					{
 						rules[ruleIndex]->outputMembership.set(outputIndex ,queuedRules[i]->outputMembership[outputIndex]);
+						rules[ruleIndex]->outputValues.set(outputIndex, queuedRules[i]->outputValues[outputIndex]);
 						rules[ruleIndex]->outputDegrees.set(outputIndex, rules[ruleIndex]->outputMembership[outputIndex]*rules[ruleIndex]->inputDegree);
 
 						queuedRules[i]->outputDegrees.set(outputIndex, 0);
@@ -140,6 +148,7 @@ void RuleGenerator::mergeNewRulesToRuleBase()
 					else
 					{
 						queuedRules[i]->outputMembership.set(outputIndex ,rules[ruleIndex]->outputMembership[outputIndex]);
+						queuedRules[i]->outputValues.set(outputIndex, rules[ruleIndex]->outputValues[outputIndex]);
 						queuedRules[i]->outputDegrees.set(outputIndex, queuedRules[i]->outputMembership[outputIndex]*queuedRules[i]->inputDegree);
 
 						rules[ruleIndex]->outputDegrees.set(outputIndex, 0);
@@ -172,6 +181,23 @@ void RuleGenerator::mergeNewRulesToRuleBase()
 		}
 
 		if (outputContribution)
+			ruleIndex++;
+		else
+			rules.remove(ruleIndex);
+	}
+
+	//Clean up rules that have no input
+	ruleIndex = 0;
+	while (ruleIndex<rules.size())
+	{
+		bool hasInputs = false;
+		for (int i=0; i<rules[ruleIndex]->inputTermIndeces.size(); i++)
+		{
+			if (rules[ruleIndex]->inputTermIndeces[i]!=-1)
+				hasInputs=true;
+		}
+
+		if (hasInputs)
 			ruleIndex++;
 		else
 			rules.remove(ruleIndex);
@@ -302,6 +328,88 @@ String RuleGenerator::getRuleText(Rule rule)
 void RuleGenerator::deleteAllRules()
 {
 	rules.clear();
+}
+
+void RuleGenerator::removeInput(int index)
+{
+	for (int i=0; i<queuedExamples.size(); i++)
+	{
+		queuedExamples[i]->inputValues.remove(index);
+	}
+
+	for (int i=0; i<rules.size(); i++)
+	{
+		rules[i]->inputMembership.remove(index);
+		rules[i]->inputTermIndeces.remove(index);
+		rules[i]->inputValues.remove(index);
+
+		recalculateDegrees(i);
+	}
+}
+
+void RuleGenerator::removeOutput(int index)
+{
+	for (int i=0; i<queuedExamples.size(); i++)
+	{
+		queuedExamples[i]->outputValues.remove(index);
+	}
+
+	for (int i=0; i<rules.size(); i++)
+	{
+		rules[i]->outputMembership.remove(index);
+		rules[i]->outputTermIndeces.remove(index);
+		rules[i]->outputDegrees.remove(index);
+		rules[i]->outputValues.remove(index);
+
+		recalculateDegrees(i);
+	}
+}
+
+void RuleGenerator::recalculateDegrees(int ruleIndex)
+{
+	double inputDegree = 1;
+	for (int i=0; i<rules[ruleIndex]->inputTermIndeces.size(); i++)
+	{
+		if (rules[ruleIndex]->inputTermIndeces[i]!=-1)
+		{
+			inputDegree*=rules[ruleIndex]->inputMembership[i];
+		}
+	}
+	rules[ruleIndex]->inputDegree = inputDegree;
+
+
+	double outputDegree = inputDegree;
+	for (int i=0; i<rules[ruleIndex]->outputTermIndeces.size(); i++)
+	{
+		if (rules[ruleIndex]->outputTermIndeces[i]!=-1)
+		{
+			outputDegree*=rules[ruleIndex]->outputMembership[i];
+			rules[ruleIndex]->outputDegrees.set(i,outputDegree);
+		}
+	}	
+}
+
+void RuleGenerator::updateMembershipAndTermIndeces(int index)
+{
+	for (int i=0; i<rules[index]->inputTermIndeces.size(); i++)
+	{
+		if (rules[index]->inputTermIndeces[i]!=-1)
+		{
+			rules[index]->inputTermIndeces.set(i, ipc->inputs[i]->termManager->getIndex(rules[index]->inputValues[i]));
+			rules[index]->inputMembership.set(i, ipc->inputs[i]->termManager->terms[rules[index]->inputTermIndeces[i]]->membership(rules[index]->inputValues[i]));
+		}
+	}
+
+	for (int i=0; i<rules[index]->outputTermIndeces.size(); i++)
+	{
+		if (rules[index]->outputTermIndeces[i]!=-1)
+		{
+			rules[index]->outputTermIndeces.set(i, opc->outputs[i]->termManager->getIndex(rules[index]->outputValues[i]));
+			rules[index]->outputMembership.set(i, opc->outputs[i]->termManager->terms[rules[index]->outputTermIndeces[i]]->membership(rules[index]->outputValues[i]));
+		}
+	}
+
+	recalculateDegrees(index);
 }
 
 Rule::Rule()

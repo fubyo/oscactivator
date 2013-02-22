@@ -54,6 +54,9 @@ public:
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
 	void changeListenerCallback (ChangeBroadcaster* source);
+
+	void inputRemoved(int index);
+	void outputRemoved(int index);
     //[/UserMethods]
 
     void paint (Graphics& g);

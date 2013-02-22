@@ -26,6 +26,7 @@
 
 
 //[MiscUserDefs] You can add your own user definitions and misc code here...
+#include "RulesPanelComponent.h"
 //[/MiscUserDefs]
 
 //==============================================================================
@@ -251,6 +252,11 @@ void InputsPanelComponent::buttonClicked (Button* buttonThatWasClicked)
 			ListBox* inputsRelevanceListBox = (ListBox*)Pool::Instance()->getObject("InputsList");
 			if (inputsRelevanceListBox)
 				inputsRelevanceListBox->updateContent();
+
+
+			RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
+			if (rpc)
+				rpc->inputRemoved(selectedrow);
 		}
         //[/UserButtonCode_removeButton]
     }
