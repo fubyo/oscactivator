@@ -62,6 +62,8 @@ public:
 
 	void updateCurrentValue();
 
+	void sendOuputValues();
+
 	OwnedArray<Output> outputs;
     //[/UserMethods]
 

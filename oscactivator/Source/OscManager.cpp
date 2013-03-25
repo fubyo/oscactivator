@@ -169,7 +169,7 @@ void SocketThread::ProcessMessage(const osc::ReceivedMessage& m, const IpEndpoin
 		
 		if (mesAddress.matchesWildcard(recAddress, false))
 		{
-			//Save the current value, timestamp, velocity
+			//Save the current value
 			float newValue=0;
 			if (arguments.size())
 			{

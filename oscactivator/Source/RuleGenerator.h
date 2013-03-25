@@ -50,7 +50,7 @@ public:
 	}
 };
 
-class RuleGenerator
+class RuleGenerator : public juce::Thread
 {
 	InputsPanelComponent* ipc;
 	OutputsPanelComponent* opc;
@@ -60,6 +60,8 @@ class RuleGenerator
 	OwnedArray<Rule> rules;
 
 	fl::FuzzyEngine engine;
+
+	bool outputsHaveToGetUpdated;
 
 	bool areInputsConflicting(Rule firstrule, Rule secondrule);
 	Array<int> areOutputsConflicting(Rule firstrule, Rule secondrule);
@@ -71,6 +73,8 @@ class RuleGenerator
 	int getIndexOfBestOutputTerm(int outputIndex, double value);
 	void recalculateDegrees(int ruleIndex);
 	void updateMembershipAndTermIndeces(int index);
+
+	bool isRuleRelevantToOutput(int ruleIndex, int outputIndex);
 
 	String getRuleText(Rule rule);
 
@@ -87,5 +91,11 @@ public:
 	void removeInput(int index);
 	void removeOutput(int index);
 
+	double calculateOutput(int index);
+	void requestOutputUpdate();
+	void updateOutputs();
+
 	String getRuleText();
+
+	void run();
 };

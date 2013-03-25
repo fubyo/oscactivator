@@ -401,6 +401,20 @@ void OutputsPanelComponent::textEditorReturnKeyPressed (TextEditor &editor)
 		}
 	}
 }
+
+void OutputsPanelComponent::sendOuputValues()
+{
+	for (int i=0; i<outputs.size(); i++)
+	{
+		osc::OutboundPacketStream p(outputs[i]->buffer, 128);
+
+		p << osc::BeginMessage( outputs[i]->oscaddress.toUTF8() )
+			<< (float)*outputs[i]->pValue
+		<< osc::EndMessage;
+
+		outputs[i]->socket->Send( p.Data(), p.Size() );
+	}
+}
 //[/MiscUserCode]
 
 

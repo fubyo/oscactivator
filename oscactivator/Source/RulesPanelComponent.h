@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  21 Feb 2013 5:38:22pm
+  Creation date:  25 Mar 2013 4:17:12pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -19,8 +19,8 @@
   ==============================================================================
 */
 
-#ifndef __JUCER_HEADER_RULESPANELCOMPONENT_RULESPANELCOMPONENT_22A7274E__
-#define __JUCER_HEADER_RULESPANELCOMPONENT_RULESPANELCOMPONENT_22A7274E__
+#ifndef __JUCER_HEADER_RULESPANELCOMPONENT_RULESPANELCOMPONENT_143249DA__
+#define __JUCER_HEADER_RULESPANELCOMPONENT_RULESPANELCOMPONENT_143249DA__
 
 //[Headers]     -- You can add your own extra header files here --
 #include "..\JuceLibraryCode\JuceHeader.h"
@@ -57,6 +57,9 @@ public:
 
 	void inputRemoved(int index);
 	void outputRemoved(int index);
+
+	bool interactionOn;
+	RuleGenerator ruleGenerator;
     //[/UserMethods]
 
     void paint (Graphics& g);
@@ -71,7 +74,7 @@ public:
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
-	RuleGenerator ruleGenerator;
+
 	void addExample();
 	void updateRules();
 	void clearExamples();
@@ -89,6 +92,7 @@ private:
     TextButton* clearExamplesButton;
     TextEditor* ruleTextEditor;
     TextButton* deleteRulesButton;
+    ToggleButton* applyToggleButton;
 
 
     //==============================================================================
@@ -98,4 +102,4 @@ private:
 };
 
 
-#endif   // __JUCER_HEADER_RULESPANELCOMPONENT_RULESPANELCOMPONENT_22A7274E__
+#endif   // __JUCER_HEADER_RULESPANELCOMPONENT_RULESPANELCOMPONENT_143249DA__

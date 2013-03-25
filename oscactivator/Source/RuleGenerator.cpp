@@ -1,11 +1,15 @@
 #include "RuleGenerator.h"
 
-RuleGenerator::RuleGenerator(void)
+RuleGenerator::RuleGenerator(void) : Thread("RuleGenerator")
 {
 	ipc = (InputsPanelComponent*)Pool::Instance()->getObject("InputsPanelComponent");
 	opc = (OutputsPanelComponent*)Pool::Instance()->getObject("OutputsPanelComponent");
 
 	Pool::Instance()->reg("RuleGenerator", this);
+
+	outputsHaveToGetUpdated=false;
+
+	startThread();
 }
 
 RuleGenerator::~RuleGenerator(void)
@@ -410,6 +414,75 @@ void RuleGenerator::updateMembershipAndTermIndeces(int index)
 	}
 
 	recalculateDegrees(index);
+}
+
+bool RuleGenerator::isRuleRelevantToOutput(int ruleIndex, int outputIndex)
+{
+	if (rules[ruleIndex]->outputTermIndeces[outputIndex]!=-1)
+		return true;
+	else
+		return false;
+}
+
+double RuleGenerator::calculateOutput(int index)
+{
+	double numerator = 0;
+	double denominator = 0;
+
+	for (int i=0; i<rules.size(); i++)
+	{
+		if (isRuleRelevantToOutput(i, index))
+		{
+			double tempNumerator;
+			double tempDenominator;
+			
+			tempNumerator = rules[i]->importance;
+
+			for (int ii=0; ii<rules[i]->inputTermIndeces.size(); ii++)
+			{
+				if (rules[i]->inputTermIndeces[ii]!=-1)
+				{
+					tempNumerator*=ipc->inputs[ii]->termManager->terms[rules[i]->inputTermIndeces[ii]]->membership(*ipc->inputs[ii]->pValue);
+				}
+			}
+
+			tempDenominator = tempNumerator;
+
+			int outputTermIndex = rules[i]->outputTermIndeces[index];
+			double output = (opc->outputs[index]->termManager->terms[outputTermIndex]->b() + opc->outputs[index]->termManager->terms[outputTermIndex]->c())/2;
+			tempNumerator *= output;
+
+			numerator += tempNumerator;
+			denominator += tempDenominator;
+		}
+	}
+
+	return numerator/denominator;
+}
+
+void RuleGenerator::requestOutputUpdate()
+{
+	outputsHaveToGetUpdated = true;
+}
+
+void RuleGenerator::updateOutputs()
+{
+	if (outputsHaveToGetUpdated)
+	{
+		for (int i=0; i<opc->outputs.size(); i++)
+		{
+			*opc->outputs[i]->pValue = calculateOutput(i);
+		}
+
+		opc->sendOuputValues();
+		outputsHaveToGetUpdated = false;
+	}
+}
+
+void RuleGenerator::run()
+{
+	updateOutputs();
+	sleep(10);
 }
 
 Rule::Rule()

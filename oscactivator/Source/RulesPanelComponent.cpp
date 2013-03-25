@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  21 Feb 2013 5:38:22pm
+  Creation date:  25 Mar 2013 4:17:12pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -40,7 +40,8 @@ RulesPanelComponent::RulesPanelComponent ()
       examplesNumberLabel (0),
       clearExamplesButton (0),
       ruleTextEditor (0),
-      deleteRulesButton (0)
+      deleteRulesButton (0),
+      applyToggleButton (0)
 {
     addAndMakeVisible (groupComponent = new GroupComponent (L"new group",
                                                             L"Example demonstration"));
@@ -100,6 +101,10 @@ RulesPanelComponent::RulesPanelComponent ()
     deleteRulesButton->setButtonText (L"Delete all rules");
     deleteRulesButton->addListener (this);
 
+    addAndMakeVisible (applyToggleButton = new ToggleButton (L"new toggle button"));
+    applyToggleButton->setButtonText (L"apply rules to outputs");
+    applyToggleButton->addListener (this);
+
 
     //[UserPreSize]
 	inputsListBox->setModel(new MultipleSelectionListBoxModel(false));
@@ -114,6 +119,8 @@ RulesPanelComponent::RulesPanelComponent ()
 	Pool::Instance()->reg("OutputsList", outputsListBox);
 	Pool::Instance()->reg("InputsList", inputsListBox);
 	Pool::Instance()->reg("RulesPanelComponent", this);
+
+	interactionOn = false;
     //[/UserPreSize]
 
     setSize (609, 600);
@@ -139,6 +146,7 @@ RulesPanelComponent::~RulesPanelComponent()
     deleteAndZero (clearExamplesButton);
     deleteAndZero (ruleTextEditor);
     deleteAndZero (deleteRulesButton);
+    deleteAndZero (applyToggleButton);
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -169,7 +177,8 @@ void RulesPanelComponent::resized()
     examplesNumberLabel->setBounds (344, 80, 150, 24);
     clearExamplesButton->setBounds (464, 56, 128, 24);
     ruleTextEditor->setBounds (16, 248, 576, 336);
-    deleteRulesButton->setBounds (432, 256, 150, 24);
+    deleteRulesButton->setBounds (433, 256, 150, 24);
+    applyToggleButton->setBounds (430, 285, 152, 24);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -203,6 +212,15 @@ void RulesPanelComponent::buttonClicked (Button* buttonThatWasClicked)
 		ruleGenerator.deleteAllRules();
 		ruleTextEditor->setText(ruleGenerator.getRuleText());
         //[/UserButtonCode_deleteRulesButton]
+    }
+    else if (buttonThatWasClicked == applyToggleButton)
+    {
+        //[UserButtonCode_applyToggleButton] -- add your button handler code here..
+		if (applyToggleButton->getToggleState())
+			interactionOn = true;
+		else
+			interactionOn = false;
+        //[/UserButtonCode_applyToggleButton]
     }
 
     //[UserbuttonClicked_Post]
@@ -341,8 +359,11 @@ BEGIN_JUCER_METADATA
               multiline="1" retKeyStartsLine="1" readonly="0" scrollbars="1"
               caret="1" popupmenu="1"/>
   <TEXTBUTTON name="new button" id="3d50325343f48754" memberName="deleteRulesButton"
-              virtualName="" explicitFocusOrder="0" pos="432 256 150 24" buttonText="Delete all rules"
+              virtualName="" explicitFocusOrder="0" pos="433 256 150 24" buttonText="Delete all rules"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
+  <TOGGLEBUTTON name="new toggle button" id="bb824fb6bd365ee7" memberName="applyToggleButton"
+                virtualName="" explicitFocusOrder="0" pos="430 285 152 24" buttonText="apply rules to outputs"
+                connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

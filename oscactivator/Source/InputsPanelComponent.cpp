@@ -354,6 +354,13 @@ void InputsPanelComponent::updateCurrentValue()
 	}
 	else
 		currentValueEditor->setText(String(0));
+
+	RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
+	if (rpc)
+	{
+		if (rpc->interactionOn)
+			rpc->ruleGenerator.requestOutputUpdate();
+	}
 }
 
 void InputsPanelComponent::textEditorReturnKeyPressed (TextEditor &editor)
