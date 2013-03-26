@@ -98,4 +98,5 @@ public:
 	String getRuleText();
 
 	void run();
+	bool threadShouldBeRunning;
 };

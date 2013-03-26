@@ -10,11 +10,12 @@ RuleGenerator::RuleGenerator(void) : Thread("RuleGenerator")
 	outputsHaveToGetUpdated=false;
 
 	startThread();
+	threadShouldBeRunning = true;
 }
 
 RuleGenerator::~RuleGenerator(void)
 {
-
+	
 }
 
 void RuleGenerator::addExample(Example example)
@@ -229,9 +230,8 @@ bool RuleGenerator::areInputsConflicting(Rule firstrule, Rule secondrule)
 
 	for (int i=0; i<firstrule.inputTermIndeces.size(); i++)
 	{
-		if (firstrule.inputTermIndeces[i]!=-1 && secondrule.inputTermIndeces[i]!=-1)
-			if (firstrule.inputTermIndeces[i]!=secondrule.inputTermIndeces[i])
-				allTermIndecesTheSame = false;
+		if (firstrule.inputTermIndeces[i]!=secondrule.inputTermIndeces[i])
+			allTermIndecesTheSame = false;
 	}
 
 	if (allTermIndecesTheSame)
@@ -481,8 +481,11 @@ void RuleGenerator::updateOutputs()
 
 void RuleGenerator::run()
 {
-	updateOutputs();
-	sleep(10);
+	while (threadShouldBeRunning)
+	{
+		updateOutputs();
+		sleep(10);
+	}
 }
 
 Rule::Rule()

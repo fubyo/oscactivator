@@ -11,6 +11,8 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "MainComponent.h"
 #include "OscManager.h"
+#include "Pool.h"
+#include "RulesPanelComponent.h"
 
 class MainWindow  : public DocumentWindow
 {
@@ -65,6 +67,14 @@ public:
     void shutdown()
     {
         // Do your application's shutdown code here..
+		RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
+		if (rpc)
+		{
+			rpc->ruleGenerator.threadShouldBeRunning = false;
+			rpc->ruleGenerator.stopThread(100);
+		}
+
+
         mainWindow = 0;
 		OscManager::getInstance()->stop();
 		OscManager::deleteInstance();
