@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  25 Mar 2013 4:17:12pm
+  Creation date:  27 Mar 2013 5:33:20pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -39,9 +39,9 @@ RulesPanelComponent::RulesPanelComponent ()
       updateRulesButton (0),
       examplesNumberLabel (0),
       clearExamplesButton (0),
-      ruleTextEditor (0),
       deleteRulesButton (0),
-      applyToggleButton (0)
+      applyToggleButton (0),
+      rulesListBox (0)
 {
     addAndMakeVisible (groupComponent = new GroupComponent (L"new group",
                                                             L"Example demonstration"));
@@ -88,22 +88,16 @@ RulesPanelComponent::RulesPanelComponent ()
     clearExamplesButton->setButtonText (L"Clear examples");
     clearExamplesButton->addListener (this);
 
-    addAndMakeVisible (ruleTextEditor = new TextEditor (L"new text editor"));
-    ruleTextEditor->setMultiLine (true);
-    ruleTextEditor->setReturnKeyStartsNewLine (true);
-    ruleTextEditor->setReadOnly (false);
-    ruleTextEditor->setScrollbarsShown (true);
-    ruleTextEditor->setCaretVisible (true);
-    ruleTextEditor->setPopupMenuEnabled (true);
-    ruleTextEditor->setText (String::empty);
-
     addAndMakeVisible (deleteRulesButton = new TextButton (L"new button"));
     deleteRulesButton->setButtonText (L"Delete all rules");
     deleteRulesButton->addListener (this);
 
     addAndMakeVisible (applyToggleButton = new ToggleButton (L"new toggle button"));
-    applyToggleButton->setButtonText (L"apply rules to outputs");
+    applyToggleButton->setButtonText (L"Apply rules to outputs");
     applyToggleButton->addListener (this);
+
+    addAndMakeVisible (rulesListBox = new ListBox());
+    rulesListBox->setName (L"new component");
 
 
     //[UserPreSize]
@@ -121,6 +115,11 @@ RulesPanelComponent::RulesPanelComponent ()
 	Pool::Instance()->reg("RulesPanelComponent", this);
 
 	interactionOn = false;
+
+
+	rulesListBox->setModel(new RulesListBoxModel());
+	rulesListBox->setColour(rulesListBox->backgroundColourId, Colours::lightgrey);
+	rulesListBox->setRowHeight(80);
     //[/UserPreSize]
 
     setSize (609, 600);
@@ -144,9 +143,9 @@ RulesPanelComponent::~RulesPanelComponent()
     deleteAndZero (updateRulesButton);
     deleteAndZero (examplesNumberLabel);
     deleteAndZero (clearExamplesButton);
-    deleteAndZero (ruleTextEditor);
     deleteAndZero (deleteRulesButton);
     deleteAndZero (applyToggleButton);
+    deleteAndZero (rulesListBox);
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -176,9 +175,9 @@ void RulesPanelComponent::resized()
     updateRulesButton->setBounds (344, 192, 246, 24);
     examplesNumberLabel->setBounds (344, 80, 150, 24);
     clearExamplesButton->setBounds (464, 56, 128, 24);
-    ruleTextEditor->setBounds (16, 248, 576, 336);
-    deleteRulesButton->setBounds (433, 256, 150, 24);
-    applyToggleButton->setBounds (430, 285, 152, 24);
+    deleteRulesButton->setBounds (440, 240, 150, 24);
+    applyToggleButton->setBounds (13, 240, 152, 24);
+    rulesListBox->setBounds (16, 272, 576, 320);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -210,7 +209,8 @@ void RulesPanelComponent::buttonClicked (Button* buttonThatWasClicked)
     {
         //[UserButtonCode_deleteRulesButton] -- add your button handler code here..
 		ruleGenerator.deleteAllRules();
-		ruleTextEditor->setText(ruleGenerator.getRuleText());
+
+		rulesListBox->updateContent();
         //[/UserButtonCode_deleteRulesButton]
     }
     else if (buttonThatWasClicked == applyToggleButton)
@@ -282,7 +282,8 @@ void RulesPanelComponent::updateRules()
 {
 	ruleGenerator.updateRulebase();
 	examplesNumberLabel->setText(String(ruleGenerator.getNumberOfQueuedExamples()) + String("  examples in the queue"), true);
-	ruleTextEditor->setText(ruleGenerator.getRuleText());
+
+	rulesListBox->updateContent();
 }
 
 void RulesPanelComponent::clearExamples()
@@ -354,16 +355,15 @@ BEGIN_JUCER_METADATA
   <TEXTBUTTON name="" id="4d4810bd2145df80" memberName="clearExamplesButton"
               virtualName="" explicitFocusOrder="0" pos="464 56 128 24" buttonText="Clear examples"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
-  <TEXTEDITOR name="new text editor" id="2430255fc9439a83" memberName="ruleTextEditor"
-              virtualName="" explicitFocusOrder="0" pos="16 248 576 336" initialText=""
-              multiline="1" retKeyStartsLine="1" readonly="0" scrollbars="1"
-              caret="1" popupmenu="1"/>
   <TEXTBUTTON name="new button" id="3d50325343f48754" memberName="deleteRulesButton"
-              virtualName="" explicitFocusOrder="0" pos="433 256 150 24" buttonText="Delete all rules"
+              virtualName="" explicitFocusOrder="0" pos="440 240 150 24" buttonText="Delete all rules"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TOGGLEBUTTON name="new toggle button" id="bb824fb6bd365ee7" memberName="applyToggleButton"
-                virtualName="" explicitFocusOrder="0" pos="430 285 152 24" buttonText="apply rules to outputs"
+                virtualName="" explicitFocusOrder="0" pos="13 240 152 24" buttonText="Apply rules to outputs"
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
+  <GENERICCOMPONENT name="new component" id="a850b194e41969d7" memberName="rulesListBox"
+                    virtualName="" explicitFocusOrder="0" pos="16 272 576 320" class="ListBox"
+                    params=""/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

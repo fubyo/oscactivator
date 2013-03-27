@@ -57,7 +57,6 @@ class RuleGenerator : public juce::Thread
 
 	OwnedArray<Example> queuedExamples;
 	OwnedArray<Rule> queuedRules;
-	OwnedArray<Rule> rules;
 
 	fl::FuzzyEngine engine;
 
@@ -76,9 +75,10 @@ class RuleGenerator : public juce::Thread
 
 	bool isRuleRelevantToOutput(int ruleIndex, int outputIndex);
 
+public:
+	OwnedArray<Rule> rules;
 	String getRuleText(Rule rule);
 
-public:
 	RuleGenerator(void);
 	~RuleGenerator(void);
 

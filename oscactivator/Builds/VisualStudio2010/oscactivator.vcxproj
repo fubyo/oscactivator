@@ -172,7 +172,9 @@
     <ClCompile Include="..\..\Source\MultipleSelectionListBoxModel.cpp" />
     <ClCompile Include="..\..\Source\OutputComponent.cpp" />
     <ClCompile Include="..\..\Source\OutputsPanelComponent.cpp" />
+    <ClCompile Include="..\..\Source\RuleComponent.cpp" />
     <ClCompile Include="..\..\Source\RuleGenerator.cpp" />
+    <ClCompile Include="..\..\Source\RulesListBoxModel.cpp" />
     <ClCompile Include="..\..\Source\RulesPanelComponent.cpp" />
     <ClCompile Include="..\..\Source\TermManager.cpp" />
     <ClCompile Include="..\..\Source\InputsPanelComponent.cpp" />
@@ -1695,7 +1697,9 @@
     <ClInclude Include="..\..\Source\MultipleSelectionListBoxModel.h" />
     <ClInclude Include="..\..\Source\OutputComponent.h" />
     <ClInclude Include="..\..\Source\OutputsPanelComponent.h" />
+    <ClInclude Include="..\..\Source\RuleComponent.h" />
     <ClInclude Include="..\..\Source\RuleGenerator.h" />
+    <ClInclude Include="..\..\Source\RulesListBoxModel.h" />
     <ClInclude Include="..\..\Source\RulesPanelComponent.h" />
     <ClInclude Include="..\..\Source\TermManager.h" />
     <ClInclude Include="..\..\Source\InputsPanelComponent.h" />
