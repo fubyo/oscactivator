@@ -303,6 +303,24 @@ void RulesPanelComponent::outputRemoved(int index)
 	ruleGenerator.removeOutput(index);
 	updateRules();
 }
+
+int RulesPanelComponent::getRuleIndex(Component* ruleComponent)
+{
+	for (int i=0; i<=ruleGenerator.rules.size(); i++)
+	{
+		Component* rowComponent = rulesListBox->getComponentForRowNumber(i);
+
+		if (rowComponent == ruleComponent)
+			return i;
+	}
+
+	return -1;
+}
+
+void RulesPanelComponent::updateRuleList()
+{
+	rulesListBox->updateContent();
+}
 //[/MiscUserCode]
 
 

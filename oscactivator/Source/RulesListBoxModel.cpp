@@ -33,9 +33,26 @@ void RulesListBoxModel::selectedRowsChanged (int lastRowSelected)
 
 Component* RulesListBoxModel::refreshComponentForRow(int rowNumber, bool isRowSelected, Component* existingComponentToUpdate)
 {
+	RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
+	if (rpc)
+	{
+		if (existingComponentToUpdate)
+		{
+			if  (((RuleComponent*)existingComponentToUpdate)->hasToGetDeleted)
+			{
+				delete existingComponentToUpdate;
+				return 0;
+			}
+		}
+		else if (rowNumber>=rpc->ruleGenerator.rules.size() || rowNumber<0)
+		{
+			return 0;
+		}
+			
+	}
+
 	if (existingComponentToUpdate)
 	{
-		RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
 		if (rpc)
 		{
 			if (rpc->ruleGenerator.rules.size() && rowNumber<rpc->ruleGenerator.rules.size())
@@ -51,7 +68,6 @@ Component* RulesListBoxModel::refreshComponentForRow(int rowNumber, bool isRowSe
 	{
 		RuleComponent* newRuleComponent = new RuleComponent();
 
-		RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
 		if (rpc)
 		{
 			if (rpc->ruleGenerator.rules.size() && rowNumber<rpc->ruleGenerator.rules.size())

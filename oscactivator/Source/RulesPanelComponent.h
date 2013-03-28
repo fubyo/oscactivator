@@ -61,6 +61,9 @@ public:
 
 	bool interactionOn;
 	RuleGenerator ruleGenerator;
+
+	int getRuleIndex(Component* ruleComponent);
+	void updateRuleList();
     //[/UserMethods]
 
     void paint (Graphics& g);

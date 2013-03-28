@@ -24,6 +24,7 @@
 
 //[Headers]     -- You can add your own extra header files here --
 #include "..\JuceLibraryCode\JuceHeader.h"
+#include "Pool.h"
 //[/Headers]
 
 
@@ -48,6 +49,8 @@ public:
     //[UserMethods]     -- You can add your own custom methods in this section.
 	void setRuleText(String ruleText);
 	void setRuleName(String ruleName);
+
+	bool hasToGetDeleted;
     //[/UserMethods]
 
     void paint (Graphics& g);

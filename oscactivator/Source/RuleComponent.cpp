@@ -26,6 +26,7 @@
 
 
 //[MiscUserDefs] You can add your own user definitions and misc code here...
+#include "RulesPanelComponent.h"
 //[/MiscUserDefs]
 
 //==============================================================================
@@ -77,6 +78,7 @@ RuleComponent::RuleComponent ()
 
 
     //[Constructor] You can add your own custom stuff here..
+	hasToGetDeleted = false;
     //[/Constructor]
 }
 
@@ -133,6 +135,15 @@ void RuleComponent::buttonClicked (Button* buttonThatWasClicked)
     if (buttonThatWasClicked == deleteButton)
     {
         //[UserButtonCode_deleteButton] -- add your button handler code here..
+		RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
+		if (rpc)
+		{
+			int rowNumber = rpc->getRuleIndex((Component*)this);
+			rpc->ruleGenerator.rules.remove(rowNumber);
+			hasToGetDeleted = true;
+			rpc->updateRuleList();
+		}
+
         //[/UserButtonCode_deleteButton]
     }
     else if (buttonThatWasClicked == editButton)
