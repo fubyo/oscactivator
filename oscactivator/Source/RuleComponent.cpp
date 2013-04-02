@@ -154,6 +154,12 @@ void RuleComponent::buttonClicked (Button* buttonThatWasClicked)
     else if (buttonThatWasClicked == lockButton)
     {
         //[UserButtonCode_lockButton] -- add your button handler code here..
+		RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
+		if (rpc)
+		{
+			int rowNumber = rpc->getRuleIndex((Component*)this);
+			rpc->ruleGenerator.rules[rowNumber]->locked = lockButton->getToggleState();
+		}
         //[/UserButtonCode_lockButton]
     }
 

@@ -19,6 +19,8 @@ public:
 	Array<double> outputMembership;
 	Array<double> outputValues;
 
+	bool locked;
+
 	Rule();
 	~Rule();
 
@@ -33,6 +35,7 @@ public:
 		outputMembership = other.outputMembership;
 		inputValues = other.inputValues;
 		outputValues = other.outputValues;
+		locked = other.locked;
 		return *this;
 	}
 
@@ -47,6 +50,7 @@ public:
 		outputMembership = other.outputMembership;
 		inputValues = other.inputValues;
 		outputValues = other.outputValues;
+		locked = other.locked;
 	}
 };
 
