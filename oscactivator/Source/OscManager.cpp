@@ -1,11 +1,12 @@
 #include "OscManager.h"
 #include "InputsPanelComponent.h"
+#include "MainComponent.h"
 
 juce_ImplementSingleton (OscManager)
 
 OscManager::OscManager() : Thread("OscManager")
 {
-	
+	registerReceiver("/setExample", 0, 5051, 0);
 }
 
 OscManager::~OscManager()
@@ -162,23 +163,33 @@ void SocketThread::ProcessMessage(const osc::ReceivedMessage& m, const IpEndpoin
 		arguments.push_back(arg->AsFloatUnchecked());
 		arg++;
 	}
-	
-	for (unsigned int i=0; i<receivers->size(); i++)
-	{
-		String recAddress = (receivers->begin()+i)->address.trim();
-		
-		if (mesAddress.matchesWildcard(recAddress, false))
-		{
-			//Save the current value
-			float newValue=0;
-			if (arguments.size())
-			{
-				newValue=arguments[(receivers->begin()+i)->parameterIndex];
-				(receivers->begin()+i)->pValue[0] = newValue;
 
-				const MessageManagerLock mmLock;
-				inputsPanel->updateCurrentValue();
-			}
+	if (mesAddress.matchesWildcard("/setExample", false))
+	{
+		MainComponent* mc = (MainComponent*)Pool::Instance()->getObject("MainComponent");
+		if (mc)
+		{
+			const MessageManagerLock mmLock;
+			mc->executeSetExample();
 		}
-	}	
+	}
+	else
+		for (unsigned int i=0; i<receivers->size(); i++)
+		{
+			String recAddress = (receivers->begin()+i)->address.trim();
+		
+			if (mesAddress.matchesWildcard(recAddress, false))
+			{
+				//Save the current value
+				float newValue=0;
+				if (arguments.size())
+				{
+					newValue=arguments[(receivers->begin()+i)->parameterIndex];
+					(receivers->begin()+i)->pValue[0] = newValue;
+
+					const MessageManagerLock mmLock;
+					inputsPanel->updateCurrentValue();
+				}
+			}
+		}	
 }

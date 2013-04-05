@@ -64,6 +64,8 @@ public:
 
 	int getRuleIndex(Component* ruleComponent);
 	void updateRuleList();
+
+	void executeSetExample();
     //[/UserMethods]
 
     void paint (Graphics& g);

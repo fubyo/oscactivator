@@ -382,6 +382,11 @@ void InputsPanelComponent::textEditorReturnKeyPressed (TextEditor &editor)
 	}
 }
 
+void InputsPanelComponent::executeSetExample()
+{
+	buttonClicked(setButton);
+}
+
 //[/MiscUserCode]
 
 

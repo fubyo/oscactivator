@@ -321,6 +321,11 @@ void RulesPanelComponent::updateRuleList()
 {
 	rulesListBox->updateContent();
 }
+
+void RulesPanelComponent::executeSetExample()
+{
+	buttonClicked(addExampleButton);
+}
 //[/MiscUserCode]
 
 

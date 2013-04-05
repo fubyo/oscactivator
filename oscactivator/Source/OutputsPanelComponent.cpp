@@ -415,6 +415,11 @@ void OutputsPanelComponent::sendOuputValues()
 		outputs[i]->socket->Send( p.Data(), p.Size() );
 	}
 }
+
+void OutputsPanelComponent::executeSetExample()
+{
+	buttonClicked(setButton);
+}
 //[/MiscUserCode]
 
 

@@ -64,6 +64,8 @@ public:
 
 	void sendOuputValues();
 
+	void executeSetExample();
+
 	OwnedArray<Output> outputs;
     //[/UserMethods]
 

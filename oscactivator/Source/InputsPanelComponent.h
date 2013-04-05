@@ -67,6 +67,8 @@ public:
 
 	void updateCurrentValue();
 
+	void executeSetExample();
+
 	OwnedArray<Input> inputs;
     //[/UserMethods]
 

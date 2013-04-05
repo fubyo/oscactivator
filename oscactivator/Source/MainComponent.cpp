@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  19 Feb 2013 4:09:26pm
+  Creation date:  5 Apr 2013 10:55:21am
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -46,10 +46,11 @@ MainComponent::MainComponent ()
     //[UserPreSize]
     //[/UserPreSize]
 
-    setSize (800, 600);
+    setSize (620, 700);
 
 
     //[Constructor] You can add your own custom stuff here..
+	Pool::Instance()->reg("MainComponent", this);
 	Pool::Instance()->reg("engine", &engine);
     //[/Constructor]
 }
@@ -80,7 +81,7 @@ void MainComponent::paint (Graphics& g)
 
 void MainComponent::resized()
 {
-    tabbedComponent->setBounds (0, 0, 616, 560);
+    tabbedComponent->setBounds (0, 0, 616, 664);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -88,6 +89,35 @@ void MainComponent::resized()
 
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
+void MainComponent::executeSetExample()
+{
+	int tabIndex = tabbedComponent->getCurrentTabIndex();
+
+	if (tabIndex==0)
+	{
+		InputsPanelComponent* ipc = (InputsPanelComponent*)Pool::Instance()->getObject("InputsPanelComponent");
+		if (ipc)
+		{
+			ipc->executeSetExample();
+		}
+	}
+	else if (tabIndex==1)
+	{
+		OutputsPanelComponent* opc = (OutputsPanelComponent*)Pool::Instance()->getObject("OutputsPanelComponent");
+		if (opc)
+		{
+			opc->executeSetExample();
+		}
+	}
+	else if (tabIndex==2)
+	{
+		RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
+		if (rpc)
+		{
+			rpc->executeSetExample();
+		}
+	}
+}
 //[/MiscUserCode]
 
 
@@ -102,10 +132,10 @@ BEGIN_JUCER_METADATA
 <JUCER_COMPONENT documentType="Component" className="MainComponent" componentName=""
                  parentClasses="public Component" constructorParams="" variableInitialisers=""
                  snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330000013"
-                 fixedSize="0" initialWidth="800" initialHeight="600">
+                 fixedSize="1" initialWidth="620" initialHeight="700">
   <BACKGROUND backgroundColour="ffffffff"/>
   <TABBEDCOMPONENT name="new tabbed component" id="9963c9520c37d7c6" memberName="tabbedComponent"
-                   virtualName="" explicitFocusOrder="0" pos="0 0 616 560" orientation="top"
+                   virtualName="" explicitFocusOrder="0" pos="0 0 616 664" orientation="top"
                    tabBarDepth="30" initialTab="0">
     <TAB name="Inputs" colour="ffffffff" useJucerComp="1" contentClassName=""
          constructorParams="" jucerComponentFile="InputsPanelComponent.cpp"/>
