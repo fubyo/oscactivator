@@ -116,7 +116,6 @@ RulesPanelComponent::RulesPanelComponent ()
 
 	interactionOn = false;
 
-
 	rulesListBox->setModel(new RulesListBoxModel());
 	rulesListBox->setColour(rulesListBox->backgroundColourId, Colours::lightgrey);
 	rulesListBox->setRowHeight(80);

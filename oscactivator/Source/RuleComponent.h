@@ -25,6 +25,7 @@
 //[Headers]     -- You can add your own extra header files here --
 #include "..\JuceLibraryCode\JuceHeader.h"
 #include "Pool.h"
+#include "RuleEditorComponent.h"
 //[/Headers]
 
 
@@ -51,6 +52,7 @@ public:
 	void setRuleName(String ruleName);
 
 	bool hasToGetDeleted;
+
     //[/UserMethods]
 
     void paint (Graphics& g);

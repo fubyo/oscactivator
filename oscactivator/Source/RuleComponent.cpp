@@ -149,6 +149,20 @@ void RuleComponent::buttonClicked (Button* buttonThatWasClicked)
     else if (buttonThatWasClicked == editButton)
     {
         //[UserButtonCode_editButton] -- add your button handler code here..
+		RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
+		int rowNumber = -1;
+		if (rpc)
+		{
+			rowNumber = rpc->getRuleIndex((Component*)this);
+		}
+		String title = String("Editor: Rule ") + String(rowNumber);
+
+		Pool::Instance()->reg("ruleIndexForEditing", rowNumber);
+
+		RuleEditorComponent* rec = new RuleEditorComponent(rowNumber);
+		DialogWindow::showModalDialog(title, rec, this->getParentComponent(), Colours::lightgrey, false);
+
+		delete rec;
         //[/UserButtonCode_editButton]
     }
     else if (buttonThatWasClicked == lockButton)

@@ -1545,6 +1545,15 @@
     <ClCompile Include="..\..\Source\RuleComponent.cpp">
       <Filter>oscactivator\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\RuleEditorComponent.cpp">
+      <Filter>oscactivator\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\ConditionListBoxModel.cpp">
+      <Filter>oscactivator\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\ConditionComponent.cpp">
+      <Filter>oscactivator\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_basics\buffers\juce_AudioDataConverters.h">
@@ -2994,6 +3003,15 @@
       <Filter>oscactivator\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\RuleComponent.h">
+      <Filter>oscactivator\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\RuleEditorComponent.h">
+      <Filter>oscactivator\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\ConditionListBoxModel.h">
+      <Filter>oscactivator\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\ConditionComponent.h">
       <Filter>oscactivator\Source</Filter>
     </ClInclude>
   </ItemGroup>
