@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  24 Apr 2013 5:09:38pm
+  Creation date:  25 Apr 2013 1:22:35pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -28,10 +28,11 @@
 //[MiscUserDefs] You can add your own user definitions and misc code here...
 #include "RulesPanelComponent.h"
 #include "InputsPanelComponent.h"
+#include "RuleEditorComponent.h"
 //[/MiscUserDefs]
 
 //==============================================================================
-ConditionComponent::ConditionComponent (int RuleIndex, int InputIndex )
+ConditionComponent::ConditionComponent (int InputIndex )
     : label3 (0),
       label2 (0),
       label (0),
@@ -110,11 +111,7 @@ ConditionComponent::ConditionComponent (int RuleIndex, int InputIndex )
 
 
     //[Constructor] You can add your own custom stuff here..
-	hasToGetDeleted = false;
-
-	ruleIndex = RuleIndex;
 	inputIndex = InputIndex;
-
 	updateLabels();
     //[/Constructor]
 }
@@ -185,6 +182,19 @@ void ConditionComponent::buttonClicked (Button* buttonThatWasClicked)
     if (buttonThatWasClicked == deleteButton)
     {
         //[UserButtonCode_deleteButton] -- add your button handler code here..
+		RuleEditorComponent* rec = (RuleEditorComponent*)Pool::Instance()->getObject("RuleEditorComponent");
+		if (rec)
+		{
+			int conditionIndex = rec->getConditionIndex((Component*)this);
+
+			int inputIndex = getInputIndex(conditionIndex);
+
+			Rule* ruleCopy = (Rule*)Pool::Instance()->getObject("ruleForEditing");
+			if (ruleCopy)
+				ruleCopy->inputTermIndeces.set(inputIndex, -1);
+
+			rec->updateConditionList();
+		}
         //[/UserButtonCode_deleteButton]
     }
 
@@ -197,14 +207,15 @@ void ConditionComponent::buttonClicked (Button* buttonThatWasClicked)
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
 void ConditionComponent::updateLabels()
 {
-	RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
 	InputsPanelComponent* ipc = (InputsPanelComponent*)Pool::Instance()->getObject("InputsPanelComponent");
-	if (rpc && ipc && inputIndex!=-1 && ruleIndex!=-1)
+	Rule* ruleCopy = (Rule*)Pool::Instance()->getObject("ruleForEditing");
+
+	if (ipc && inputIndex!=-1 && ruleCopy)
 	{
 		String inputName = ipc->inputs[inputIndex]->name;
 		inputLabel->setText(inputName, true);
-		
-		int termIndex = rpc->ruleGenerator.rules[ruleIndex]->inputTermIndeces[inputIndex];
+
+		int termIndex = ruleCopy->inputTermIndeces[inputIndex];
 
 		String termName = String("- - - ");
 		if (termIndex!=-1)
@@ -212,6 +223,26 @@ void ConditionComponent::updateLabels()
 
 		termLabel->setText(termName, true);
 	}
+}
+
+int ConditionComponent::getInputIndex(int ConditionIndex)
+{
+	Rule* ruleCopy = (Rule*)Pool::Instance()->getObject("ruleForEditing");
+
+	if (ruleCopy)
+	{
+		int counter = -1;
+		for (int i=0; i<ruleCopy->inputTermIndeces.size(); i++)
+		{
+			if (ruleCopy->inputTermIndeces[i]!=-1)
+				counter++;
+
+			if (counter == ConditionIndex)
+				return i;
+		}
+	}
+
+	return -1;
 }
 //[/MiscUserCode]
 
@@ -225,7 +256,7 @@ void ConditionComponent::updateLabels()
 BEGIN_JUCER_METADATA
 
 <JUCER_COMPONENT documentType="Component" className="ConditionComponent" componentName=""
-                 parentClasses="public Component" constructorParams="int RuleIndex, int InputIndex "
+                 parentClasses="public Component" constructorParams="int InputIndex "
                  variableInitialisers="" snapPixels="8" snapActive="1" snapShown="1"
                  overlayOpacity="0.330000013" fixedSize="1" initialWidth="576"
                  initialHeight="25">

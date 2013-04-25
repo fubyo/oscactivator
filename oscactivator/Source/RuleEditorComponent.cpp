@@ -26,6 +26,7 @@
 
 
 //[MiscUserDefs] You can add your own user definitions and misc code here...
+#include "RulesPanelComponent.h"
 //[/MiscUserDefs]
 
 //==============================================================================
@@ -91,6 +92,15 @@ RuleEditorComponent::RuleEditorComponent (int RuleIndex)
     //[Constructor] You can add your own custom stuff here..
 	okClicked = false;
 	ruleIndex = RuleIndex;
+
+	RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
+	if (rpc)
+	{
+		ruleCopy = *(rpc->ruleGenerator.rules[ruleIndex]);
+		Pool::Instance()->reg("ruleForEditing", &ruleCopy);
+	}
+
+	Pool::Instance()->reg("RuleEditorComponent", this);
 
 	conditionListBox->setModel(new ConditionListBoxModel());
 	conditionListBox->setColour(conditionListBox->backgroundColourId, Colours::lightgrey);
@@ -161,8 +171,18 @@ void RuleEditorComponent::buttonClicked (Button* buttonThatWasClicked)
     else if (buttonThatWasClicked == acceptButton)
     {
         //[UserButtonCode_acceptButton] -- add your button handler code here..
-		okClicked = true;
-		getParentComponent()->exitModalState(1);
+		if (isEditedRuleValid())
+		{
+			okClicked = true;
+			getParentComponent()->exitModalState(1);
+		}
+		else
+		{
+			ScopedPointer<Label> label = new Label(String::empty, "Rule is incomplete");
+			label->setBounds(0, 0, 200, 80);
+
+			DialogWindow::showModalDialog("Rule not accepted", label, NULL, juce::Colours::lightgrey, true);
+		}
         //[/UserButtonCode_acceptButton]
     }
     else if (buttonThatWasClicked == cancelButton)
@@ -179,6 +199,43 @@ void RuleEditorComponent::buttonClicked (Button* buttonThatWasClicked)
 
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
+int RuleEditorComponent::getConditionIndex(Component* conditionComponent)
+{
+	for (int i=0; i<conditionListBox->getModel()->getNumRows(); i++)
+	{
+		Component* rowComponent = conditionListBox->getComponentForRowNumber(i);
+
+		if (rowComponent == conditionComponent)
+			return i;
+	}
+
+	return -1;
+}
+
+void RuleEditorComponent::updateConditionList()
+{
+	conditionListBox->updateContent();
+}
+
+bool RuleEditorComponent::isEditedRuleValid()
+{
+	bool conditionValid = false;
+	bool statementsValid = false;
+
+	for (int i=0; i<ruleCopy.inputTermIndeces.size(); i++)
+	{
+		if (ruleCopy.inputTermIndeces[i]!=-1)
+			conditionValid = true;
+	}
+
+	for (int i=0; i<ruleCopy.outputTermIndeces.size(); i++)
+	{
+		if (ruleCopy.outputTermIndeces[i]!=-1)
+			statementsValid = true;
+	}
+
+	return conditionValid && statementsValid;
+}
 //[/MiscUserCode]
 
 

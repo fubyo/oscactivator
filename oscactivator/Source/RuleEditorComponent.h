@@ -25,6 +25,7 @@
 //[Headers]     -- You can add your own extra header files here --
 #include "..\JuceLibraryCode\JuceHeader.h"
 #include "ConditionListBoxModel.h"
+#include "RuleGenerator.h"
 //[/Headers]
 
 
@@ -49,6 +50,12 @@ public:
     //[UserMethods]     -- You can add your own custom methods in this section.
 	bool okClicked;
 	int ruleIndex;
+
+	Rule ruleCopy;
+	int getConditionIndex(Component* conditionComponent);
+	void updateConditionList();
+
+	bool isEditedRuleValid();
     //[/UserMethods]
 
     void paint (Graphics& g);
@@ -62,6 +69,7 @@ public:
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
+	
     //[/UserVariables]
 
     //==============================================================================

@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  24 Apr 2013 5:09:38pm
+  Creation date:  25 Apr 2013 1:22:35pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -19,8 +19,8 @@
   ==============================================================================
 */
 
-#ifndef __JUCER_HEADER_CONDITIONCOMPONENT_CONDITIONCOMPONENT_370F09F2__
-#define __JUCER_HEADER_CONDITIONCOMPONENT_CONDITIONCOMPONENT_370F09F2__
+#ifndef __JUCER_HEADER_CONDITIONCOMPONENT_CONDITIONCOMPONENT_B8C735AC__
+#define __JUCER_HEADER_CONDITIONCOMPONENT_CONDITIONCOMPONENT_B8C735AC__
 
 //[Headers]     -- You can add your own extra header files here --
 #include "..\JuceLibraryCode\JuceHeader.h"
@@ -43,17 +43,16 @@ class ConditionComponent  : public Component,
 {
 public:
     //==============================================================================
-    ConditionComponent (int RuleIndex, int InputIndex );
+    ConditionComponent (int InputIndex );
     ~ConditionComponent();
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
-	bool hasToGetDeleted;
-
-	int ruleIndex;
 	int inputIndex;
 
 	void updateLabels();
+
+	int getInputIndex(int ConditionIndex);
     //[/UserMethods]
 
     void paint (Graphics& g);
@@ -87,4 +86,4 @@ private:
 };
 
 
-#endif   // __JUCER_HEADER_CONDITIONCOMPONENT_CONDITIONCOMPONENT_370F09F2__
+#endif   // __JUCER_HEADER_CONDITIONCOMPONENT_CONDITIONCOMPONENT_B8C735AC__
