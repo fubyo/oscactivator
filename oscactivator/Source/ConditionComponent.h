@@ -53,6 +53,9 @@ public:
 	void updateLabels();
 
 	int getInputIndex(int ConditionIndex);
+
+	void mouseUp(const MouseEvent& event);	
+
     //[/UserMethods]
 
     void paint (Graphics& g);
@@ -67,6 +70,7 @@ public:
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
+	int getConditionIndex();
     //[/UserVariables]
 
     //==============================================================================

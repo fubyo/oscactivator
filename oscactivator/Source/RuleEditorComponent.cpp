@@ -161,6 +161,27 @@ void RuleEditorComponent::buttonClicked (Button* buttonThatWasClicked)
     if (buttonThatWasClicked == addConditionButton)
     {
         //[UserButtonCode_addConditionButton] -- add your button handler code here..
+		
+		//find first not used input.
+		bool firstUnusedInputFound = false;
+		int iter = 0;
+		int firstUnusedInput = -1;
+		while (!firstUnusedInputFound && iter<ruleCopy.inputTermIndeces.size())
+		{
+			if (ruleCopy.inputTermIndeces[iter]==-1)
+			{
+				firstUnusedInput = iter;
+				firstUnusedInputFound = true;
+			}
+
+			iter++;
+		}
+
+		if (firstUnusedInputFound)
+		{
+			ruleCopy.inputTermIndeces.set(firstUnusedInput, 0);
+			conditionListBox->updateContent();
+		}
         //[/UserButtonCode_addConditionButton]
     }
     else if (buttonThatWasClicked == addStatementButton)

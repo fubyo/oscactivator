@@ -113,6 +113,9 @@ ConditionComponent::ConditionComponent (int InputIndex )
     //[Constructor] You can add your own custom stuff here..
 	inputIndex = InputIndex;
 	updateLabels();
+
+	inputLabel->addMouseListener(this, true);
+	termLabel->addMouseListener(this, true);
     //[/Constructor]
 }
 
@@ -219,7 +222,10 @@ void ConditionComponent::updateLabels()
 
 		String termName = String("- - - ");
 		if (termIndex!=-1)
-			 termName = String(ipc->inputs[inputIndex]->termManager->terms[termIndex]->name().c_str());
+		{
+			if (ipc->inputs[inputIndex]->termManager->terms.size())
+				termName = String(ipc->inputs[inputIndex]->termManager->terms[termIndex]->name().c_str());
+		}
 
 		termLabel->setText(termName, true);
 	}
@@ -243,6 +249,60 @@ int ConditionComponent::getInputIndex(int ConditionIndex)
 	}
 
 	return -1;
+}
+
+void ConditionComponent::mouseUp(const MouseEvent& event)
+{
+	if (event.eventComponent == inputLabel && event.mods.isRightButtonDown())
+	{
+		InputsPanelComponent* ipc = (InputsPanelComponent*)Pool::Instance()->getObject("InputsPanelComponent");
+
+		PopupMenu m;
+		for (int i=0; i<ipc->inputs.size(); i++)
+		{
+			m.addItem(i+1, ipc->inputs[i]->name);
+		}
+
+		const int result = m.show();
+		if (result)
+		{
+			int newInputIndex = result-1;
+
+			int conditionIndex = getConditionIndex();
+			int previousInputIndex = getInputIndex(conditionIndex);
+
+			Rule* ruleCopy = (Rule*)Pool::Instance()->getObject("ruleForEditing");
+			if (ruleCopy)
+			{
+				ruleCopy->inputTermIndeces.set(previousInputIndex, -1);
+				ruleCopy->inputTermIndeces.set(newInputIndex, 0);
+
+				RuleEditorComponent* rec = (RuleEditorComponent*)Pool::Instance()->getObject("RuleEditorComponent");
+				if (rec)
+				{
+					rec->updateConditionList();
+				}
+			}
+		}
+	}
+
+	if (event.eventComponent == termLabel)
+	{
+
+	}
+}
+
+int ConditionComponent::getConditionIndex()
+{
+	int result = -1;
+
+	RuleEditorComponent* rec = (RuleEditorComponent*)Pool::Instance()->getObject("RuleEditorComponent");
+	if (rec)
+	{
+		result = rec->getConditionIndex((Component*)this);
+	}
+
+	return result;
 }
 //[/MiscUserCode]
 
