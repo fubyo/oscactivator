@@ -25,6 +25,7 @@
 //[Headers]     -- You can add your own extra header files here --
 #include "..\JuceLibraryCode\JuceHeader.h"
 #include "ConditionListBoxModel.h"
+#include "StatementListBoxModel.h"
 #include "RuleGenerator.h"
 //[/Headers]
 
@@ -53,7 +54,9 @@ public:
 
 	Rule ruleCopy;
 	int getConditionIndex(Component* conditionComponent);
+	int getStatementIndex(Component* statementComponent);
 	void updateConditionList();
+	void updateStatementList();
 
 	bool isEditedRuleValid();
     //[/UserMethods]

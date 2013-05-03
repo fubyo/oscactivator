@@ -179,6 +179,8 @@
     <ClCompile Include="..\..\Source\RuleGenerator.cpp" />
     <ClCompile Include="..\..\Source\RulesListBoxModel.cpp" />
     <ClCompile Include="..\..\Source\RulesPanelComponent.cpp" />
+    <ClCompile Include="..\..\Source\StatementComponent.cpp" />
+    <ClCompile Include="..\..\Source\StatementListBoxModel.cpp" />
     <ClCompile Include="..\..\Source\TermManager.cpp" />
     <ClCompile Include="..\..\Source\InputsPanelComponent.cpp" />
     <ClCompile Include="..\..\Source\Main.cpp" />
@@ -1707,6 +1709,8 @@
     <ClInclude Include="..\..\Source\RuleGenerator.h" />
     <ClInclude Include="..\..\Source\RulesListBoxModel.h" />
     <ClInclude Include="..\..\Source\RulesPanelComponent.h" />
+    <ClInclude Include="..\..\Source\StatementComponent.h" />
+    <ClInclude Include="..\..\Source\StatementListBoxModel.h" />
     <ClInclude Include="..\..\Source\TermManager.h" />
     <ClInclude Include="..\..\Source\InputsPanelComponent.h" />
     <ClInclude Include="..\..\Source\MainComponent.h" />

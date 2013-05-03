@@ -81,7 +81,10 @@ void RuleGenerator::createRulesFromQueuedExamples()
 				rule.outputTermIndeces.add(outputTermIndex);
 				
 				TermManager* termManager=opc->outputs[ii]->termManager;
-				float membership = termManager->terms[outputTermIndex]->membership(queuedExamples[i]->outputValues[ii].value);
+				float membership = 0;
+				
+				if (outputTermIndex>=0)
+					membership = termManager->terms[outputTermIndex]->membership(queuedExamples[i]->outputValues[ii].value);
 				
 				rule.outputDegrees.add(rule.inputDegree*membership);
 				rule.outputMembership.add(membership);

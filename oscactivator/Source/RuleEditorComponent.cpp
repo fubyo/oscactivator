@@ -105,6 +105,10 @@ RuleEditorComponent::RuleEditorComponent (int RuleIndex)
 	conditionListBox->setModel(new ConditionListBoxModel());
 	conditionListBox->setColour(conditionListBox->backgroundColourId, Colours::lightgrey);
 	conditionListBox->setRowHeight(25);
+
+	statementListBox->setModel(new StatementListBoxModel());
+	statementListBox->setColour(statementListBox->backgroundColourId, Colours::lightgrey);
+	statementListBox->setRowHeight(25);
     //[/Constructor]
 }
 
@@ -187,6 +191,25 @@ void RuleEditorComponent::buttonClicked (Button* buttonThatWasClicked)
     else if (buttonThatWasClicked == addStatementButton)
     {
         //[UserButtonCode_addStatementButton] -- add your button handler code here..
+		bool firstUnusedOutputFound = false;
+		int iter = 0;
+		int firstUnusedOutput = -1;
+		while (!firstUnusedOutputFound && iter<ruleCopy.outputTermIndeces.size())
+		{
+			if (ruleCopy.outputTermIndeces[iter]==-1)
+			{
+				firstUnusedOutput = iter;
+				firstUnusedOutputFound = true;
+			}
+
+			iter++;
+		}
+
+		if (firstUnusedOutputFound)
+		{
+			ruleCopy.outputTermIndeces.set(firstUnusedOutput, 0);
+			statementListBox->updateContent();
+		}
         //[/UserButtonCode_addStatementButton]
     }
     else if (buttonThatWasClicked == acceptButton)
@@ -233,9 +256,27 @@ int RuleEditorComponent::getConditionIndex(Component* conditionComponent)
 	return -1;
 }
 
+int RuleEditorComponent::getStatementIndex(Component* statementComponent)
+{
+	for (int i=0; i<statementListBox->getModel()->getNumRows(); i++)
+	{
+		Component* rowComponent = statementListBox->getComponentForRowNumber(i);
+
+		if (rowComponent == statementComponent)
+			return i;
+	}
+
+	return -1;
+}
+
 void RuleEditorComponent::updateConditionList()
 {
 	conditionListBox->updateContent();
+}
+
+void RuleEditorComponent::updateStatementList()
+{
+	statementListBox->updateContent();
 }
 
 bool RuleEditorComponent::isEditedRuleValid()

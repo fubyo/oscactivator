@@ -257,23 +257,25 @@ void ConditionComponent::mouseUp(const MouseEvent& event)
 	{
 		InputsPanelComponent* ipc = (InputsPanelComponent*)Pool::Instance()->getObject("InputsPanelComponent");
 
-		PopupMenu m;
-		for (int i=0; i<ipc->inputs.size(); i++)
+		int conditionIndex = getConditionIndex();
+		int previousInputIndex = getInputIndex(conditionIndex);
+
+		Rule* ruleCopy = (Rule*)Pool::Instance()->getObject("ruleForEditing");
+
+		if (ruleCopy)
 		{
-			m.addItem(i+1, ipc->inputs[i]->name);
-		}
-
-		const int result = m.show();
-		if (result)
-		{
-			int newInputIndex = result-1;
-
-			int conditionIndex = getConditionIndex();
-			int previousInputIndex = getInputIndex(conditionIndex);
-
-			Rule* ruleCopy = (Rule*)Pool::Instance()->getObject("ruleForEditing");
-			if (ruleCopy)
+			PopupMenu m;
+			for (int i=0; i<ipc->inputs.size(); i++)
 			{
+				if (i!=previousInputIndex && ruleCopy->inputTermIndeces[i]==-1)
+					m.addItem(i+1, ipc->inputs[i]->name);
+			}
+
+			const int result = m.show();
+			if (result)
+			{
+				int newInputIndex = result-1;
+
 				ruleCopy->inputTermIndeces.set(previousInputIndex, -1);
 				ruleCopy->inputTermIndeces.set(newInputIndex, 0);
 
@@ -288,7 +290,36 @@ void ConditionComponent::mouseUp(const MouseEvent& event)
 
 	if (event.eventComponent == termLabel)
 	{
+		InputsPanelComponent* ipc = (InputsPanelComponent*)Pool::Instance()->getObject("InputsPanelComponent");
 
+		int conditionIndex = getConditionIndex();
+		int inputIndex = getInputIndex(conditionIndex);
+
+		Rule* ruleCopy = (Rule*)Pool::Instance()->getObject("ruleForEditing");
+
+		if (ruleCopy)
+		{
+			PopupMenu m;
+			for (int i=0; i<ipc->inputs[inputIndex]->termManager->terms.size(); i++)
+			{
+				m.addItem(i+1, String(ipc->inputs[inputIndex]->termManager->terms[i]->name().c_str()));
+			}
+
+			const int result = m.show();
+
+			if (result)
+			{
+				int newTermIndex = result-1;
+
+				ruleCopy->inputTermIndeces.set(inputIndex, newTermIndex);
+
+				RuleEditorComponent* rec = (RuleEditorComponent*)Pool::Instance()->getObject("RuleEditorComponent");
+				if (rec)
+				{
+					rec->updateConditionList();
+				}
+			}
+		}
 	}
 }
 
