@@ -50,6 +50,7 @@ public:
     //[UserMethods]     -- You can add your own custom methods in this section.
 	void setRuleText(String ruleText);
 	void setRuleName(String ruleName);
+	void setLock(bool lock);
 
 	bool hasToGetDeleted;
 

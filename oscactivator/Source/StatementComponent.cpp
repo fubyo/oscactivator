@@ -194,7 +194,10 @@ void StatementComponent::buttonClicked (Button* buttonThatWasClicked)
 
 			Rule* ruleCopy = (Rule*)Pool::Instance()->getObject("ruleForEditing");
 			if (ruleCopy)
+			{
 				ruleCopy->outputTermIndeces.set(outputIndex, -1);
+				ruleCopy->outputFromInput.remove(outputIndex);
+			}
 
 			rec->updateStatementList();
 		}
@@ -210,6 +213,7 @@ void StatementComponent::buttonClicked (Button* buttonThatWasClicked)
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
 void StatementComponent::updateLabels()
 {
+	InputsPanelComponent* ipc = (InputsPanelComponent*)Pool::Instance()->getObject("InputsPanelComponent");
 	OutputsPanelComponent* opc = (OutputsPanelComponent*)Pool::Instance()->getObject("OutputsPanelComponent");
 	Rule* ruleCopy = (Rule*)Pool::Instance()->getObject("ruleForEditing");
 
@@ -226,12 +230,17 @@ void StatementComponent::updateLabels()
 			if (opc->outputs[outputIndex]->termManager->terms.size())
 				termName = String(opc->outputs[outputIndex]->termManager->terms[termIndex]->name().c_str());
 		}
+		else if (ruleCopy->outputFromInput.contains(outputIndex))
+		{
+			int connectedInputIndex = ruleCopy->outputFromInput[outputIndex];
+			termName = String("like ")+String(ipc->inputs[connectedInputIndex]->name);
+		}
 
 		termLabel->setText(termName, true);
 	}
 }
 
-int StatementComponent::getOutputIndex(int ConditionIndex)
+int StatementComponent::getOutputIndex(int StatementIndex)
 {
 	Rule* ruleCopy = (Rule*)Pool::Instance()->getObject("ruleForEditing");
 
@@ -240,10 +249,10 @@ int StatementComponent::getOutputIndex(int ConditionIndex)
 		int counter = -1;
 		for (int i=0; i<ruleCopy->outputTermIndeces.size(); i++)
 		{
-			if (ruleCopy->outputTermIndeces[i]!=-1)
+			if (ruleCopy->outputTermIndeces[i]!=-1 || ruleCopy->outputFromInput.contains(i))
 				counter++;
 
-			if (counter == ConditionIndex)
+			if (counter == StatementIndex)
 				return i;
 		}
 	}
@@ -253,7 +262,7 @@ int StatementComponent::getOutputIndex(int ConditionIndex)
 
 void StatementComponent::mouseUp(const MouseEvent& event)
 {
-	if (event.eventComponent == outputLabel && event.mods.isRightButtonDown())
+	if (event.eventComponent == outputLabel)
 	{
 		OutputsPanelComponent* opc = (OutputsPanelComponent*)Pool::Instance()->getObject("OutputsPanelComponent");
 
@@ -279,6 +288,8 @@ void StatementComponent::mouseUp(const MouseEvent& event)
 				ruleCopy->outputTermIndeces.set(previousOutputIndex, -1);
 				ruleCopy->outputTermIndeces.set(newOutputIndex, 0);
 
+				updateStatementParameters(newOutputIndex);
+
 				RuleEditorComponent* rec = (RuleEditorComponent*)Pool::Instance()->getObject("RuleEditorComponent");
 				if (rec)
 				{
@@ -291,6 +302,7 @@ void StatementComponent::mouseUp(const MouseEvent& event)
 	if (event.eventComponent == termLabel)
 	{
 		OutputsPanelComponent* opc = (OutputsPanelComponent*)Pool::Instance()->getObject("OutputsPanelComponent");
+		InputsPanelComponent* ipc = (InputsPanelComponent*)Pool::Instance()->getObject("InputsPanelComponent");
 
 		int conditionIndex = getStatementIndex();
 		int outputIndex = getOutputIndex(conditionIndex);
@@ -300,18 +312,46 @@ void StatementComponent::mouseUp(const MouseEvent& event)
 		if (ruleCopy)
 		{
 			PopupMenu m;
-			for (int i=0; i<opc->outputs[outputIndex]->termManager->terms.size(); i++)
+			int i=0;
+
+			int numberOfTerms=opc->outputs[outputIndex]->termManager->terms.size();
+
+			for (int i=0; i<numberOfTerms; i++)
 			{
 				m.addItem(i+1, String(opc->outputs[outputIndex]->termManager->terms[i]->name().c_str()));
 			}
 
+			PopupMenu sub;
+			for (i=numberOfTerms; i<ipc->inputs.size()+numberOfTerms; i++)
+			{
+				sub.addItem(i+1, ipc->inputs[i-numberOfTerms]->name);
+			}
+
+			m.addSubMenu("like...", sub);
+
 			const int result = m.show();
 
-			if (result)
+			if (result>0 && result<=numberOfTerms)
 			{
 				int newTermIndex = result-1;
 
 				ruleCopy->outputTermIndeces.set(outputIndex, newTermIndex);
+
+				updateStatementParameters(outputIndex);
+
+				RuleEditorComponent* rec = (RuleEditorComponent*)Pool::Instance()->getObject("RuleEditorComponent");
+				if (rec)
+				{
+					rec->updateStatementList();
+				}
+			}
+			else if (result>numberOfTerms)
+			{
+				int inputIndex = result-1-numberOfTerms;
+
+				ruleCopy->outputTermIndeces.set(outputIndex, -1);
+
+				ruleCopy->outputFromInput.set(outputIndex, inputIndex);
 
 				RuleEditorComponent* rec = (RuleEditorComponent*)Pool::Instance()->getObject("RuleEditorComponent");
 				if (rec)
@@ -334,6 +374,20 @@ int StatementComponent::getStatementIndex()
 	}
 
 	return result;
+}
+
+void StatementComponent::updateStatementParameters(int OutputIndex)
+{
+	OutputsPanelComponent* opc = (OutputsPanelComponent*)Pool::Instance()->getObject("OutputsPanelComponent");
+	Rule* ruleCopy = (Rule*)Pool::Instance()->getObject("ruleForEditing");
+
+	int termIndex = ruleCopy->outputTermIndeces[OutputIndex];
+
+	if (termIndex!=-1)
+	{
+		ruleCopy->outputValues.set(OutputIndex, opc->outputs[OutputIndex]->termManager->getMidPointOfTrapezoidTable(termIndex));
+		ruleCopy->outputMembership.set(OutputIndex, 1);
+	}
 }
 //[/MiscUserCode]
 

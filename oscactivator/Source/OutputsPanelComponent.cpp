@@ -214,6 +214,10 @@ void OutputsPanelComponent::buttonClicked (Button* buttonThatWasClicked)
 		ListBox* outputsRelevanceListBox = (ListBox*)Pool::Instance()->getObject("OutputsList");
 		if (outputsRelevanceListBox)
 			outputsRelevanceListBox->updateContent();
+
+		RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
+		if (rpc)
+			rpc->ruleGenerator.updateRulesDueToAddingNewIO();
         //[/UserButtonCode_addButton]
     }
     else if (buttonThatWasClicked == removeButton)

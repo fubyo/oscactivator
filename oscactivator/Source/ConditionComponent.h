@@ -71,6 +71,8 @@ public:
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
 	int getConditionIndex();
+
+	void updateConditionParameters(int InputIndex);
     //[/UserVariables]
 
     //==============================================================================

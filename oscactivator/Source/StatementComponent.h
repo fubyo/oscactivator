@@ -50,7 +50,7 @@ public:
 
 	int outputIndex;
 	void updateLabels();
-	int getOutputIndex(int ConditionIndex);
+	int getOutputIndex(int StatementIndex);
 	void mouseUp(const MouseEvent& event);
     //[/UserMethods]
 
@@ -67,6 +67,8 @@ public:
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
 	int getStatementIndex();
+
+	void updateStatementParameters(int OutputIndex);
     //[/UserVariables]
 
     //==============================================================================

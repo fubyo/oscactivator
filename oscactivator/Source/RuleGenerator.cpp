@@ -188,6 +188,9 @@ void RuleGenerator::mergeNewRulesToRuleBase()
 				outputContribution=true;
 		}
 
+		if (rules[ruleIndex]->outputFromInput.size())
+			outputContribution = true;
+
 		if (outputContribution)
 			ruleIndex++;
 		else
@@ -334,7 +337,15 @@ String RuleGenerator::getRuleText(Rule rule)
 
 void RuleGenerator::deleteAllRules()
 {
-	rules.clear();
+	int iter = 0;
+	bool unlockedFound = false;
+	while (iter<rules.size() && !unlockedFound)
+	{
+		if (!rules[iter]->locked)
+			rules.remove(iter);
+		else
+			iter++;
+	}
 }
 
 void RuleGenerator::removeInput(int index)
@@ -482,6 +493,33 @@ void RuleGenerator::updateOutputs()
 	}
 }
 
+void RuleGenerator::updateRulesDueToAddingNewIO()
+{
+	int numOfInputs = ipc->inputs.size();
+	int numOfOutputs = opc->outputs.size();
+
+	for (int i=0; i<rules.size(); i++)
+	{
+		while (rules[i]->inputTermIndeces.size()<numOfInputs)
+		{
+			rules[i]->inputTermIndeces.add(-1);
+			rules[i]->inputMembership.add(0);
+			rules[i]->inputValues.add(0);
+		}
+	}
+
+	for (int i=0; i<rules.size(); i++)
+	{
+		while (rules[i]->outputTermIndeces.size()<numOfOutputs)
+		{
+			rules[i]->outputTermIndeces.add(-1);
+			rules[i]->outputMembership.add(0);
+			rules[i]->outputValues.add(0);
+			rules[i]->outputDegrees.add(0);
+		}
+	}
+}
+
 void RuleGenerator::run()
 {
 	while (threadShouldBeRunning)
@@ -494,6 +532,8 @@ void RuleGenerator::run()
 Rule::Rule()
 {
 	importance=1;
+	locked = false;
+	outputFromInput.remapTable(1024);
 }
 
 Rule::~Rule()

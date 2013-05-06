@@ -16,6 +16,7 @@ public:
 	Array<double> inputMembership;
 	Array<double> inputValues;
 	Array<int> outputTermIndeces;
+	HashMap<int, int> outputFromInput;
 	Array<double> outputMembership;
 	Array<double> outputValues;
 
@@ -32,6 +33,15 @@ public:
 		inputTermIndeces = other.inputTermIndeces;
 		inputMembership = other.inputMembership;
 		outputTermIndeces = other.outputTermIndeces;
+
+		outputFromInput.clear();
+		outputFromInput.remapTable(1024);
+		for (int i=0; i<outputTermIndeces.size(); i++)
+		{
+			if (other.outputFromInput.contains(i))
+				outputFromInput.set(i, other.outputFromInput[i]);
+		}
+		
 		outputMembership = other.outputMembership;
 		inputValues = other.inputValues;
 		outputValues = other.outputValues;
@@ -47,6 +57,15 @@ public:
 		inputTermIndeces = other.inputTermIndeces;
 		inputMembership = other.inputMembership;
 		outputTermIndeces = other.outputTermIndeces;
+		
+		outputFromInput.clear();
+		outputFromInput.remapTable(1024);
+		for (int i=0; i<outputTermIndeces.size(); i++)
+		{
+			if (other.outputFromInput.contains(i))
+				outputFromInput.set(i, other.outputFromInput[i]);
+		}
+
 		outputMembership = other.outputMembership;
 		inputValues = other.inputValues;
 		outputValues = other.outputValues;
@@ -74,7 +93,7 @@ class RuleGenerator : public juce::Thread
 	void mergeNewRulesToRuleBase();
 	int getIndexOfBestInputTerm(int inputIndex, double value);
 	int getIndexOfBestOutputTerm(int outputIndex, double value);
-	void recalculateDegrees(int ruleIndex);
+	
 	void updateMembershipAndTermIndeces(int index);
 
 	bool isRuleRelevantToOutput(int ruleIndex, int outputIndex);
@@ -92,8 +111,12 @@ public:
 	int getNumberOfQueuedExamples();
 	void deleteAllRules();
 
+	void recalculateDegrees(int ruleIndex);
+
 	void removeInput(int index);
 	void removeOutput(int index);
+
+	void updateRulesDueToAddingNewIO();
 
 	double calculateOutput(int index);
 	void requestOutputUpdate();

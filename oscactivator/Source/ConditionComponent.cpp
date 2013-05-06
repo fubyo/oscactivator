@@ -253,7 +253,7 @@ int ConditionComponent::getInputIndex(int ConditionIndex)
 
 void ConditionComponent::mouseUp(const MouseEvent& event)
 {
-	if (event.eventComponent == inputLabel && event.mods.isRightButtonDown())
+	if (event.eventComponent == inputLabel)
 	{
 		InputsPanelComponent* ipc = (InputsPanelComponent*)Pool::Instance()->getObject("InputsPanelComponent");
 
@@ -278,6 +278,8 @@ void ConditionComponent::mouseUp(const MouseEvent& event)
 
 				ruleCopy->inputTermIndeces.set(previousInputIndex, -1);
 				ruleCopy->inputTermIndeces.set(newInputIndex, 0);
+
+				updateConditionParameters(newInputIndex);
 
 				RuleEditorComponent* rec = (RuleEditorComponent*)Pool::Instance()->getObject("RuleEditorComponent");
 				if (rec)
@@ -313,6 +315,8 @@ void ConditionComponent::mouseUp(const MouseEvent& event)
 
 				ruleCopy->inputTermIndeces.set(inputIndex, newTermIndex);
 
+				updateConditionParameters(inputIndex);
+
 				RuleEditorComponent* rec = (RuleEditorComponent*)Pool::Instance()->getObject("RuleEditorComponent");
 				if (rec)
 				{
@@ -334,6 +338,20 @@ int ConditionComponent::getConditionIndex()
 	}
 
 	return result;
+}
+
+void ConditionComponent::updateConditionParameters(int InputIndex)
+{
+	InputsPanelComponent* ipc = (InputsPanelComponent*)Pool::Instance()->getObject("InputsPanelComponent");
+	Rule* ruleCopy = (Rule*)Pool::Instance()->getObject("ruleForEditing");
+
+	int termIndex = ruleCopy->inputTermIndeces[InputIndex];
+
+	if (termIndex!=-1)
+	{
+		ruleCopy->inputValues.set(InputIndex, ipc->inputs[InputIndex]->termManager->getMidPointOfTrapezoidTable(termIndex));
+		ruleCopy->inputMembership.set(InputIndex, 1);
+	}
 }
 //[/MiscUserCode]
 

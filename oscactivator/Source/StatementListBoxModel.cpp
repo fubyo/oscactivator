@@ -25,6 +25,8 @@ int StatementListBoxModel::calculateNumRows()
 				counter++;
 		}
 
+		counter += ruleCopy->outputFromInput.size();
+
 		return counter;
 	}
 	
@@ -56,7 +58,7 @@ int StatementListBoxModel::getOutputIndex(int statementIndex)
 
 		for (int i=0; i<ruleCopy->outputTermIndeces.size(); i++)
 		{
-			if (ruleCopy->outputTermIndeces[i]!=-1)
+			if (ruleCopy->outputTermIndeces[i]!=-1 || ruleCopy->outputFromInput.contains(i))
 				counter++;
 
 			if (counter == statementIndex)

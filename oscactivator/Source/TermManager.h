@@ -9,15 +9,16 @@ class TermManager
 	double min;
 	double max;
 	
-	double getMidPointOfTrapezoidTable(int index);
-	double getMidPointOfTrapezoidTable(String termName);
+	
 	void sortTerms();
 	int getIndex(String termName);
 	
 
 public:
-	
 	Array<fl::TrapezoidalTerm*> terms;
+	
+	double getMidPointOfTrapezoidTable(int index);
+	double getMidPointOfTrapezoidTable(String termName);
 
 	void setMin(double Min);
 	void setMax(double Max);

@@ -162,6 +162,14 @@ void RuleComponent::buttonClicked (Button* buttonThatWasClicked)
 		RuleEditorComponent* rec = new RuleEditorComponent(rowNumber);
 		DialogWindow::showModalDialog(title, rec, this->getParentComponent(), Colours::lightgrey, false);
 
+		if (rec->okClicked)
+		{
+			rpc->ruleGenerator.rules.set(rowNumber, new Rule(rec->ruleCopy));
+			rpc->ruleGenerator.recalculateDegrees(rowNumber);
+
+			rpc->updateRuleList();
+		}
+
 		delete rec;
         //[/UserButtonCode_editButton]
     }
@@ -172,7 +180,20 @@ void RuleComponent::buttonClicked (Button* buttonThatWasClicked)
 		if (rpc)
 		{
 			int rowNumber = rpc->getRuleIndex((Component*)this);
-			rpc->ruleGenerator.rules[rowNumber]->locked = lockButton->getToggleState();
+
+			if (rowNumber!=-1)
+				rpc->ruleGenerator.rules[rowNumber]->locked = lockButton->getToggleState();
+
+			if (lockButton->getToggleState())
+			{
+				deleteButton->setEnabled(false);
+				editButton->setEnabled(false);
+			}
+			else
+			{
+				deleteButton->setEnabled(true);
+				editButton->setEnabled(true);
+			}
 		}
         //[/UserButtonCode_lockButton]
     }
@@ -192,6 +213,11 @@ void RuleComponent::setRuleText(String ruleText)
 void RuleComponent::setRuleName(String ruleName)
 {
 	ruleNameLabel->setText(ruleName, true);
+}
+
+void RuleComponent::setLock(bool lock)
+{
+	lockButton->setToggleState(lock, true);
 }
 //[/MiscUserCode]
 

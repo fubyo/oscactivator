@@ -54,6 +54,7 @@ Component* RulesListBoxModel::refreshComponentForRow(int rowNumber, bool isRowSe
 			{
 				((RuleComponent*)existingComponentToUpdate)->setRuleText(rpc->ruleGenerator.getRuleText(*rpc->ruleGenerator.rules[rowNumber]));
 				((RuleComponent*)existingComponentToUpdate)->setRuleName(String("Rule ")+String(rowNumber));
+				((RuleComponent*)existingComponentToUpdate)->setLock(rpc->ruleGenerator.rules[rowNumber]->locked);
 				
 				return existingComponentToUpdate;
 			}
@@ -73,6 +74,7 @@ Component* RulesListBoxModel::refreshComponentForRow(int rowNumber, bool isRowSe
 			{
 				newRuleComponent->setRuleText(rpc->ruleGenerator.getRuleText(*rpc->ruleGenerator.rules[rowNumber]));
 				newRuleComponent->setRuleName(String("Rule ")+String(rowNumber));
+				newRuleComponent->setLock(rpc->ruleGenerator.rules[rowNumber]->locked);
 			}
 
 			return newRuleComponent;
