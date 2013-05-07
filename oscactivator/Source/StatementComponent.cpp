@@ -170,6 +170,22 @@ void StatementComponent::labelTextChanged (Label* labelThatHasChanged)
     if (labelThatHasChanged == secondsLabel)
     {
         //[UserLabelCode_secondsLabel] -- add your label text handling code here..
+		Rule* ruleCopy = (Rule*)Pool::Instance()->getObject("ruleForEditing");
+		if (ruleCopy)
+		{
+			RuleEditorComponent* rec = (RuleEditorComponent*)Pool::Instance()->getObject("RuleEditorComponent");
+			if (rec)
+			{
+				int statementIndex = rec->getStatementIndex((Component*)this);
+				int outputIndex = getOutputIndex(statementIndex);
+				double timeParameter = secondsLabel->getText().getDoubleValue();
+
+				if (timeParameter>0)
+					ruleCopy->outputTimeParameter.set(outputIndex, timeParameter);
+				else
+					ruleCopy->outputTimeParameter.remove(outputIndex);
+			}
+		}
         //[/UserLabelCode_secondsLabel]
     }
 
@@ -233,10 +249,15 @@ void StatementComponent::updateLabels()
 		else if (ruleCopy->outputFromInput.contains(outputIndex))
 		{
 			int connectedInputIndex = ruleCopy->outputFromInput[outputIndex];
-			termName = String("like ")+String(ipc->inputs[connectedInputIndex]->name);
+			termName = String("same as ")+String(ipc->inputs[connectedInputIndex]->name);
 		}
 
 		termLabel->setText(termName, true);
+
+		if (ruleCopy->outputTimeParameter.contains(outputIndex))
+		{
+			secondsLabel->setText(String(ruleCopy->outputTimeParameter[outputIndex]), true);
+		}
 	}
 }
 
@@ -327,7 +348,7 @@ void StatementComponent::mouseUp(const MouseEvent& event)
 				sub.addItem(i+1, ipc->inputs[i-numberOfTerms]->name);
 			}
 
-			m.addSubMenu("like...", sub);
+			m.addSubMenu("same as...", sub);
 
 			const int result = m.show();
 

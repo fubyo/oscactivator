@@ -292,7 +292,7 @@ bool RuleEditorComponent::isEditedRuleValid()
 
 	for (int i=0; i<ruleCopy.outputTermIndeces.size(); i++)
 	{
-		if (ruleCopy.outputTermIndeces[i]!=-1)
+		if (ruleCopy.outputTermIndeces[i]!=-1 || ruleCopy.outputFromInput.contains(i))
 			statementsValid = true;
 	}
 

@@ -306,6 +306,13 @@ String RuleGenerator::getRuleText(Rule rule)
 
 			text += ipc->inputs[i]->name+String(" is ");
 			text +=String(ipc->inputs[i]->termManager->terms[rule.inputTermIndeces[i]]->name().c_str());
+
+			if (rule.inputTimeParameter.contains(i))
+			{
+				text+= String(" for ");
+				text+= String(rule.inputTimeParameter[i]);
+				text+= String(" seconds");
+			}
 			
 			if (!firstConditionAdded)
 				firstConditionAdded = true;
@@ -324,6 +331,31 @@ String RuleGenerator::getRuleText(Rule rule)
 
 			text += opc->outputs[i]->name+String(" is ");
 			text +=String(opc->outputs[i]->termManager->terms[rule.outputTermIndeces[i]]->name().c_str());
+
+			if (rule.outputTimeParameter.contains(i))
+			{
+				text+= String(" in ");
+				text+= String(rule.outputTimeParameter[i]);
+				text+= String(" seconds");
+			}
+			
+			if (!firstResultAdded)
+				firstResultAdded = true;
+		}
+		else if (rule.outputFromInput.contains(i))
+		{
+			if (firstResultAdded)
+				text += String(" and ");
+
+			text += opc->outputs[i]->name+String(" is same as ");
+			text +=String(ipc->inputs[i]->name);
+
+			if (rule.outputTimeParameter.contains(i))
+			{
+				text+= String(" in ");
+				text+= String(rule.outputTimeParameter[i]);
+				text+= String(" seconds");
+			}
 			
 			if (!firstResultAdded)
 				firstResultAdded = true;
@@ -534,6 +566,8 @@ Rule::Rule()
 	importance=1;
 	locked = false;
 	outputFromInput.remapTable(1024);
+	inputTimeParameter.remapTable(1024);
+	outputTimeParameter.remapTable(1024);
 }
 
 Rule::~Rule()

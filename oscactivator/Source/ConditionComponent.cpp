@@ -170,6 +170,22 @@ void ConditionComponent::labelTextChanged (Label* labelThatHasChanged)
     if (labelThatHasChanged == secondsLabel)
     {
         //[UserLabelCode_secondsLabel] -- add your label text handling code here..
+		Rule* ruleCopy = (Rule*)Pool::Instance()->getObject("ruleForEditing");
+		if (ruleCopy)
+		{
+			RuleEditorComponent* rec = (RuleEditorComponent*)Pool::Instance()->getObject("RuleEditorComponent");
+			if (rec)
+			{
+				int conditionIndex = rec->getConditionIndex((Component*)this);
+				int inputIndex = getInputIndex(conditionIndex);
+				double timeParameter = secondsLabel->getText().getDoubleValue();
+
+				if (timeParameter>0)
+					ruleCopy->inputTimeParameter.set(inputIndex, timeParameter);
+				else
+					ruleCopy->inputTimeParameter.remove(inputIndex);
+			}
+		}
         //[/UserLabelCode_secondsLabel]
     }
 
@@ -219,7 +235,6 @@ void ConditionComponent::updateLabels()
 		inputLabel->setText(inputName, true);
 
 		int termIndex = ruleCopy->inputTermIndeces[inputIndex];
-
 		String termName = String("- - - ");
 		if (termIndex!=-1)
 		{
@@ -228,6 +243,11 @@ void ConditionComponent::updateLabels()
 		}
 
 		termLabel->setText(termName, true);
+		
+		if (ruleCopy->inputTimeParameter.contains(inputIndex))
+		{
+			secondsLabel->setText(String(ruleCopy->inputTimeParameter[inputIndex]), true);
+		}
 	}
 }
 

@@ -20,6 +20,9 @@ public:
 	Array<double> outputMembership;
 	Array<double> outputValues;
 
+	HashMap<int, double> inputTimeParameter;
+	HashMap<int, double> outputTimeParameter;
+
 	bool locked;
 
 	Rule();
@@ -40,6 +43,22 @@ public:
 		{
 			if (other.outputFromInput.contains(i))
 				outputFromInput.set(i, other.outputFromInput[i]);
+		}
+
+		inputTimeParameter.clear();
+		inputTimeParameter.remapTable(1024);
+		for (int i=0; i<other.inputTimeParameter.size(); i++)
+		{
+			if (other.inputTimeParameter.contains(i))
+				inputTimeParameter.set(i, other.inputTimeParameter[i]);
+		}
+
+		outputTimeParameter.clear();
+		outputTimeParameter.remapTable(1024);
+		for (int i=0; i<other.outputTimeParameter.size(); i++)
+		{
+			if (other.outputTimeParameter.contains(i))
+				outputTimeParameter.set(i, other.outputTimeParameter[i]);
 		}
 		
 		outputMembership = other.outputMembership;
@@ -64,6 +83,22 @@ public:
 		{
 			if (other.outputFromInput.contains(i))
 				outputFromInput.set(i, other.outputFromInput[i]);
+		}
+
+		inputTimeParameter.clear();
+		inputTimeParameter.remapTable(1024);
+		for (int i=0; i<other.inputTimeParameter.size(); i++)
+		{
+			if (other.inputTimeParameter.contains(i))
+				inputTimeParameter.set(i, other.inputTimeParameter[i]);
+		}
+
+		outputTimeParameter.clear();
+		outputTimeParameter.remapTable(1024);
+		for (int i=0; i<other.outputTimeParameter.size(); i++)
+		{
+			if (other.outputTimeParameter.contains(i))
+				outputTimeParameter.set(i, other.outputTimeParameter[i]);
 		}
 
 		outputMembership = other.outputMembership;
