@@ -568,6 +568,8 @@ Rule::Rule()
 	outputFromInput.remapTable(1024);
 	inputTimeParameter.remapTable(1024);
 	outputTimeParameter.remapTable(1024);
+
+	weightInputConnection = -1;
 }
 
 Rule::~Rule()

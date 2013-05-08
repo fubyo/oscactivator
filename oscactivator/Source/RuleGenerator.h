@@ -23,6 +23,8 @@ public:
 	HashMap<int, double> inputTimeParameter;
 	HashMap<int, double> outputTimeParameter;
 
+	int weightInputConnection;
+
 	bool locked;
 
 	Rule();
@@ -65,6 +67,9 @@ public:
 		inputValues = other.inputValues;
 		outputValues = other.outputValues;
 		locked = other.locked;
+
+		weightInputConnection = other.weightInputConnection;
+
 		return *this;
 	}
 
@@ -104,6 +109,9 @@ public:
 		outputMembership = other.outputMembership;
 		inputValues = other.inputValues;
 		outputValues = other.outputValues;
+
+		weightInputConnection = other.weightInputConnection;
+
 		locked = other.locked;
 	}
 };

@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  27 Mar 2013 5:07:28pm
+  Creation date:  8 May 2013 4:09:06pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -35,7 +35,9 @@ RuleComponent::RuleComponent ()
       editButton (0),
       lockButton (0),
       ruleNameLabel (0),
-      ruleTextEditor (0)
+      ruleTextEditor (0),
+      wlabel (0),
+      weightLabel (0)
 {
     addAndMakeVisible (deleteButton = new TextButton (L"new button"));
     deleteButton->setButtonText (L"Delete");
@@ -70,6 +72,23 @@ RuleComponent::RuleComponent ()
     ruleTextEditor->setPopupMenuEnabled (true);
     ruleTextEditor->setText (String::empty);
 
+    addAndMakeVisible (wlabel = new Label (L"new label",
+                                           L"Importance = "));
+    wlabel->setFont (Font (13.0000f, Font::plain));
+    wlabel->setJustificationType (Justification::centredLeft);
+    wlabel->setEditable (false, false, false);
+    wlabel->setColour (TextEditor::textColourId, Colours::black);
+    wlabel->setColour (TextEditor::backgroundColourId, Colour (0x0));
+
+    addAndMakeVisible (weightLabel = new Label (L"new label",
+                                                L"1.0"));
+    weightLabel->setFont (Font (13.0000f, Font::plain));
+    weightLabel->setJustificationType (Justification::centredLeft);
+    weightLabel->setEditable (false, true, false);
+    weightLabel->setColour (TextEditor::textColourId, Colours::black);
+    weightLabel->setColour (TextEditor::backgroundColourId, Colour (0x0));
+    weightLabel->addListener (this);
+
 
     //[UserPreSize]
     //[/UserPreSize]
@@ -79,6 +98,8 @@ RuleComponent::RuleComponent ()
 
     //[Constructor] You can add your own custom stuff here..
 	hasToGetDeleted = false;
+
+	weightLabel->addMouseListener(this, false);
     //[/Constructor]
 }
 
@@ -92,6 +113,8 @@ RuleComponent::~RuleComponent()
     deleteAndZero (lockButton);
     deleteAndZero (ruleNameLabel);
     deleteAndZero (ruleTextEditor);
+    deleteAndZero (wlabel);
+    deleteAndZero (weightLabel);
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -121,8 +144,10 @@ void RuleComponent::resized()
     deleteButton->setBounds (488, 8, 64, 16);
     editButton->setBounds (488, 32, 64, 16);
     lockButton->setBounds (513, 56, 40, 16);
-    ruleNameLabel->setBounds (3, 0, 477, 24);
-    ruleTextEditor->setBounds (8, 21, 472, 51);
+    ruleNameLabel->setBounds (3, 0, 125, 24);
+    ruleTextEditor->setBounds (8, 24, 472, 48);
+    wlabel->setBounds (268, 0, 88, 24);
+    weightLabel->setBounds (347, 0, 128, 24);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -202,6 +227,44 @@ void RuleComponent::buttonClicked (Button* buttonThatWasClicked)
     //[/UserbuttonClicked_Post]
 }
 
+void RuleComponent::labelTextChanged (Label* labelThatHasChanged)
+{
+    //[UserlabelTextChanged_Pre]
+    //[/UserlabelTextChanged_Pre]
+
+    if (labelThatHasChanged == weightLabel)
+    {
+        //[UserLabelCode_weightLabel] -- add your label text handling code here..
+		RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
+		if (rpc)
+		{
+			int ruleIndex = rpc->getRuleIndex((Component*)this);
+
+			if (rpc->ruleGenerator.rules[ruleIndex]->weightInputConnection==-1)
+			{
+				double NewWeight = weightLabel->getText().getDoubleValue();
+				if (NewWeight>1)
+				{
+					NewWeight=1;
+					weightLabel->setText(String(NewWeight), false);
+				}
+				else if (NewWeight<0)
+				{
+					NewWeight=0;
+					weightLabel->setText(String(NewWeight), false);
+				}
+
+				rpc->ruleGenerator.rules[ruleIndex]->importance = NewWeight;
+			}
+		}
+
+        //[/UserLabelCode_weightLabel]
+    }
+
+    //[UserlabelTextChanged_Post]
+    //[/UserlabelTextChanged_Post]
+}
+
 
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
@@ -218,6 +281,46 @@ void RuleComponent::setRuleName(String ruleName)
 void RuleComponent::setLock(bool lock)
 {
 	lockButton->setToggleState(lock, true);
+}
+
+void RuleComponent::mouseUp(const MouseEvent& event)
+{
+	if (event.eventComponent == weightLabel && event.mods.isRightButtonDown())
+	{
+		InputsPanelComponent* ipc = (InputsPanelComponent*)Pool::Instance()->getObject("InputsPanelComponent");
+		RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
+		int ruleIndex = rpc->getRuleIndex((Component*)this);
+
+		if (ipc)
+		{
+			PopupMenu m;
+
+			m.addItem(1, String(rpc->ruleGenerator.rules[ruleIndex]->importance));
+
+			for (int i=0; i<ipc->inputs.size(); i++)
+			{
+				m.addItem(i+2, ipc->inputs[i]->name);
+			}
+
+			int result = m.show();
+
+			if (result)
+			{
+				if (result == 1)
+				{
+					rpc->ruleGenerator.rules[ruleIndex]->weightInputConnection = -1;
+					weightLabel->setText(String(rpc->ruleGenerator.rules[ruleIndex]->importance), true);
+				}
+				else
+				{
+					int inputIndex=result-2;
+	
+					rpc->ruleGenerator.rules[ruleIndex]->weightInputConnection = inputIndex;
+					weightLabel->setText(ipc->inputs[inputIndex]->name, true);
+				}
+			}
+		}
+	}
 }
 //[/MiscUserCode]
 
@@ -249,14 +352,24 @@ BEGIN_JUCER_METADATA
                 virtualName="" explicitFocusOrder="0" pos="513 56 40 16" buttonText="Lock"
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <LABEL name="new label" id="a72fd0a02bfa4e7" memberName="ruleNameLabel"
-         virtualName="" explicitFocusOrder="0" pos="3 0 477 24" edTextCol="ff000000"
+         virtualName="" explicitFocusOrder="0" pos="3 0 125 24" edTextCol="ff000000"
          edBkgCol="0" labelText="Rule 0" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="13"
          bold="0" italic="0" justification="33"/>
   <TEXTEDITOR name="new text editor" id="691194d341a1c881" memberName="ruleTextEditor"
-              virtualName="" explicitFocusOrder="0" pos="8 21 472 51" initialText=""
+              virtualName="" explicitFocusOrder="0" pos="8 24 472 48" initialText=""
               multiline="1" retKeyStartsLine="0" readonly="1" scrollbars="1"
               caret="0" popupmenu="1"/>
+  <LABEL name="new label" id="4807fa4dbd6f6c86" memberName="wlabel" virtualName=""
+         explicitFocusOrder="0" pos="268 0 88 24" edTextCol="ff000000"
+         edBkgCol="0" labelText="Importance = " editableSingleClick="0"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
+         fontsize="13" bold="0" italic="0" justification="33"/>
+  <LABEL name="new label" id="a11026b817798207" memberName="weightLabel"
+         virtualName="" explicitFocusOrder="0" pos="347 0 128 24" edTextCol="ff000000"
+         edBkgCol="0" labelText="1.0" editableSingleClick="0" editableDoubleClick="1"
+         focusDiscardsChanges="0" fontname="Default font" fontsize="13"
+         bold="0" italic="0" justification="33"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

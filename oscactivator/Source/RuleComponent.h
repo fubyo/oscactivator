@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  27 Mar 2013 5:07:28pm
+  Creation date:  8 May 2013 4:09:06pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -19,8 +19,8 @@
   ==============================================================================
 */
 
-#ifndef __JUCER_HEADER_RULECOMPONENT_RULECOMPONENT_29416863__
-#define __JUCER_HEADER_RULECOMPONENT_RULECOMPONENT_29416863__
+#ifndef __JUCER_HEADER_RULECOMPONENT_RULECOMPONENT_255D3FE4__
+#define __JUCER_HEADER_RULECOMPONENT_RULECOMPONENT_255D3FE4__
 
 //[Headers]     -- You can add your own extra header files here --
 #include "..\JuceLibraryCode\JuceHeader.h"
@@ -39,7 +39,8 @@
                                                                     //[/Comments]
 */
 class RuleComponent  : public Component,
-                       public ButtonListener
+                       public ButtonListener,
+                       public LabelListener
 {
 public:
     //==============================================================================
@@ -54,11 +55,14 @@ public:
 
 	bool hasToGetDeleted;
 
+	void mouseUp(const MouseEvent& event);
+
     //[/UserMethods]
 
     void paint (Graphics& g);
     void resized();
     void buttonClicked (Button* buttonThatWasClicked);
+    void labelTextChanged (Label* labelThatHasChanged);
 
 
 
@@ -75,6 +79,8 @@ private:
     ToggleButton* lockButton;
     Label* ruleNameLabel;
     TextEditor* ruleTextEditor;
+    Label* wlabel;
+    Label* weightLabel;
 
 
     //==============================================================================
@@ -84,4 +90,4 @@ private:
 };
 
 
-#endif   // __JUCER_HEADER_RULECOMPONENT_RULECOMPONENT_29416863__
+#endif   // __JUCER_HEADER_RULECOMPONENT_RULECOMPONENT_255D3FE4__
