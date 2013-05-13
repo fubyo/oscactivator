@@ -66,6 +66,8 @@ public:
 	void updateRuleList();
 
 	void executeSetExample();
+
+	void updateContent();
     //[/UserMethods]
 
     void paint (Graphics& g);

@@ -240,22 +240,23 @@ void RuleComponent::labelTextChanged (Label* labelThatHasChanged)
 		{
 			int ruleIndex = rpc->getRuleIndex((Component*)this);
 
-			if (rpc->ruleGenerator.rules[ruleIndex]->weightInputConnection==-1)
-			{
-				double NewWeight = weightLabel->getText().getDoubleValue();
-				if (NewWeight>1)
+			if (ruleIndex!=-1)
+				if (rpc->ruleGenerator.rules[ruleIndex]->weightInputConnection==-1)
 				{
-					NewWeight=1;
-					weightLabel->setText(String(NewWeight), false);
-				}
-				else if (NewWeight<0)
-				{
-					NewWeight=0;
-					weightLabel->setText(String(NewWeight), false);
-				}
+					double NewWeight = weightLabel->getText().getDoubleValue();
+					if (NewWeight>1)
+					{
+						NewWeight=1;
+						weightLabel->setText(String(NewWeight), false);
+					}
+					else if (NewWeight<0)
+					{
+						NewWeight=0;
+						weightLabel->setText(String(NewWeight), false);
+					}
 
-				rpc->ruleGenerator.rules[ruleIndex]->importance = NewWeight;
-			}
+					rpc->ruleGenerator.rules[ruleIndex]->importance = NewWeight;
+				}
 		}
 
         //[/UserLabelCode_weightLabel]
@@ -321,6 +322,17 @@ void RuleComponent::mouseUp(const MouseEvent& event)
 			}
 		}
 	}
+}
+
+void RuleComponent::updateWeightLabel(int RuleIndex)
+{
+	RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
+	InputsPanelComponent* ipc = (InputsPanelComponent*)Pool::Instance()->getObject("InputsPanelComponent");
+
+	if (rpc->ruleGenerator.rules[RuleIndex]->weightInputConnection==-1)
+		weightLabel->setText(String(rpc->ruleGenerator.rules[RuleIndex]->importance), true);
+	else
+		weightLabel->setText(ipc->inputs[rpc->ruleGenerator.rules[RuleIndex]->weightInputConnection]->name, true);
 }
 //[/MiscUserCode]
 

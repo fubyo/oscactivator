@@ -344,6 +344,9 @@ void OutputsPanelComponent::selectedRowsChanged (int lastRowSelected)
 		minEditor->setText(String(outputs[lastRowSelected]->termManager->getMin()));
 		maxEditor->setText(String(outputs[lastRowSelected]->termManager->getMax()));
 
+		valueSlider->setRange(minEditor->getText().getDoubleValue(), maxEditor->getText().getDoubleValue());
+		valueSlider->setValue(*outputs[lastRowSelected]->pValue);
+
 		membershipGraph->setTermManager(outputs[lastRowSelected]->termManager);
 	}
 
@@ -423,6 +426,11 @@ void OutputsPanelComponent::sendOuputValues()
 void OutputsPanelComponent::executeSetExample()
 {
 	buttonClicked(setButton);
+}
+
+void OutputsPanelComponent::updateContent()
+{
+	outputsListBox->updateContent();
 }
 //[/MiscUserCode]
 

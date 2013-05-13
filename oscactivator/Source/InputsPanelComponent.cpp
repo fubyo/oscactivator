@@ -391,6 +391,17 @@ void InputsPanelComponent::executeSetExample()
 	buttonClicked(setButton);
 }
 
+void InputsPanelComponent::updateContent()
+{
+	for (int i=0; i<inputs.size(); i++)
+	{
+		OscManager::getInstance()->unregisterReceiver(inputs[i]->pValue);
+		OscManager::getInstance()->registerReceiver(inputs[i]->oscaddress, inputs[i]->parameterindex, inputs[i]->port, inputs[i]->pValue);
+	}
+
+	inputsListBox->updateContent();
+}
+
 //[/MiscUserCode]
 
 

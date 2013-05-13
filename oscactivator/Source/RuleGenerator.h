@@ -49,7 +49,7 @@ public:
 
 		inputTimeParameter.clear();
 		inputTimeParameter.remapTable(1024);
-		for (int i=0; i<other.inputTimeParameter.size(); i++)
+		for (int i=0; i<other.inputTermIndeces.size(); i++)
 		{
 			if (other.inputTimeParameter.contains(i))
 				inputTimeParameter.set(i, other.inputTimeParameter[i]);
@@ -57,7 +57,7 @@ public:
 
 		outputTimeParameter.clear();
 		outputTimeParameter.remapTable(1024);
-		for (int i=0; i<other.outputTimeParameter.size(); i++)
+		for (int i=0; i<other.outputTermIndeces.size(); i++)
 		{
 			if (other.outputTimeParameter.contains(i))
 				outputTimeParameter.set(i, other.outputTimeParameter[i]);
@@ -92,7 +92,7 @@ public:
 
 		inputTimeParameter.clear();
 		inputTimeParameter.remapTable(1024);
-		for (int i=0; i<other.inputTimeParameter.size(); i++)
+		for (int i=0; i<other.inputTermIndeces.size(); i++)
 		{
 			if (other.inputTimeParameter.contains(i))
 				inputTimeParameter.set(i, other.inputTimeParameter[i]);
@@ -100,7 +100,7 @@ public:
 
 		outputTimeParameter.clear();
 		outputTimeParameter.remapTable(1024);
-		for (int i=0; i<other.outputTimeParameter.size(); i++)
+		for (int i=0; i<other.outputTermIndeces.size(); i++)
 		{
 			if (other.outputTimeParameter.contains(i))
 				outputTimeParameter.set(i, other.outputTimeParameter[i]);

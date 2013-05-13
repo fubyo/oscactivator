@@ -1560,6 +1560,9 @@
     <ClCompile Include="..\..\Source\StatementListBoxModel.cpp">
       <Filter>oscactivator\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\MyMenuBarModel.cpp">
+      <Filter>oscactivator\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_basics\buffers\juce_AudioDataConverters.h">
@@ -3024,6 +3027,9 @@
       <Filter>oscactivator\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\StatementListBoxModel.h">
+      <Filter>oscactivator\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MyMenuBarModel.h">
       <Filter>oscactivator\Source</Filter>
     </ClInclude>
   </ItemGroup>

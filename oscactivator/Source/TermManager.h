@@ -9,10 +9,9 @@ class TermManager
 	double min;
 	double max;
 	
-	
 	void sortTerms();
+
 	int getIndex(String termName);
-	
 
 public:
 	Array<fl::TrapezoidalTerm*> terms;
@@ -29,7 +28,8 @@ public:
 	void addTerm(String termName, double value);
 	void removeTerm(int index);
 	
-	int getIndex(double value); 
+	int getIndex(double value);
+	
 
 	TermManager(void);
 	~TermManager(void);

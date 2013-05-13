@@ -70,6 +70,9 @@ public:
 	void executeSetExample();
 
 	OwnedArray<Input> inputs;
+	int numberOfInputs;
+
+	void updateContent();
     //[/UserMethods]
 
     void paint (Graphics& g);
@@ -77,14 +80,14 @@ public:
     void buttonClicked (Button* buttonThatWasClicked);
     bool keyPressed (const KeyPress& key);
 
-
+	
 
     //==============================================================================
     juce_UseDebuggingNewOperator
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
-	int numberOfInputs;
+	
 	
     //[/UserVariables]
 

@@ -57,6 +57,7 @@ public:
 
 	void mouseUp(const MouseEvent& event);
 
+	void updateWeightLabel(int RuleIndex);
     //[/UserMethods]
 
     void paint (Graphics& g);

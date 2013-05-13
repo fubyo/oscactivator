@@ -67,6 +67,9 @@ public:
 	void executeSetExample();
 
 	OwnedArray<Output> outputs;
+	int numberOfOutputs;
+
+	void updateContent();
     //[/UserMethods]
 
     void paint (Graphics& g);
@@ -82,7 +85,7 @@ public:
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
-	int numberOfOutputs;
+	
     //[/UserVariables]
 
     //==============================================================================

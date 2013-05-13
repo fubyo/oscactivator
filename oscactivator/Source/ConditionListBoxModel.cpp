@@ -97,6 +97,7 @@ Component* ConditionListBoxModel::refreshComponentForRow(int rowNumber, bool isR
 		if (inputIndex!=-1)
 		{
 			newConditionComponent = new ConditionComponent(inputIndex);
+			newConditionComponent->updateLabels();
 		}
 
 		return newConditionComponent;
