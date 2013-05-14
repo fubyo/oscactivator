@@ -129,9 +129,9 @@ class MainWindow  : public DocumentWindow, public MenuBarModel
 					ruleElement->setAttribute("inputtermindeces_" + String(ii), rpc->ruleGenerator.rules[i]->inputTermIndeces[ii]);
 					ruleElement->setAttribute("inputvalues_" + String(ii),  rpc->ruleGenerator.rules[i]->inputValues[ii]);
 
-					if (rpc->ruleGenerator.rules[i]->inputTimeParameter.contains(ii))
+					if (rpc->ruleGenerator.rules[i]->inputTimers.contains(ii))
 					{
-						ruleElement->setAttribute("inputtimeparameter_" + String(ii),  rpc->ruleGenerator.rules[i]->inputTimeParameter[ii]);
+						ruleElement->setAttribute("inputtimeparameter_" + String(ii),  rpc->ruleGenerator.rules[i]->inputTimers[ii]->inputTimeParameter);
 					}
 				}
 
@@ -312,7 +312,9 @@ class MainWindow  : public DocumentWindow, public MenuBarModel
 						rule.inputValues.add(e->getDoubleAttribute("inputvalues_" + String(ii)));
 						
 						if (e->hasAttribute("inputtimeparameter_" + String(ii)))
-							rule.inputTimeParameter.set(ii, e->getDoubleAttribute("inputtimeparameter_" + String(ii)));
+						{
+							rule.inputTimers.set(ii, new InputTimer(e->getDoubleAttribute("inputtimeparameter_" + String(ii)), ii, e->getDoubleAttribute("inputtermindeces_" + String(ii))));
+						}
 					}
 
 					for (int ii=0; ii<outputNumber; ii++)

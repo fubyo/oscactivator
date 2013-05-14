@@ -181,9 +181,16 @@ void ConditionComponent::labelTextChanged (Label* labelThatHasChanged)
 				double timeParameter = secondsLabel->getText().getDoubleValue();
 
 				if (timeParameter>0)
-					ruleCopy->inputTimeParameter.set(inputIndex, timeParameter);
+				{
+					ruleCopy->inputTimers.remove(inputIndex);
+					ruleCopy->inputTimers.set(inputIndex, new InputTimer(timeParameter, inputIndex, ruleCopy->inputTermIndeces[inputIndex]));
+				}
 				else
-					ruleCopy->inputTimeParameter.remove(inputIndex);
+				{
+					InputTimer* it = ruleCopy->inputTimers[inputIndex];
+					delete it;
+					ruleCopy->inputTimers.remove(inputIndex);
+				}
 			}
 		}
         //[/UserLabelCode_secondsLabel]
@@ -244,9 +251,9 @@ void ConditionComponent::updateLabels()
 
 		termLabel->setText(termName, true);
 		
-		if (ruleCopy->inputTimeParameter.contains(inputIndex))
+		if (ruleCopy->inputTimers.contains(inputIndex))
 		{
-			secondsLabel->setText(String(ruleCopy->inputTimeParameter[inputIndex]), true);
+			secondsLabel->setText(String(ruleCopy->inputTimers[inputIndex]->inputTimeParameter), true);
 		}
 	}
 }

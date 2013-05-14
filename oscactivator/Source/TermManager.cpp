@@ -805,7 +805,7 @@ void TermManager::addTerm(String termName, double value)
 			}
 			else
 			{
-				if (value>(min+max)/2)
+			//	if (value>(min+max)/2)
 				{
 					if (value>max)
 						max=value;
@@ -820,7 +820,7 @@ void TermManager::addTerm(String termName, double value)
 
 					terms.add(newTerm);
 				}
-				else
+			/*	else
 				{
 					fl::TrapezoidalTerm* newTerm = new fl::TrapezoidalTerm();
 
@@ -831,7 +831,7 @@ void TermManager::addTerm(String termName, double value)
 					newTerm->setName(std::string(termName.toUTF8()));
 
 					terms.add(newTerm);
-				}
+				} */
 			}
 		}
 

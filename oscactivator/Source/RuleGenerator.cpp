@@ -8,6 +8,7 @@ RuleGenerator::RuleGenerator(void) : Thread("RuleGenerator")
 	Pool::Instance()->reg("RuleGenerator", this);
 
 	outputsHaveToGetUpdated=false;
+	inputsAreChanging = false;
 
 	startThread();
 	threadShouldBeRunning = true;
@@ -307,10 +308,10 @@ String RuleGenerator::getRuleText(Rule rule)
 			text += ipc->inputs[i]->name+String(" is ");
 			text +=String(ipc->inputs[i]->termManager->terms[rule.inputTermIndeces[i]]->name().c_str());
 
-			if (rule.inputTimeParameter.contains(i))
+			if (rule.inputTimers.contains(i))
 			{
 				text+= String(" for ");
-				text+= String(rule.inputTimeParameter[i]);
+				text+= String(rule.inputTimers[i]->inputTimeParameter);
 				text+= String(" seconds");
 			}
 			
@@ -488,6 +489,14 @@ double RuleGenerator::calculateOutput(int index)
 			{
 				if (rules[i]->inputTermIndeces[ii]!=-1)
 				{
+					double timeFactor = 1;
+					if (rules[i]->inputTimers.contains(ii))
+					{
+						rules[i]->inputTimers[ii]->updateState();
+						timeFactor = rules[i]->inputTimers[ii]->timeFactor;
+					}
+					tempNumerator*=timeFactor;
+
 					tempNumerator*=ipc->inputs[ii]->termManager->terms[rules[i]->inputTermIndeces[ii]]->membership(*ipc->inputs[ii]->pValue);
 				}
 			}
@@ -513,16 +522,12 @@ void RuleGenerator::requestOutputUpdate()
 
 void RuleGenerator::updateOutputs()
 {
-	if (outputsHaveToGetUpdated)
+	for (int i=0; i<opc->outputs.size(); i++)
 	{
-		for (int i=0; i<opc->outputs.size(); i++)
-		{
-			*opc->outputs[i]->pValue = calculateOutput(i);
-		}
-
-		opc->sendOuputValues();
-		outputsHaveToGetUpdated = false;
+		*opc->outputs[i]->pValue = calculateOutput(i);
 	}
+
+	opc->sendOuputValues();
 }
 
 void RuleGenerator::updateRulesDueToAddingNewIO()
@@ -556,7 +561,14 @@ void RuleGenerator::run()
 {
 	while (threadShouldBeRunning)
 	{
-		updateOutputs();
+		if (outputsHaveToGetUpdated)
+		{
+			updateOutputs();
+
+			if (!inputsAreChanging)
+				outputsHaveToGetUpdated = false;
+		}
+
 		sleep(10);
 	}
 }
@@ -566,7 +578,7 @@ Rule::Rule()
 	importance=1;
 	locked = false;
 	outputFromInput.remapTable(1024);
-	inputTimeParameter.remapTable(1024);
+	inputTimers.remapTable(1024);
 	outputTimeParameter.remapTable(1024);
 
 	weightInputConnection = -1;

@@ -5,6 +5,7 @@
 #include "OutputsPanelComponent.h"
 #include "Example.h"
 #include "../fuzzylite/FuzzyLite.h"
+#include "InputTimer.h"
 
 class Rule
 {
@@ -20,7 +21,8 @@ public:
 	Array<double> outputMembership;
 	Array<double> outputValues;
 
-	HashMap<int, double> inputTimeParameter;
+	//HashMap<int, double> inputTimeParameter;
+	HashMap<int, InputTimer*> inputTimers;
 	HashMap<int, double> outputTimeParameter;
 
 	int weightInputConnection;
@@ -47,12 +49,12 @@ public:
 				outputFromInput.set(i, other.outputFromInput[i]);
 		}
 
-		inputTimeParameter.clear();
-		inputTimeParameter.remapTable(1024);
+		inputTimers.clear();
+		inputTimers.remapTable(1024);
 		for (int i=0; i<other.inputTermIndeces.size(); i++)
 		{
-			if (other.inputTimeParameter.contains(i))
-				inputTimeParameter.set(i, other.inputTimeParameter[i]);
+			if (other.inputTimers.contains(i))
+				inputTimers.set(i, other.inputTimers[i]);
 		}
 
 		outputTimeParameter.clear();
@@ -90,12 +92,12 @@ public:
 				outputFromInput.set(i, other.outputFromInput[i]);
 		}
 
-		inputTimeParameter.clear();
-		inputTimeParameter.remapTable(1024);
+		inputTimers.clear();
+		inputTimers.remapTable(1024);
 		for (int i=0; i<other.inputTermIndeces.size(); i++)
 		{
-			if (other.inputTimeParameter.contains(i))
-				inputTimeParameter.set(i, other.inputTimeParameter[i]);
+			if (other.inputTimers.contains(i))
+				inputTimers.set(i, other.inputTimers[i]);
 		}
 
 		outputTimeParameter.clear();
@@ -134,8 +136,6 @@ class RuleGenerator : public juce::Thread
 
 	void createRulesFromQueuedExamples();
 	void mergeNewRulesToRuleBase();
-	int getIndexOfBestInputTerm(int inputIndex, double value);
-	int getIndexOfBestOutputTerm(int outputIndex, double value);
 	
 	void updateMembershipAndTermIndeces(int index);
 
@@ -165,8 +165,12 @@ public:
 	void requestOutputUpdate();
 	void updateOutputs();
 
+	int getIndexOfBestInputTerm(int inputIndex, double value);
+	int getIndexOfBestOutputTerm(int outputIndex, double value);
+
 	String getRuleText();
 
 	void run();
 	bool threadShouldBeRunning;
+	bool inputsAreChanging;
 };

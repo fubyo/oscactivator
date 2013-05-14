@@ -171,6 +171,7 @@
     <ClCompile Include="..\..\Source\ConditionListBoxModel.cpp" />
     <ClCompile Include="..\..\Source\Example.cpp" />
     <ClCompile Include="..\..\Source\InputComponent.cpp" />
+    <ClCompile Include="..\..\Source\InputTimer.cpp" />
     <ClCompile Include="..\..\Source\MultipleSelectionListBoxModel.cpp" />
     <ClCompile Include="..\..\Source\MyMenuBarModel.cpp" />
     <ClCompile Include="..\..\Source\OutputComponent.cpp" />
@@ -1702,6 +1703,7 @@
     <ClInclude Include="..\..\Source\ConditionListBoxModel.h" />
     <ClInclude Include="..\..\Source\Example.h" />
     <ClInclude Include="..\..\Source\InputComponent.h" />
+    <ClInclude Include="..\..\Source\InputTimer.h" />
     <ClInclude Include="..\..\Source\MultipleSelectionListBoxModel.h" />
     <ClInclude Include="..\..\Source\MyMenuBarModel.h" />
     <ClInclude Include="..\..\Source\OutputComponent.h" />
