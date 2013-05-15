@@ -85,6 +85,7 @@ class MainWindow  : public DocumentWindow, public MenuBarModel
 				outputElement->setAttribute("host", opc->outputs[i]->host);
 				outputElement->setAttribute("port",  opc->outputs[i]->port);
 				outputElement->setAttribute("value",  *opc->outputs[i]->pValue);
+				outputElement->setAttribute("sendstatechanges", opc->outputs[i]->sendStateChanges);
 
 				int termNumber = opc->outputs[i]->termManager->terms.size();
 				outputElement->setAttribute("TermNumber", termNumber);
@@ -250,6 +251,7 @@ class MainWindow  : public DocumentWindow, public MenuBarModel
 					String host = e->getStringAttribute("host");
 					int port = e->getIntAttribute("port");
 					int value = e->getDoubleAttribute("value");
+					bool sendstatechanges = e->getBoolAttribute("sendstatechanges");
 					
 					int TermNumber = e->getIntAttribute("TermNumber");
 					double min = e->getDoubleAttribute("min");
@@ -261,6 +263,7 @@ class MainWindow  : public DocumentWindow, public MenuBarModel
 					output->host = host;
 					output->port = port;
 					*output->pValue=value;
+					output->sendStateChanges = sendstatechanges;
 					output->termManager->setMin(min);
 					output->termManager->setMax(max);
 

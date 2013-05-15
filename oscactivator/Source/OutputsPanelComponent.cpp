@@ -366,6 +366,7 @@ void OutputsPanelComponent::changeListenerCallback (ChangeBroadcaster* source)
 			outputs[selectedRow]->oscaddress = output.oscaddress;
 			outputs[selectedRow]->port = output.port;
 			outputs[selectedRow]->host = output.host;
+			outputs[selectedRow]->sendStateChanges = output.sendStateChanges;
 
 			outputs[selectedRow]->prepareSocket();
 
@@ -413,13 +414,34 @@ void OutputsPanelComponent::sendOuputValues()
 {
 	for (int i=0; i<outputs.size(); i++)
 	{
-		osc::OutboundPacketStream p(outputs[i]->buffer, 128);
+		if (!outputs[i]->sendStateChanges)
+		{
+			osc::OutboundPacketStream p(outputs[i]->buffer, 128);
 
-		p << osc::BeginMessage( outputs[i]->oscaddress.toUTF8() )
-			<< (float)*outputs[i]->pValue
-		<< osc::EndMessage;
+			p << osc::BeginMessage( outputs[i]->oscaddress.toUTF8() )
+				<< (float)*outputs[i]->pValue
+			<< osc::EndMessage;
 
-		outputs[i]->socket->Send( p.Data(), p.Size() );
+			outputs[i]->socket->Send( p.Data(), p.Size() );
+		}
+		else
+		{
+			int termIndex = outputs[i]->termManager->getIndex(*outputs[i]->pValue);
+			double memberShip = outputs[i]->termManager->terms[termIndex]->membership(*outputs[i]->pValue);
+
+			if (memberShip==1.0 && termIndex!=outputs[i]->lastState)
+			{
+				outputs[i]->lastState = termIndex;
+
+				osc::OutboundPacketStream p(outputs[i]->buffer, 128);
+
+				p << osc::BeginMessage( outputs[i]->oscaddress.toUTF8() )
+					<< (float)termIndex
+				<< osc::EndMessage;
+
+				outputs[i]->socket->Send( p.Data(), p.Size() );
+			}
+		}
 	}
 }
 

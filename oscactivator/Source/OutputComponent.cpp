@@ -185,6 +185,7 @@ void OutputComponent::buttonClicked (Button* buttonThatWasClicked)
     if (buttonThatWasClicked == statesToggleButton)
     {
         //[UserButtonCode_statesToggleButton] -- add your button handler code here..
+		sendChangeMessage();
         //[/UserButtonCode_statesToggleButton]
     }
 
@@ -201,6 +202,7 @@ void OutputComponent::setOutput(Output output)
 	addressEditor->setText(output.oscaddress);
 	portEditor->setText(String(output.port));
 	hostEditor->setText(output.host);
+	statesToggleButton->setToggleState(output.sendStateChanges, true);
 }
 
 Output OutputComponent::getOutput()
@@ -210,6 +212,7 @@ Output OutputComponent::getOutput()
 	output.oscaddress = addressEditor->getText();
 	output.host = hostEditor->getText();
 	output.port = portEditor->getText().getIntValue();
+	output.sendStateChanges = statesToggleButton->getToggleState();
 
 	return output;
 }

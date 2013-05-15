@@ -37,6 +37,9 @@ public:
 	double* pValue;
 	TermManager* termManager;
 
+	bool sendStateChanges;
+	int lastState;
+
 	char* buffer;
 	UdpTransmitSocket* socket;
 	osc::OutboundPacketStream* packetStream;
@@ -53,6 +56,9 @@ public:
 
 		socket = 0;
 		buffer = new char[128];
+
+		sendStateChanges=false;
+		lastState = -1;
 
 		prepareSocket();
 	};
