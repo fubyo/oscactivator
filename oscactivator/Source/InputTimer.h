@@ -16,6 +16,8 @@ public:
 	double timeOfChange;
 	double timePassed;
 
+	bool isChanging;
+
 	void updateState();
 
 	InputTimer();

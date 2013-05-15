@@ -141,6 +141,9 @@ class RuleGenerator : public juce::Thread
 
 	bool isRuleRelevantToOutput(int ruleIndex, int outputIndex);
 
+	HashMap<int, double> savedOutputValue;
+	bool inputTimersAreCounting;
+
 public:
 	OwnedArray<Rule> rules;
 	String getRuleText(Rule rule);
@@ -172,5 +175,4 @@ public:
 
 	void run();
 	bool threadShouldBeRunning;
-	bool inputsAreChanging;
 };

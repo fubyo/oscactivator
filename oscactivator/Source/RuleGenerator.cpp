@@ -8,10 +8,12 @@ RuleGenerator::RuleGenerator(void) : Thread("RuleGenerator")
 	Pool::Instance()->reg("RuleGenerator", this);
 
 	outputsHaveToGetUpdated=false;
-	inputsAreChanging = false;
 
 	startThread();
 	threadShouldBeRunning = true;
+
+	savedOutputValue.remapTable(1024);
+	inputTimersAreCounting = false;
 }
 
 RuleGenerator::~RuleGenerator(void)
@@ -475,6 +477,13 @@ double RuleGenerator::calculateOutput(int index)
 {
 	double numerator = 0;
 	double denominator = 0;
+	double timeFactorProduct = 1;
+
+	inputTimersAreCounting = false;
+
+	vector<double> timeFactors;
+	vector<double> numerators;
+	vector<double> denominators;
 
 	for (int i=0; i<rules.size(); i++)
 	{
@@ -482,6 +491,7 @@ double RuleGenerator::calculateOutput(int index)
 		{
 			double tempNumerator;
 			double tempDenominator;
+			double tempTimeFactor=1;
 			
 			tempNumerator = rules[i]->importance;
 
@@ -494,9 +504,13 @@ double RuleGenerator::calculateOutput(int index)
 					{
 						rules[i]->inputTimers[ii]->updateState();
 						timeFactor = rules[i]->inputTimers[ii]->timeFactor;
-					}
-					tempNumerator*=timeFactor;
 
+						if (rules[i]->inputTimers[ii]->isChanging)
+							inputTimersAreCounting = true;
+					}
+					tempTimeFactor*=timeFactor;
+
+					tempNumerator*=timeFactor;
 					tempNumerator*=ipc->inputs[ii]->termManager->terms[rules[i]->inputTermIndeces[ii]]->membership(*ipc->inputs[ii]->pValue);
 				}
 			}
@@ -507,12 +521,32 @@ double RuleGenerator::calculateOutput(int index)
 			double output = (opc->outputs[index]->termManager->terms[outputTermIndex]->b() + opc->outputs[index]->termManager->terms[outputTermIndex]->c())/2;
 			tempNumerator *= output;
 
-			numerator += tempNumerator;
-			denominator += tempDenominator;
+			numerators.push_back(tempNumerator);
+			denominators.push_back(tempDenominator);
+			timeFactors.push_back(tempTimeFactor);
 		}
 	}
 
-	return numerator/denominator;
+	for (int i=0; i<numerators.size(); i++)
+	{
+		numerator+=numerators[i];
+		denominator+=denominators[i];
+		timeFactorProduct*=timeFactors[i];
+	}
+
+	double result;
+
+	if (timeFactorProduct==1.0)
+	{
+		result = numerator/denominator;
+		savedOutputValue.set(index, result);
+	}
+	else
+	{
+		result = timeFactorProduct*numerator/denominator + (1-timeFactorProduct)*savedOutputValue[index];
+	}
+
+	return result;
 }
 
 void RuleGenerator::requestOutputUpdate()
@@ -565,7 +599,7 @@ void RuleGenerator::run()
 		{
 			updateOutputs();
 
-			if (!inputsAreChanging)
+			if (!inputTimersAreCounting)
 				outputsHaveToGetUpdated = false;
 		}
 
