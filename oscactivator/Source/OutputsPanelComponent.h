@@ -66,7 +66,7 @@ public:
 
 	void executeSetExample();
 
-	OwnedArray<Output> outputs;
+	OwnedArray<Output, CriticalSection> outputs;
 	int numberOfOutputs;
 
 	void updateContent();

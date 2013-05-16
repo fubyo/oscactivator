@@ -69,7 +69,7 @@ public:
 
 	void executeSetExample();
 
-	OwnedArray<Input> inputs;
+	OwnedArray<Input, CriticalSection> inputs;
 	int numberOfInputs;
 
 	void updateContent();

@@ -145,7 +145,7 @@ class RuleGenerator : public juce::Thread
 	bool inputTimersAreCounting;
 
 public:
-	OwnedArray<Rule> rules;
+	OwnedArray<Rule, CriticalSection> rules;
 	String getRuleText(Rule rule);
 
 	RuleGenerator(void);
