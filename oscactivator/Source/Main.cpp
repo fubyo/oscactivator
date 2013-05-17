@@ -177,7 +177,7 @@ class MainWindow  : public DocumentWindow, public MenuBarModel
 			File configurationFile (myChooser.getResult());
 
 			XmlDocument configurationDocument(configurationFile);
-			XmlElement* configurationElement = configurationDocument.getDocumentElement();
+			ScopedPointer<XmlElement> configurationElement = configurationDocument.getDocumentElement();
 
 			if (configurationElement->hasTagName ("Configuration"))
 			{
@@ -316,7 +316,7 @@ class MainWindow  : public DocumentWindow, public MenuBarModel
 						
 						if (e->hasAttribute("inputtimeparameter_" + String(ii)))
 						{
-							rule.inputTimers.set(ii, new InputTimer(e->getDoubleAttribute("inputtimeparameter_" + String(ii)), ii, e->getDoubleAttribute("inputtermindeces_" + String(ii))));
+							rule.inputTimers.set(ii, new InputTimer(e->getDoubleAttribute("inputtimeparameter_" + String(ii)), ii, e->getIntAttribute("inputtermindeces_" + String(ii))));
 						}
 					}
 
@@ -339,9 +339,6 @@ class MainWindow  : public DocumentWindow, public MenuBarModel
 				rpc->updateContent();
 
 			}
-
-			if (configurationElement)
-				delete configurationElement;
 		}
 	}
 

@@ -184,7 +184,7 @@ void RuleComponent::buttonClicked (Button* buttonThatWasClicked)
 
 		Pool::Instance()->reg("ruleIndexForEditing", rowNumber);
 
-		RuleEditorComponent* rec = new RuleEditorComponent(rowNumber);
+		ScopedPointer<RuleEditorComponent> rec = new RuleEditorComponent(rowNumber);
 		DialogWindow::showModalDialog(title, rec, this->getParentComponent(), Colours::lightgrey, false);
 
 		if (rec->okClicked)
@@ -194,8 +194,6 @@ void RuleComponent::buttonClicked (Button* buttonThatWasClicked)
 
 			rpc->updateRuleList();
 		}
-
-		delete rec;
         //[/UserButtonCode_editButton]
     }
     else if (buttonThatWasClicked == lockButton)

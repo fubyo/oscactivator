@@ -103,6 +103,4 @@ Component* StatementListBoxModel::refreshComponentForRow(int rowNumber, bool isR
 
 		return newStatementComponent;
 	}	
-	
-	return 0;
 }

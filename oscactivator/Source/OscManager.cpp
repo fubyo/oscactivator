@@ -33,7 +33,7 @@ void OscManager::unregisterReceiver(double *pValue)
 {
 	cs.enter();
 
-	for (int i=0; i<receivers.size(); i++)
+	for (unsigned int i=0; i<receivers.size(); i++)
 		if (receivers[i].pValue==pValue)
 		{
 			receivers.erase(receivers.begin()+i);

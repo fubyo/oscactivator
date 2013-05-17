@@ -9,11 +9,13 @@ RuleGenerator::RuleGenerator(void) : Thread("RuleGenerator")
 
 	outputsHaveToGetUpdated=false;
 
-	startThread();
+	
 	threadShouldBeRunning = true;
 
 	savedOutputValue.remapTable(1024);
 	inputTimersAreCounting = false;
+	
+	startThread();
 }
 
 RuleGenerator::~RuleGenerator(void)
@@ -87,7 +89,7 @@ void RuleGenerator::createRulesFromQueuedExamples()
 				float membership = 0;
 				
 				if (outputTermIndex>=0)
-					membership = termManager->terms[outputTermIndex]->membership(queuedExamples[i]->outputValues[ii].value);
+					membership = termManager->terms[outputTermIndex]->membership((float)queuedExamples[i]->outputValues[ii].value);
 				
 				rule.outputDegrees.add(rule.inputDegree*membership);
 				rule.outputMembership.add(membership);
@@ -351,7 +353,7 @@ String RuleGenerator::getRuleText(Rule rule)
 				text += String(" and ");
 
 			text += opc->outputs[i]->name+String(" is same as ");
-			text +=String(ipc->inputs[i]->name);
+			text += String(ipc->inputs[rule.outputFromInput[i]]->name);
 
 			if (rule.outputTimeParameter.contains(i))
 			{
@@ -449,7 +451,7 @@ void RuleGenerator::updateMembershipAndTermIndeces(int index)
 		if (rules[index]->inputTermIndeces[i]!=-1)
 		{
 			rules[index]->inputTermIndeces.set(i, ipc->inputs[i]->termManager->getIndex(rules[index]->inputValues[i]));
-			rules[index]->inputMembership.set(i, ipc->inputs[i]->termManager->terms[rules[index]->inputTermIndeces[i]]->membership(rules[index]->inputValues[i]));
+			rules[index]->inputMembership.set(i, ipc->inputs[i]->termManager->terms[rules[index]->inputTermIndeces[i]]->membership((float)rules[index]->inputValues[i]));
 		}
 	}
 
@@ -458,7 +460,7 @@ void RuleGenerator::updateMembershipAndTermIndeces(int index)
 		if (rules[index]->outputTermIndeces[i]!=-1)
 		{
 			rules[index]->outputTermIndeces.set(i, opc->outputs[i]->termManager->getIndex(rules[index]->outputValues[i]));
-			rules[index]->outputMembership.set(i, opc->outputs[i]->termManager->terms[rules[index]->outputTermIndeces[i]]->membership(rules[index]->outputValues[i]));
+			rules[index]->outputMembership.set(i, opc->outputs[i]->termManager->terms[rules[index]->outputTermIndeces[i]]->membership((float)rules[index]->outputValues[i]));
 		}
 	}
 
@@ -467,7 +469,7 @@ void RuleGenerator::updateMembershipAndTermIndeces(int index)
 
 bool RuleGenerator::isRuleRelevantToOutput(int ruleIndex, int outputIndex)
 {
-	if (rules[ruleIndex]->outputTermIndeces[outputIndex]!=-1)
+	if (rules[ruleIndex]->outputTermIndeces[outputIndex]!=-1 || rules[ruleIndex]->outputFromInput.contains(outputIndex))
 		return true;
 	else
 		return false;
@@ -481,9 +483,9 @@ double RuleGenerator::calculateOutput(int index)
 
 	inputTimersAreCounting = false;
 
-	vector<double> timeFactors;
-	vector<double> numerators;
-	vector<double> denominators;
+	Array<double> timeFactors;
+	Array<double> numerators;
+	Array<double> denominators;
 
 	for (int i=0; i<rules.size(); i++)
 	{
@@ -511,23 +513,33 @@ double RuleGenerator::calculateOutput(int index)
 					tempTimeFactor*=timeFactor;
 
 					tempNumerator*=timeFactor;
-					tempNumerator*=ipc->inputs[ii]->termManager->terms[rules[i]->inputTermIndeces[ii]]->membership(*ipc->inputs[ii]->pValue);
+					tempNumerator*=ipc->inputs[ii]->termManager->terms[rules[i]->inputTermIndeces[ii]]->membership((float)*ipc->inputs[ii]->pValue);
 				}
 			}
 
 			tempDenominator = tempNumerator;
 
-			int outputTermIndex = rules[i]->outputTermIndeces[index];
-			double output = (opc->outputs[index]->termManager->terms[outputTermIndex]->b() + opc->outputs[index]->termManager->terms[outputTermIndex]->c())/2;
+			double output;
+
+			if (rules[i]->outputFromInput.contains(index))
+			{
+				output = *ipc->inputs[rules[i]->outputFromInput[index]]->pValue;
+			}
+			else
+			{
+				int outputTermIndex = rules[i]->outputTermIndeces[index];
+				output = (opc->outputs[index]->termManager->terms[outputTermIndex]->b() + opc->outputs[index]->termManager->terms[outputTermIndex]->c())/2;
+			}
+
 			tempNumerator *= output;
 
-			numerators.push_back(tempNumerator);
-			denominators.push_back(tempDenominator);
-			timeFactors.push_back(tempTimeFactor);
+			numerators.add(tempNumerator);
+			denominators.add(tempDenominator);
+			timeFactors.add(tempTimeFactor);
 		}
 	}
 
-	for (int i=0; i<numerators.size(); i++)
+	for (unsigned int i=0; i<numerators.size(); i++)
 	{
 		numerator+=numerators[i];
 		denominator+=denominators[i];

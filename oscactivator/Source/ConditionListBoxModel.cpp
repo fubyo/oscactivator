@@ -102,6 +102,4 @@ Component* ConditionListBoxModel::refreshComponentForRow(int rowNumber, bool isR
 
 		return newConditionComponent;
 	}	
-	
-	return 0;
 }
