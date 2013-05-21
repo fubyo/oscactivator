@@ -20,14 +20,14 @@ struct ObjectValue
 
 class Pool
 {
-	static Pool* instance;
+	static ScopedPointer<Pool> instance;
 	Pool();
 
 	static HashMap<String, ObjectValue> map;
 
 public:
 	
-	static Pool* Instance();
+	static ScopedPointer<Pool> Instance();
 	bool contains(String key);
 	double getValue(String key);
 	void* getObject(String key);

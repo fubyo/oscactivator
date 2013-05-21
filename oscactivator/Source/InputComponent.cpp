@@ -210,13 +210,13 @@ void InputComponent::setInput(Input input)
 	parameterIndexComboBox->setSelectedItemIndex(input.parameterindex);
 }
 
-Input InputComponent::getInput()
+Input* InputComponent::getInput()
 {
-	Input input;
-	input.name = nameEditor->getText();
-	input.oscaddress = addressEditor->getText();
-	input.parameterindex = parameterIndexComboBox->getSelectedItemIndex();
-	input.port = portEditor->getText().getIntValue();
+	Input* input = new Input();
+	input->name = nameEditor->getText();
+	input->oscaddress = addressEditor->getText();
+	input->parameterindex = parameterIndexComboBox->getSelectedItemIndex();
+	input->port = portEditor->getText().getIntValue();
 
 	return input;
 }

@@ -143,6 +143,12 @@ InputsPanelComponent::InputsPanelComponent ()
 InputsPanelComponent::~InputsPanelComponent()
 {
     //[Destructor_pre]. You can add your own custom destruction code here..
+	for (int i=0; i<inputs.size(); i++)
+	{
+		delete inputs[i]->termManager;
+		delete [] inputs[i]->pValue;
+	}
+
     //[/Destructor_pre]
 
     deleteAndZero (groupComponent);
@@ -330,15 +336,15 @@ void InputsPanelComponent::changeListenerCallback (ChangeBroadcaster* source)
 {
 	if (source==inputComponent)
 	{
-		Input input=inputComponent->getInput();
+		Input* input=inputComponent->getInput();
 		int selectedRow=inputsListBox->getSelectedRow();
 
 		if (selectedRow!=-1)
 		{
-			inputs[selectedRow]->name = input.name;
-			inputs[selectedRow]->oscaddress = input.oscaddress;
-			inputs[selectedRow]->port = input.port;
-			inputs[selectedRow]->parameterindex = input.parameterindex;
+			inputs[selectedRow]->name = input->name;
+			inputs[selectedRow]->oscaddress = input->oscaddress;
+			inputs[selectedRow]->port = input->port;
+			inputs[selectedRow]->parameterindex = input->parameterindex;
 
 			OscManager::getInstance()->unregisterReceiver(inputs[selectedRow]->pValue);
 			OscManager::getInstance()->registerReceiver(inputs[selectedRow]->oscaddress, inputs[selectedRow]->parameterindex, inputs[selectedRow]->port, inputs[selectedRow]->pValue);
@@ -346,6 +352,10 @@ void InputsPanelComponent::changeListenerCallback (ChangeBroadcaster* source)
 			inputsListBox->updateContent();
 			inputsListBox->repaintRow(selectedRow);
 		}
+
+		delete [] input->pValue;
+		delete input->termManager;
+		delete input;
 	}
 }
 
@@ -400,6 +410,17 @@ void InputsPanelComponent::updateContent()
 	}
 
 	inputsListBox->updateContent();
+}
+
+void InputsPanelComponent::clearInputs()
+{
+	for (int i=0; i<inputs.size(); i++)
+	{
+		delete inputs[i]->termManager;
+		delete [] inputs[i]->pValue;
+	}
+
+	inputs.clear();
 }
 
 //[/MiscUserCode]

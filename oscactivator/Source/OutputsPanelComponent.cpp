@@ -141,6 +141,13 @@ OutputsPanelComponent::OutputsPanelComponent ()
 OutputsPanelComponent::~OutputsPanelComponent()
 {
     //[Destructor_pre]. You can add your own custom destruction code here..
+	for (int i=0; i<outputs.size(); i++)
+	{
+		delete [] outputs[i]->buffer;
+		delete [] outputs[i]->pValue;
+		delete outputs[i]->socket;
+		delete outputs[i]->termManager;
+	}
     //[/Destructor_pre]
 
     deleteAndZero (groupComponent);
@@ -207,7 +214,10 @@ void OutputsPanelComponent::buttonClicked (Button* buttonThatWasClicked)
     if (buttonThatWasClicked == addButton)
     {
         //[UserButtonCode_addButton] -- add your button handler code here..
-		outputs.add(new Output());
+		Output* newOutput = new Output();
+		newOutput->prepareSocket();
+
+		outputs.add(newOutput);
 
 		outputsListBox->updateContent();
 
@@ -229,13 +239,16 @@ void OutputsPanelComponent::buttonClicked (Button* buttonThatWasClicked)
 		{
 			delete[] outputs[selectedrow]->pValue;
 			delete outputs[selectedrow]->termManager;
+			delete[] outputs[selectedrow]->buffer;
+			delete outputs[selectedrow]->socket;
+
 			membershipGraph->setTermManager(0);
 
 			outputs.remove(selectedrow);
 
 			if (selectedrow<outputs.size())
 			{
-				outputComponent->setOutput(*outputs[selectedrow]);
+				outputComponent->setOutput(outputs[selectedrow]);
 
 				minEditor->setText(String(outputs[selectedrow]->termManager->getMin()));
 				maxEditor->setText(String(outputs[selectedrow]->termManager->getMax()));
@@ -338,7 +351,7 @@ void OutputsPanelComponent::selectedRowsChanged (int lastRowSelected)
 {
 	if (lastRowSelected!=-1)
 	{
-		outputComponent->setOutput(*outputs[lastRowSelected]);
+		outputComponent->setOutput(outputs[lastRowSelected]);
 		outputComponent->setVisible(true);
 
 		minEditor->setText(String(outputs[lastRowSelected]->termManager->getMin()));
@@ -357,22 +370,27 @@ void OutputsPanelComponent::changeListenerCallback (ChangeBroadcaster* source)
 {
 	if (source==outputComponent)
 	{
-		Output output=outputComponent->getOutput();
+		Output* output = outputComponent->getOutput();
 		int selectedRow=outputsListBox->getSelectedRow();
 
 		if (selectedRow!=-1)
 		{
-			outputs[selectedRow]->name = output.name;
-			outputs[selectedRow]->oscaddress = output.oscaddress;
-			outputs[selectedRow]->port = output.port;
-			outputs[selectedRow]->host = output.host;
-			outputs[selectedRow]->sendStateChanges = output.sendStateChanges;
+			outputs[selectedRow]->name = output->name;
+			outputs[selectedRow]->oscaddress = output->oscaddress;
+			outputs[selectedRow]->port = output->port;
+			outputs[selectedRow]->host = output->host;
+			outputs[selectedRow]->sendStateChanges = output->sendStateChanges;
 
 			outputs[selectedRow]->prepareSocket();
 
 			outputsListBox->updateContent();
 			outputsListBox->repaintRow(selectedRow);
 		}
+
+		delete [] output->buffer;
+		delete [] output->pValue;
+		delete output->termManager;
+		delete output;
 	}
 }
 
@@ -453,6 +471,19 @@ void OutputsPanelComponent::executeSetExample()
 void OutputsPanelComponent::updateContent()
 {
 	outputsListBox->updateContent();
+}
+
+void OutputsPanelComponent::clearOutputs()
+{
+	for (int i=0; i<outputs.size(); i++)
+	{
+		delete [] outputs[i]->buffer;
+		delete [] outputs[i]->pValue;
+		delete outputs[i]->socket;
+		delete outputs[i]->termManager;
+	}
+
+	outputs.clear();
 }
 //[/MiscUserCode]
 

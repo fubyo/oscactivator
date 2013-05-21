@@ -1,98 +1,22 @@
-﻿Der Buildvorgang wurde am 17.05.2013 17:22:06 gestartet.
-     1>Projekt "C:\Users\marinos\Promotion\Tools\oscactivator\oscactivator\Builds\VisualStudio2010\oscactivator.vcxproj" auf Knoten "2", build Ziel(e).
+﻿Build started 21.05.2013 19:19:22.
+     1>Project "C:\Users\marinos\Promotion\Tools\oscactivator\oscactivator\Builds\VisualStudio2010\oscactivator.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
-         Aktualisieren des Timestamps von ".\Debug\oscactivator.unsuccessfulbuild".
+         Creating ".\Debug\oscactivator.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         Alle Ausgaben sind aktuell.
+         All outputs are up-to-date.
        ResourceCompile:
-         Alle Ausgaben sind aktuell.
+         All outputs are up-to-date.
        ManifestResourceCompile:
-         Alle Ausgaben sind aktuell.
+         All outputs are up-to-date.
        Link:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:".\Debug\oscactivator.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /NODEFAULTLIB:libcmt.lib /NODEFAULTLIB:msvcrt.lib /MANIFEST /ManifestFile:".\Debug\oscactivator.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:".\Debug\oscactivator.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\Debug\oscactivator.lib" /MACHINE:X86 .\Debug\resources.res
-         .\Debug\oscactivator.exe.embed.manifest.res
-         .\Debug\AreaCentroidAlgorithm.obj
-         .\Debug\CompoundTerm.obj
-         .\Debug\DescriptiveAntecedent.obj
-         .\Debug\DiscreteTerm.obj
-         .\Debug\FunctionTerm.obj
-         .\Debug\FuzzyAnd.obj
-         .\Debug\FuzzyAntecedent.obj
-         .\Debug\FuzzyConsequent.obj
-         .\Debug\FuzzyDefuzzifier.obj
-         .\Debug\FuzzyEngine.obj
-         .\Debug\FuzzyException.obj
-         .\Debug\FuzzyExceptions.obj
-         .\Debug\FuzzyModulation.obj
-         .\Debug\FuzzyOperation.obj
-         .\Debug\FuzzyOperator.obj
-         .\Debug\FuzzyOr.obj
-         .\Debug\FuzzyRule.obj
-         .\Debug\Hedge.obj
-         .\Debug\HedgeSet.obj
-         .\Debug\InfixToPostfix.obj
-         .\Debug\InputLVar.obj
-         .\Debug\LinguisticTerm.obj
-         .\Debug\LinguisticVariable.obj
-         .\Debug\MamdaniConsequent.obj
-         .\Debug\MamdaniRule.obj
-         .\Debug\OutputLVar.obj
-         .\Debug\RectangularTerm.obj
-         .\Debug\RuleBlock.obj
-         .\Debug\ShoulderTerm.obj
-         .\Debug\SingletonTerm.obj
-         .\Debug\StrOp.obj
-         .\Debug\TakagiSugenoConsequent.obj
-         .\Debug\TakagiSugenoRule.obj
-         .\Debug\TakagiSugenoTerm.obj
-         .\Debug\TrapezoidalTerm.obj
-         .\Debug\TriangularTerm.obj
-         .\Debug\IpEndpointName.obj
-         .\Debug\NetworkingUtils.obj
-         .\Debug\UdpSocket.obj
-         .\Debug\OscOutboundPacketStream.obj
-         .\Debug\OscPrintReceivedElements.obj
-         .\Debug\OscReceivedElements.obj
-         .\Debug\OscTypes.obj
-         .\Debug\ConditionComponent.obj
-         .\Debug\ConditionListBoxModel.obj
-         .\Debug\Example.obj
-         .\Debug\InputComponent.obj
-         .\Debug\InputTimer.obj
-         .\Debug\MultipleSelectionListBoxModel.obj
-         .\Debug\MyMenuBarModel.obj
-         .\Debug\OutputComponent.obj
-         .\Debug\OutputsPanelComponent.obj
-         .\Debug\RuleComponent.obj
-         .\Debug\RuleEditorComponent.obj
-         .\Debug\RuleGenerator.obj
-         .\Debug\RulesListBoxModel.obj
-         .\Debug\RulesPanelComponent.obj
-         .\Debug\StatementComponent.obj
-         .\Debug\StatementListBoxModel.obj
-         .\Debug\TermManager.obj
-         .\Debug\InputsPanelComponent.obj
-         .\Debug\Main.obj
-         .\Debug\juce_audio_basics.obj
-         .\Debug\juce_audio_devices.obj
-         .\Debug\juce_audio_formats.obj
-         .\Debug\juce_audio_processors.obj
-         .\Debug\juce_core.obj
-         .\Debug\juce_cryptography.obj
-         .\Debug\juce_data_structures.obj
-         .\Debug\juce_events.obj
-         .\Debug\juce_graphics.obj
-         .\Debug\juce_gui_basics.obj
-         .\Debug\juce_gui_extra.obj
-         .\Debug\juce_opengl.obj
-         .\Debug\juce_video.obj
-         .\Debug\MainComponent.obj
-         .\Debug\MembershipGraphComponent.obj
-         .\Debug\OscManager.obj
-         .\Debug\Pool.obj
-     1>LINK : fatal error LNK1123: Fehler bei der Konvertierung in COFF: Datei ist ungültig oder beschädigt.
-     1>Die Erstellung des Projekts "C:\Users\marinos\Promotion\Tools\oscactivator\oscactivator\Builds\VisualStudio2010\oscactivator.vcxproj" ist abgeschlossen, build Ziel(e) -- FEHLER.
+         All outputs are up-to-date.
+       Manifest:
+         All outputs are up-to-date.
+       FinalizeBuildStatus:
+         Deleting file ".\Debug\oscactivator.unsuccessfulbuild".
+         Touching ".\Debug\oscactivator.lastbuildstate".
+     1>Done Building Project "C:\Users\marinos\Promotion\Tools\oscactivator\oscactivator\Builds\VisualStudio2010\oscactivator.vcxproj" (build target(s)).
 
-Fehler beim Erstellen
+Das Erstellen war erfolgreich.
 
-Verstrichene Zeit 00:00:00.89
+Time Elapsed 00:00:00.44

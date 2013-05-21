@@ -73,6 +73,8 @@ public:
 	int numberOfInputs;
 
 	void updateContent();
+
+	void clearInputs();
     //[/UserMethods]
 
     void paint (Graphics& g);

@@ -49,8 +49,30 @@ public:
 
 	~Input()
 	{
-
+		
 	};
+
+	/*Input &operator= (const Input &other)
+	{
+		name = other.name;
+		oscaddress = other.oscaddress;
+		port = other.port;
+		parameterindex = other.parameterindex;
+		pValue = other.pValue;
+		termManager = other.termManager;
+
+		return *this;
+	}
+
+	Input(const Input& other)
+	{
+		name = other.name;
+		oscaddress = other.oscaddress;
+		port = other.port;
+		parameterindex = other.parameterindex;
+		pValue = other.pValue;
+		termManager = other.termManager;
+	}*/
 };
 //[/Headers]
 
@@ -77,7 +99,7 @@ public:
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
 	void setInput(Input input);
-	Input getInput();
+	Input* getInput();
 
 	void textEditorTextChanged (TextEditor& editor);
     //[/UserMethods]

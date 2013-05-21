@@ -14,7 +14,7 @@ class TermManager
 	int getIndex(String termName);
 
 public:
-	Array<fl::TrapezoidalTerm*> terms;
+	OwnedArray<fl::TrapezoidalTerm> terms;
 	
 	double getMidPointOfTrapezoidTable(int index);
 	double getMidPointOfTrapezoidTable(String termName);

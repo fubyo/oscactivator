@@ -1,6 +1,6 @@
 #include "Pool.h"
 
-Pool* Pool::instance = 0;
+ScopedPointer<Pool> Pool::instance = 0;
 HashMap<String, ObjectValue> Pool::map;
 
 Pool::Pool()
@@ -8,7 +8,7 @@ Pool::Pool()
 
 }
 
-Pool* Pool::Instance()
+ScopedPointer<Pool> Pool::Instance()
 {
 	if (!instance)
 		instance = new Pool();

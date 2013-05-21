@@ -183,7 +183,7 @@ class MainWindow  : public DocumentWindow, public MenuBarModel
 			{
 				int inputNumber = configurationElement->getIntAttribute("InputNumber");
 
-				ipc->inputs.clear();
+				ipc->clearInputs();
 				ipc->numberOfInputs = inputNumber;
 
 				for (int i=0; i<inputNumber; i++)
@@ -238,7 +238,7 @@ class MainWindow  : public DocumentWindow, public MenuBarModel
 
 				int outputNumber = configurationElement->getIntAttribute("OutputNumber");
 
-				opc->outputs.clear();
+				opc->clearOutputs();
 				opc->numberOfOutputs = outputNumber;
 
 				for (int i=0; i<outputNumber; i++)
@@ -434,6 +434,14 @@ public:
     void initialise (const String& commandLine)
     {
         // Do your application's initialisation code here..
+	 /*	#ifdef _DEBUG
+			int flag = _CrtSetDbgFlag(_CRTDBG_REPORT_FLAG);
+			flag |= _CRTDBG_LEAK_CHECK_DF; // Turn on leak-checking bit
+			_CrtSetDbgFlag(flag);
+			_CrtSetBreakAlloc(7475);
+		#endif  */
+
+
         mainWindow = new MainWindow();
 
 		OscManager::getInstance()->startThread();

@@ -70,6 +70,8 @@ public:
 	int numberOfOutputs;
 
 	void updateContent();
+
+	void clearOutputs();
     //[/UserMethods]
 
     void paint (Graphics& g);

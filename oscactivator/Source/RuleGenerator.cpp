@@ -568,6 +568,17 @@ void RuleGenerator::requestOutputUpdate()
 
 void RuleGenerator::updateOutputs()
 {
+	//get rule weights from inputs
+	for (int i=0; i<rules.size(); i++)
+	{
+		int weightConnection = rules[i]->weightInputConnection;
+		if (weightConnection!=-1)
+		{
+			rules[i]->importance = *ipc->inputs[weightConnection]->pValue;
+		}
+	}
+
+	//calculate each output
 	for (int i=0; i<opc->outputs.size(); i++)
 	{
 		*opc->outputs[i]->pValue = calculateOutput(i);

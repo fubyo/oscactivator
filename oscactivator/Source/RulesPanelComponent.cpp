@@ -138,6 +138,10 @@ RulesPanelComponent::RulesPanelComponent ()
 RulesPanelComponent::~RulesPanelComponent()
 {
     //[Destructor_pre]. You can add your own custom destruction code here..
+	delete inputsListBox->getModel();
+	delete outputsListBox->getModel();
+	delete rulesListBox->getModel();
+
     //[/Destructor_pre]
 
     deleteAndZero (groupComponent);

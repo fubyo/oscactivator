@@ -42,7 +42,6 @@ public:
 
 	char* buffer;
 	UdpTransmitSocket* socket;
-	osc::OutboundPacketStream* packetStream;
 
 	Output()
 	{
@@ -59,8 +58,6 @@ public:
 
 		sendStateChanges=false;
 		lastState = -1;
-
-		prepareSocket();
 	};
 
 	void prepareSocket()
@@ -100,8 +97,8 @@ public:
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
-	void setOutput(Output output);
-	Output getOutput();
+	void setOutput(Output* output);
+	Output* getOutput();
 
 	void textEditorTextChanged (TextEditor& editor);
     //[/UserMethods]

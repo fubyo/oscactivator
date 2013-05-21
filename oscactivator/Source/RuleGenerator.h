@@ -126,8 +126,6 @@ class RuleGenerator : public juce::Thread
 	OwnedArray<Example> queuedExamples;
 	OwnedArray<Rule> queuedRules;
 
-	fl::FuzzyEngine engine;
-
 	bool outputsHaveToGetUpdated;
 
 	bool areInputsConflicting(Rule firstrule, Rule secondrule);

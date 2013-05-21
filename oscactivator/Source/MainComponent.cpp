@@ -51,7 +51,6 @@ MainComponent::MainComponent ()
 
     //[Constructor] You can add your own custom stuff here..
 	Pool::Instance()->reg("MainComponent", this);
-	Pool::Instance()->reg("engine", &engine);
     //[/Constructor]
 }
 

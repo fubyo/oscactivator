@@ -196,23 +196,23 @@ void OutputComponent::buttonClicked (Button* buttonThatWasClicked)
 
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
-void OutputComponent::setOutput(Output output)
+void OutputComponent::setOutput(Output* output)
 {
-	nameEditor->setText(output.name);
-	addressEditor->setText(output.oscaddress);
-	portEditor->setText(String(output.port));
-	hostEditor->setText(output.host);
-	statesToggleButton->setToggleState(output.sendStateChanges, true);
+	nameEditor->setText(output->name);
+	addressEditor->setText(output->oscaddress);
+	portEditor->setText(String(output->port));
+	hostEditor->setText(output->host);
+	statesToggleButton->setToggleState(output->sendStateChanges, true);
 }
 
-Output OutputComponent::getOutput()
+Output* OutputComponent::getOutput()
 {
-	Output output;
-	output.name = nameEditor->getText();
-	output.oscaddress = addressEditor->getText();
-	output.host = hostEditor->getText();
-	output.port = portEditor->getText().getIntValue();
-	output.sendStateChanges = statesToggleButton->getToggleState();
+	Output* output = new Output();
+	output->name = nameEditor->getText();
+	output->oscaddress = addressEditor->getText();
+	output->host = hostEditor->getText();
+	output->port = portEditor->getText().getIntValue();
+	output->sendStateChanges = statesToggleButton->getToggleState();
 
 	return output;
 }
