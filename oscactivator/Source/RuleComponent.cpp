@@ -164,6 +164,14 @@ void RuleComponent::buttonClicked (Button* buttonThatWasClicked)
 		if (rpc)
 		{
 			int rowNumber = rpc->getRuleIndex((Component*)this);
+
+			//delete the inputtimers
+			HashMap<int, InputTimer*>::Iterator i(rpc->ruleGenerator.rules[rowNumber]->inputTimers);
+			while (i.next())
+			{
+				delete i.getValue();
+			}
+
 			rpc->ruleGenerator.rules.remove(rowNumber);
 			hasToGetDeleted = true;
 			rpc->updateRuleList();
@@ -193,7 +201,7 @@ void RuleComponent::buttonClicked (Button* buttonThatWasClicked)
 			rpc->ruleGenerator.recalculateDegrees(rowNumber);
 
 			rpc->updateRuleList();
-		}
+		} 
         //[/UserButtonCode_editButton]
     }
     else if (buttonThatWasClicked == lockButton)

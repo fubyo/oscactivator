@@ -1,7 +1,7 @@
 #pragma once
 
 #include "..\JuceLibraryCode\JuceHeader.h"
-#include "../fuzzylite/FuzzyLite.h"
+#include "TrapezTerm.h"
 #include <assert.h>
 
 class TermManager
@@ -14,7 +14,7 @@ class TermManager
 	int getIndex(String termName);
 
 public:
-	OwnedArray<fl::TrapezoidalTerm> terms;
+	OwnedArray<TrapezTerm> terms;
 	
 	double getMidPointOfTrapezoidTable(int index);
 	double getMidPointOfTrapezoidTable(String termName);

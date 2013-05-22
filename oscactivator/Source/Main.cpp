@@ -64,7 +64,7 @@ class MainWindow  : public DocumentWindow, public MenuBarModel
 					termElement->setAttribute("c" , ipc->inputs[i]->termManager->terms[ii]->c() );
 					termElement->setAttribute("d" , ipc->inputs[i]->termManager->terms[ii]->d() );
 
-					termElement->setAttribute("name", ipc->inputs[i]->termManager->terms[ii]->name().c_str());
+					termElement->setAttribute("name", ipc->inputs[i]->termManager->terms[ii]->name());
 
 					inputElement->addChildElement(termElement);
 				}
@@ -102,7 +102,7 @@ class MainWindow  : public DocumentWindow, public MenuBarModel
 					termElement->setAttribute("c" , opc->outputs[i]->termManager->terms[ii]->c() );
 					termElement->setAttribute("d" , opc->outputs[i]->termManager->terms[ii]->d() );
 
-					termElement->setAttribute("name",  opc->outputs[i]->termManager->terms[ii]->name().c_str());
+					termElement->setAttribute("name",  opc->outputs[i]->termManager->terms[ii]->name());
 
 					outputElement->addChildElement(termElement);
 				}
@@ -222,7 +222,7 @@ class MainWindow  : public DocumentWindow, public MenuBarModel
 
 						String termName = termElement->getStringAttribute("name");
 
-						fl::TrapezoidalTerm* term = new fl::TrapezoidalTerm(string(termName.toUTF8()));
+						TrapezTerm* term = new TrapezTerm(termName);
 
 						term->setA(a);
 						term->setB(b);
@@ -279,7 +279,7 @@ class MainWindow  : public DocumentWindow, public MenuBarModel
 
 						String termName = termElement->getStringAttribute("name");
 
-						fl::TrapezoidalTerm* term = new fl::TrapezoidalTerm(string(termName.toUTF8()));
+						TrapezTerm* term = new TrapezTerm(termName);
 
 						term->setA(a);
 						term->setB(b);
@@ -289,6 +289,7 @@ class MainWindow  : public DocumentWindow, public MenuBarModel
 						output->termManager->terms.add(term);
 					}
 
+					output->prepareSocket();
 					opc->outputs.add(output);
 				}
 				opc->updateContent();

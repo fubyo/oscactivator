@@ -86,7 +86,7 @@ void MembershipGraphComponent::paint (Graphics& g)
 
 		for (int i=0; i<termManager->terms.size(); i++)
 		{
-			float x=0,y=0;
+			double x=0,y=0;
 			termManager->terms[i]->centroid(x,y);
 			x = (x-min)*width/difference;
 			y = height-(y)*height/difference;
@@ -97,7 +97,7 @@ void MembershipGraphComponent::paint (Graphics& g)
 				g.setColour(Colours::black);
 
 			g.drawEllipse(x, y, 5, 5, 2);
-			g.drawText(String(termManager->terms[i]->name().c_str()), x, y-20, 100, 20, juce::Justification::left,true);
+			g.drawText(termManager->terms[i]->name(), x, y-20, 100, 20, juce::Justification::left,true);
 		}
 
 	}
@@ -126,7 +126,7 @@ void MembershipGraphComponent::mouseDown (const MouseEvent& e)
 
 		for (int i=0; i<termManager->terms.size(); i++)
 		{
-			float x=0,y=0;
+			double x=0,y=0;
 			termManager->terms[i]->centroid(x,y);
 			x = (x-min)*width/difference;
 			y = height-(y)*height/difference;

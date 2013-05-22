@@ -4,7 +4,6 @@
 #include "InputsPanelComponent.h"
 #include "OutputsPanelComponent.h"
 #include "Example.h"
-#include "../fuzzylite/FuzzyLite.h"
 #include "InputTimer.h"
 
 class Rule
@@ -21,7 +20,6 @@ public:
 	Array<double> outputMembership;
 	Array<double> outputValues;
 
-	//HashMap<int, double> inputTimeParameter;
 	HashMap<int, InputTimer*> inputTimers;
 	HashMap<int, double> outputTimeParameter;
 

@@ -149,11 +149,11 @@ void TermManager::addTerm(String termName, double value)
 				{
 					if( (float)value >= terms[index+1]->c())
 					{
-						float d = terms[index+1]->d();
+						double d = terms[index+1]->d();
 						terms.remove(index+1);
 						terms[index]->setD(d);
 					}
-					else if ((float)value >= terms[index+1]->b())
+					else if (value >= terms[index+1]->b())
 					{
 						terms[index+1]->setA(value);
 						terms[index+1]->setB(terms[index+1]->c());
@@ -496,13 +496,13 @@ void TermManager::addTerm(String termName, double value)
 			{
 				min = value;
 
-				fl::TrapezoidalTerm* newTerm = new fl::TrapezoidalTerm();
+				TrapezTerm* newTerm = new TrapezTerm();
 
 				newTerm->setA(value);
 				newTerm->setB(value);
 				newTerm->setC(value);
 				newTerm->setD(max);
-				newTerm->setName(std::string(termName.toUTF8()));
+				newTerm->setName(termName);
 
 				terms.add(newTerm);
 			}
@@ -510,25 +510,25 @@ void TermManager::addTerm(String termName, double value)
 			{
 				if (value<(min+max)/2)
 				{
-					fl::TrapezoidalTerm* newTerm = new fl::TrapezoidalTerm();
+					TrapezTerm* newTerm = new TrapezTerm();
 
 					newTerm->setA(min);
 					newTerm->setB(min);
 					newTerm->setC(value);
 					newTerm->setD(max);
-					newTerm->setName(std::string(termName.toUTF8()));
+					newTerm->setName(termName);
 
 					terms.add(newTerm);
 				}
 				else
 				{
-					fl::TrapezoidalTerm* newTerm = new fl::TrapezoidalTerm();
+					TrapezTerm* newTerm = new TrapezTerm();
 
 					newTerm->setA(min);
 					newTerm->setB(value);
 					newTerm->setC(max);
 					newTerm->setD(max);
-					newTerm->setName(std::string(termName.toUTF8()));
+					newTerm->setName(termName);
 
 					terms.add(newTerm);
 				}
@@ -537,13 +537,13 @@ void TermManager::addTerm(String termName, double value)
 			{
 				max = value;
 
-				fl::TrapezoidalTerm* newTerm = new fl::TrapezoidalTerm();
+				TrapezTerm* newTerm = new TrapezTerm();
 
 				newTerm->setA(min);
 				newTerm->setB(value);
 				newTerm->setC(value);
 				newTerm->setD(value);
-				newTerm->setName(std::string(termName.toUTF8()));
+				newTerm->setName(termName);
 
 				terms.add(newTerm);
 			}
@@ -554,38 +554,37 @@ void TermManager::addTerm(String termName, double value)
 			{
 				if ((float)value==terms[indexOfNearestTerm]->b() && (float)value==terms[indexOfNearestTerm]->c())
 				{
-					float a = terms[indexOfNearestTerm]->a();
-					float b = terms[indexOfNearestTerm]->b();
-					float c = terms[indexOfNearestTerm]->c();
-					float d = terms[indexOfNearestTerm]->d();
+					double a = terms[indexOfNearestTerm]->a();
+					double b = terms[indexOfNearestTerm]->b();
+					double c = terms[indexOfNearestTerm]->c();
+					double d = terms[indexOfNearestTerm]->d();
 					
 					terms.remove(indexOfNearestTerm);
 
-					fl::TrapezoidalTerm* newTerm = new fl::TrapezoidalTerm();
+					TrapezTerm* newTerm = new TrapezTerm();
 
 					newTerm->setA(a);
 					newTerm->setB(b);
 					newTerm->setC(c);
 					newTerm->setD(d);
-					newTerm->setName(std::string(termName.toUTF8()));
+					newTerm->setName(termName);
 
 					terms.add(newTerm);
 				}
 				else if ( (float)value>=terms[indexOfNearestTerm]->b() && (float)value<(terms[indexOfNearestTerm]->b()+terms[indexOfNearestTerm]->c())/2  )
 				{
-					float a = terms[indexOfNearestTerm]->a();
-					float b = terms[indexOfNearestTerm]->b();
+					double a = terms[indexOfNearestTerm]->a();
 
 					terms[indexOfNearestTerm]->setA(value);
 					terms[indexOfNearestTerm]->setB(terms[indexOfNearestTerm]->c());
 			
-					fl::TrapezoidalTerm* newTerm = new fl::TrapezoidalTerm();
+					TrapezTerm* newTerm = new TrapezTerm();
 
 					newTerm->setA(a);
 					newTerm->setB(value);
 					newTerm->setC(value);
 					newTerm->setD(terms[indexOfNearestTerm]->b());
-					newTerm->setName(std::string(termName.toUTF8()));
+					newTerm->setName(termName);
 
 					terms.add(newTerm);
 				}
@@ -594,13 +593,13 @@ void TermManager::addTerm(String termName, double value)
 					terms[indexOfNearestTerm]->setA(value);
 					terms[indexOfNearestTerm-1]->setD(value);
 			
-					fl::TrapezoidalTerm* newTerm = new fl::TrapezoidalTerm();
+					TrapezTerm* newTerm = new TrapezTerm();
 
 					newTerm->setA(terms[indexOfNearestTerm-1]->c());
 					newTerm->setB(value);
 					newTerm->setC(value);
 					newTerm->setD(terms[indexOfNearestTerm]->b());
-					newTerm->setName(std::string(termName.toUTF8()));
+					newTerm->setName(termName);
 
 					terms.add(newTerm);
 				}
@@ -609,20 +608,20 @@ void TermManager::addTerm(String termName, double value)
 			{
 				if ((float)value==terms[indexOfNearestTerm]->a() && (float)value==terms[indexOfNearestTerm]->b()  && (float)value==terms[indexOfNearestTerm]->c())
 				{
-					float a = terms[indexOfNearestTerm]->a();
-					float b = terms[indexOfNearestTerm]->b();
-					float c = terms[indexOfNearestTerm]->c();
-					float d = terms[indexOfNearestTerm]->d();
+					double a = terms[indexOfNearestTerm]->a();
+					double b = terms[indexOfNearestTerm]->b();
+					double c = terms[indexOfNearestTerm]->c();
+					double d = terms[indexOfNearestTerm]->d();
 					
 					terms.remove(indexOfNearestTerm);
 
-					fl::TrapezoidalTerm* newTerm = new fl::TrapezoidalTerm();
+					TrapezTerm* newTerm = new TrapezTerm();
 
 					newTerm->setA(a);
 					newTerm->setB(b);
 					newTerm->setC(c);
 					newTerm->setD(d);
-					newTerm->setName(std::string(termName.toUTF8()));
+					newTerm->setName(termName);
 
 					terms.add(newTerm);
 				}
@@ -631,13 +630,13 @@ void TermManager::addTerm(String termName, double value)
 					terms[indexOfNearestTerm]->setA(value);
 					terms[indexOfNearestTerm]->setB(terms[indexOfNearestTerm]->c());
 
-					fl::TrapezoidalTerm* newTerm = new fl::TrapezoidalTerm();
+					TrapezTerm* newTerm = new TrapezTerm();
 
 					newTerm->setA(min);
 					newTerm->setB(value);
 					newTerm->setC(value);
 					newTerm->setD(terms[indexOfNearestTerm]->b());
-					newTerm->setName(std::string(termName.toUTF8()));
+					newTerm->setName(termName);
 
 					terms.add(newTerm);
 				}
@@ -645,13 +644,13 @@ void TermManager::addTerm(String termName, double value)
 				{
 					terms[indexOfNearestTerm]->setA(value);
 
-					fl::TrapezoidalTerm* newTerm = new fl::TrapezoidalTerm();
+					TrapezTerm* newTerm = new TrapezTerm();
 
 					newTerm->setA(min);
 					newTerm->setB(min);
 					newTerm->setC(value);
 					newTerm->setD(terms[indexOfNearestTerm]->b());
-					newTerm->setName(std::string(termName.toUTF8()));
+					newTerm->setName(termName);
 
 					terms.add(newTerm);
 				}
@@ -662,13 +661,13 @@ void TermManager::addTerm(String termName, double value)
 
 					terms[indexOfNearestTerm]->setA(value);
 
-					fl::TrapezoidalTerm* newTerm = new fl::TrapezoidalTerm();
+					TrapezTerm* newTerm = new TrapezTerm();
 
 					newTerm->setA(min);
 					newTerm->setB(min);
 					newTerm->setC(value);
 					newTerm->setD(terms[indexOfNearestTerm]->b());
-					newTerm->setName(std::string(termName.toUTF8()));
+					newTerm->setName(termName);
 
 					terms.add(newTerm);
 
@@ -685,13 +684,13 @@ void TermManager::addTerm(String termName, double value)
 				if (value>max)
 					max=value;
 
-				fl::TrapezoidalTerm* newTerm = new fl::TrapezoidalTerm();
+				TrapezTerm* newTerm = new TrapezTerm();
 					
 				newTerm->setA(terms[indexOfNearestTerm]->c());
 				newTerm->setB(value);
 				newTerm->setC(max);
 				newTerm->setD(max);
-				newTerm->setName(std::string(termName.toUTF8()));
+				newTerm->setName(termName);
 
 				terms.add(newTerm);
 
@@ -700,15 +699,15 @@ void TermManager::addTerm(String termName, double value)
 			{
 				if ( (float)value == terms[indexOfNearestTerm]->c())
 				{	
-					float a=terms[indexOfNearestTerm]->a();
-					float b=terms[indexOfNearestTerm]->b();
-					float c=terms[indexOfNearestTerm]->c();
-					float d=terms[indexOfNearestTerm]->d();
+					double a=terms[indexOfNearestTerm]->a();
+					double b=terms[indexOfNearestTerm]->b();
+					double c=terms[indexOfNearestTerm]->c();
+					double d=terms[indexOfNearestTerm]->d();
 					
 					terms[indexOfNearestTerm]->setC(terms[indexOfNearestTerm]->b());
 					terms[indexOfNearestTerm]->setD(value);
 
-					fl::TrapezoidalTerm* newTerm = new fl::TrapezoidalTerm();
+					TrapezTerm* newTerm = new TrapezTerm();
 					
 					if (b!=c)
 					{
@@ -726,7 +725,7 @@ void TermManager::addTerm(String termName, double value)
 
 						terms.remove(indexOfNearestTerm);
 					}
-					newTerm->setName(std::string(termName.toUTF8()));
+					newTerm->setName(termName);
 
 					terms.add(newTerm);
 				}
@@ -738,33 +737,33 @@ void TermManager::addTerm(String termName, double value)
 					if (value<min)
 						min = value;
 
-					fl::TrapezoidalTerm* newTerm = new fl::TrapezoidalTerm();
+					TrapezTerm* newTerm = new TrapezTerm();
 					
 					newTerm->setA(min);
 					newTerm->setB(min);
 					newTerm->setC(value);
 					newTerm->setD(terms[indexOfNearestTerm]->b());
-					newTerm->setName(std::string(termName.toUTF8()));
+					newTerm->setName(termName);
 
 					terms.add(newTerm);
 				}
 			}
-			else if((float)value>(terms[indexOfNearestTerm]->b()+terms[indexOfNearestTerm]->c())/2 && (float)value<=terms[indexOfNearestTerm]->c())
+			else if(value>(terms[indexOfNearestTerm]->b()+terms[indexOfNearestTerm]->c())/2 && value<=terms[indexOfNearestTerm]->c())
 			{
-				float b=terms[indexOfNearestTerm]->b();
-				float d=terms[indexOfNearestTerm]->d();
+				double b=terms[indexOfNearestTerm]->b();
+				double d=terms[indexOfNearestTerm]->d();
 
 				terms[indexOfNearestTerm]->setC(b);
 				terms[indexOfNearestTerm]->setD(value);
 
-				fl::TrapezoidalTerm* newTerm = new fl::TrapezoidalTerm();
+				TrapezTerm* newTerm = new TrapezTerm();
 					
 				newTerm->setA(b);
 				newTerm->setB(value);
 				newTerm->setC(value);
 				newTerm->setD(d);
 
-				newTerm->setName(std::string(termName.toUTF8()));
+				newTerm->setName(termName);
 
 				terms.add(newTerm);
 			}
@@ -774,13 +773,13 @@ void TermManager::addTerm(String termName, double value)
 				terms[indexOfNearestTerm]->setB(terms[indexOfNearestTerm]->c());
 				terms[indexOfNearestTerm-1]->setD(value);
 			
-				fl::TrapezoidalTerm* newTerm = new fl::TrapezoidalTerm();
+				TrapezTerm* newTerm = new TrapezTerm();
 					
 				newTerm->setA(terms[indexOfNearestTerm-1]->c());
 				newTerm->setB(value);
 				newTerm->setC(value);
 				newTerm->setD(terms[indexOfNearestTerm]->b());
-				newTerm->setName(std::string(termName.toUTF8()));
+				newTerm->setName(termName);
 
 				terms.add(newTerm);
 			}
@@ -793,13 +792,13 @@ void TermManager::addTerm(String termName, double value)
 			{
 				terms[indexOfNearestTerm+1]->setA(value);
 			
-				fl::TrapezoidalTerm* newTerm = new fl::TrapezoidalTerm();
+				TrapezTerm* newTerm = new TrapezTerm();
 
 				newTerm->setA(terms[indexOfNearestTerm]->c());
 				newTerm->setB(value);
 				newTerm->setC(value);
 				newTerm->setD(terms[indexOfNearestTerm+1]->b());
-				newTerm->setName(std::string(termName.toUTF8()));
+				newTerm->setName(termName);
 
 				terms.add(newTerm);
 			}
@@ -810,13 +809,13 @@ void TermManager::addTerm(String termName, double value)
 					if (value>max)
 						max=value;
 
-					fl::TrapezoidalTerm* newTerm = new fl::TrapezoidalTerm();
+					TrapezTerm* newTerm = new TrapezTerm();
 
 					newTerm->setA(terms[indexOfNearestTerm]->c());
 					newTerm->setB(value);
 					newTerm->setC(max);
 					newTerm->setD(max);
-					newTerm->setName(std::string(termName.toUTF8()));
+					newTerm->setName(termName);
 
 					terms.add(newTerm);
 				}
@@ -919,7 +918,7 @@ int TermManager::getIndex(String termName)
 	int i=0;
 	while (!found && i<terms.size())
 	{
-		if (termName.equalsIgnoreCase(String(terms[i]->name().c_str())))
+		if (termName.equalsIgnoreCase(String(terms[i]->name())))
 		{
 			found = true;
 		}
@@ -964,7 +963,7 @@ double TermManager::getMidPointOfTrapezoidTable(String termName)
 	int i=0;
 	while (!found && i<terms.size())
 	{
-		if (termName.compare(terms[i]->name().c_str()) == 0)
+		if (termName.compare(terms[i]->name()) == 0)
 		{
 			found = true;
 		}
@@ -988,7 +987,7 @@ void TermManager::sortTerms()
         {
 			if (getMidPointOfTrapezoidTable(j) > getMidPointOfTrapezoidTable(j+1)) 
             {
-				fl::TrapezoidalTerm* tmp = terms[j];
+				TrapezTerm* tmp = terms[j];
 				terms.set(j, terms[j + 1]);
 				terms.set(j+1, tmp);
             }

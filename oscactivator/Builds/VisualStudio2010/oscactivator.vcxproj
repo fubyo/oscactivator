@@ -125,42 +125,6 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\fuzzylite\AreaCentroidAlgorithm.cpp" />
-    <ClCompile Include="..\..\fuzzylite\CompoundTerm.cpp" />
-    <ClCompile Include="..\..\fuzzylite\DescriptiveAntecedent.cpp" />
-    <ClCompile Include="..\..\fuzzylite\DiscreteTerm.cpp" />
-    <ClCompile Include="..\..\fuzzylite\FunctionTerm.cpp" />
-    <ClCompile Include="..\..\fuzzylite\FuzzyAnd.cpp" />
-    <ClCompile Include="..\..\fuzzylite\FuzzyAntecedent.cpp" />
-    <ClCompile Include="..\..\fuzzylite\FuzzyConsequent.cpp" />
-    <ClCompile Include="..\..\fuzzylite\FuzzyDefuzzifier.cpp" />
-    <ClCompile Include="..\..\fuzzylite\FuzzyEngine.cpp" />
-    <ClCompile Include="..\..\fuzzylite\FuzzyException.cpp" />
-    <ClCompile Include="..\..\fuzzylite\FuzzyExceptions.cpp" />
-    <ClCompile Include="..\..\fuzzylite\FuzzyModulation.cpp" />
-    <ClCompile Include="..\..\fuzzylite\FuzzyOperation.cpp" />
-    <ClCompile Include="..\..\fuzzylite\FuzzyOperator.cpp" />
-    <ClCompile Include="..\..\fuzzylite\FuzzyOr.cpp" />
-    <ClCompile Include="..\..\fuzzylite\FuzzyRule.cpp" />
-    <ClCompile Include="..\..\fuzzylite\Hedge.cpp" />
-    <ClCompile Include="..\..\fuzzylite\HedgeSet.cpp" />
-    <ClCompile Include="..\..\fuzzylite\InfixToPostfix.cpp" />
-    <ClCompile Include="..\..\fuzzylite\InputLVar.cpp" />
-    <ClCompile Include="..\..\fuzzylite\LinguisticTerm.cpp" />
-    <ClCompile Include="..\..\fuzzylite\LinguisticVariable.cpp" />
-    <ClCompile Include="..\..\fuzzylite\MamdaniConsequent.cpp" />
-    <ClCompile Include="..\..\fuzzylite\MamdaniRule.cpp" />
-    <ClCompile Include="..\..\fuzzylite\OutputLVar.cpp" />
-    <ClCompile Include="..\..\fuzzylite\RectangularTerm.cpp" />
-    <ClCompile Include="..\..\fuzzylite\RuleBlock.cpp" />
-    <ClCompile Include="..\..\fuzzylite\ShoulderTerm.cpp" />
-    <ClCompile Include="..\..\fuzzylite\SingletonTerm.cpp" />
-    <ClCompile Include="..\..\fuzzylite\StrOp.cpp" />
-    <ClCompile Include="..\..\fuzzylite\TakagiSugenoConsequent.cpp" />
-    <ClCompile Include="..\..\fuzzylite\TakagiSugenoRule.cpp" />
-    <ClCompile Include="..\..\fuzzylite\TakagiSugenoTerm.cpp" />
-    <ClCompile Include="..\..\fuzzylite\TrapezoidalTerm.cpp" />
-    <ClCompile Include="..\..\fuzzylite\TriangularTerm.cpp" />
     <ClCompile Include="..\..\oscpack\ip\IpEndpointName.cpp" />
     <ClCompile Include="..\..\oscpack\ip\win32\NetworkingUtils.cpp" />
     <ClCompile Include="..\..\oscpack\ip\win32\UdpSocket.cpp" />
@@ -1230,47 +1194,9 @@
     <ClCompile Include="..\..\Source\MembershipGraphComponent.cpp" />
     <ClCompile Include="..\..\Source\OscManager.cpp" />
     <ClCompile Include="..\..\Source\Pool.cpp" />
+    <ClCompile Include="..\..\Source\TrapezTerm.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\AreaCentroidAlgorithm.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\CompoundTerm.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\defs.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\DescriptiveAntecedent.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\DiscreteTerm.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\flScalar.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\FunctionTerm.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\FuzzyAnd.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\FuzzyAntecedent.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\FuzzyConsequent.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\FuzzyDefuzzifier.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\FuzzyEngine.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\FuzzyException.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\FuzzyExceptions.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\FuzzyLite.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\FuzzyModulation.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\FuzzyOperation.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\FuzzyOperator.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\FuzzyOr.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\FuzzyRule.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\Hedge.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\HedgeSet.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\InfixToPostfix.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\InputLVar.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\LinguisticTerm.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\LinguisticVariable.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\MamdaniConsequent.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\MamdaniRule.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\OutputLVar.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\RectangularTerm.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\RuleBlock.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\ShoulderTerm.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\SingletonTerm.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\StrOp.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\TakagiSugenoConsequent.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\TakagiSugenoRule.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\TakagiSugenoTerm.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\TrapezoidalTerm.h" />
-    <ClInclude Include="..\..\fuzzylite\fuzzylite\TriangularTerm.h" />
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_basics\buffers\juce_AudioDataConverters.h" />
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_basics\buffers\juce_AudioSampleBuffer.h" />
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_basics\midi\juce_MidiBuffer.h" />
@@ -1722,6 +1648,7 @@
     <ClInclude Include="..\..\Source\MembershipGraphComponent.h" />
     <ClInclude Include="..\..\Source\OscManager.h" />
     <ClInclude Include="..\..\Source\Pool.h" />
+    <ClInclude Include="..\..\Source\TrapezTerm.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include=".\resources.rc" />

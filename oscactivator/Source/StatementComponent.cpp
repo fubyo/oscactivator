@@ -244,7 +244,7 @@ void StatementComponent::updateLabels()
 		if (termIndex!=-1)
 		{
 			if (opc->outputs[outputIndex]->termManager->terms.size())
-				termName = String(opc->outputs[outputIndex]->termManager->terms[termIndex]->name().c_str());
+				termName = String(opc->outputs[outputIndex]->termManager->terms[termIndex]->name());
 		}
 		else if (ruleCopy->outputFromInput.contains(outputIndex))
 		{
@@ -339,7 +339,7 @@ void StatementComponent::mouseUp(const MouseEvent& event)
 
 			for (int i=0; i<numberOfTerms; i++)
 			{
-				m.addItem(i+1, String(opc->outputs[outputIndex]->termManager->terms[i]->name().c_str()));
+				m.addItem(i+1, String(opc->outputs[outputIndex]->termManager->terms[i]->name()));
 			}
 
 			PopupMenu sub;

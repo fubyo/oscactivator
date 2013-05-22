@@ -20,7 +20,15 @@ RuleGenerator::RuleGenerator(void) : Thread("RuleGenerator")
 
 RuleGenerator::~RuleGenerator(void)
 {
-	
+	//delete all input timers
+	for (int i=0; i<rules.size(); i++)
+	{
+		HashMap<int, InputTimer*>::Iterator ii(rules[i]->inputTimers);
+		while (ii.next())
+		{
+			delete ii.getValue();
+		}
+	} 
 }
 
 void RuleGenerator::addExample(Example example)
@@ -310,7 +318,7 @@ String RuleGenerator::getRuleText(Rule rule)
 				text += String(" and ");
 
 			text += ipc->inputs[i]->name+String(" is ");
-			text +=String(ipc->inputs[i]->termManager->terms[rule.inputTermIndeces[i]]->name().c_str());
+			text += String(ipc->inputs[i]->termManager->terms[rule.inputTermIndeces[i]]->name());
 
 			if (rule.inputTimers.contains(i))
 			{
@@ -335,7 +343,7 @@ String RuleGenerator::getRuleText(Rule rule)
 				text += String(" and ");
 
 			text += opc->outputs[i]->name+String(" is ");
-			text +=String(opc->outputs[i]->termManager->terms[rule.outputTermIndeces[i]]->name().c_str());
+			text += String(opc->outputs[i]->termManager->terms[rule.outputTermIndeces[i]]->name());
 
 			if (rule.outputTimeParameter.contains(i))
 			{

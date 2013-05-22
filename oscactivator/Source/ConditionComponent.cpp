@@ -246,7 +246,7 @@ void ConditionComponent::updateLabels()
 		if (termIndex!=-1)
 		{
 			if (ipc->inputs[inputIndex]->termManager->terms.size())
-				termName = String(ipc->inputs[inputIndex]->termManager->terms[termIndex]->name().c_str());
+				termName = String(ipc->inputs[inputIndex]->termManager->terms[termIndex]->name());
 		}
 
 		termLabel->setText(termName, true);
@@ -331,7 +331,7 @@ void ConditionComponent::mouseUp(const MouseEvent& event)
 			PopupMenu m;
 			for (int i=0; i<ipc->inputs[inputIndex]->termManager->terms.size(); i++)
 			{
-				m.addItem(i+1, String(ipc->inputs[inputIndex]->termManager->terms[i]->name().c_str()));
+				m.addItem(i+1, String(ipc->inputs[inputIndex]->termManager->terms[i]->name()));
 			}
 
 			const int result = m.show();

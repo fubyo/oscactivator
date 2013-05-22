@@ -92,7 +92,7 @@ RuleEditorComponent::RuleEditorComponent (int RuleIndex)
     //[Constructor] You can add your own custom stuff here..
 	okClicked = false;
 	ruleIndex = RuleIndex;
-
+		
 	RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
 	if (rpc)
 	{
@@ -115,6 +115,8 @@ RuleEditorComponent::RuleEditorComponent (int RuleIndex)
 RuleEditorComponent::~RuleEditorComponent()
 {
     //[Destructor_pre]. You can add your own custom destruction code here..
+	delete conditionListBox->getModel();
+	delete statementListBox->getModel();
     //[/Destructor_pre]
 
     deleteAndZero (label);
