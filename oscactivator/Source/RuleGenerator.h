@@ -5,6 +5,7 @@
 #include "OutputsPanelComponent.h"
 #include "Example.h"
 #include "InputTimer.h"
+#include "OutputTimer.h"
 
 class Rule
 {
@@ -21,7 +22,8 @@ public:
 	Array<double> outputValues;
 
 	HashMap<int, InputTimer*> inputTimers;
-	HashMap<int, double> outputTimeParameter;
+	HashMap<int, OutputTimer*> outputTimers;
+//	HashMap<int, double> outputTimeParameter;
 
 	int weightInputConnection;
 
@@ -55,12 +57,12 @@ public:
 				inputTimers.set(i, other.inputTimers[i]);
 		}
 
-		outputTimeParameter.clear();
-		outputTimeParameter.remapTable(1024);
+		outputTimers.clear();
+		outputTimers.remapTable(1024);
 		for (int i=0; i<other.outputTermIndeces.size(); i++)
 		{
-			if (other.outputTimeParameter.contains(i))
-				outputTimeParameter.set(i, other.outputTimeParameter[i]);
+			if (other.outputTimers.contains(i))
+				outputTimers.set(i, other.outputTimers[i]);
 		}
 		
 		outputMembership = other.outputMembership;
@@ -98,12 +100,12 @@ public:
 				inputTimers.set(i, other.inputTimers[i]);
 		}
 
-		outputTimeParameter.clear();
-		outputTimeParameter.remapTable(1024);
+		outputTimers.clear();
+		outputTimers.remapTable(1024);
 		for (int i=0; i<other.outputTermIndeces.size(); i++)
 		{
-			if (other.outputTimeParameter.contains(i))
-				outputTimeParameter.set(i, other.outputTimeParameter[i]);
+			if (other.outputTimers.contains(i))
+				outputTimers.set(i, other.outputTimers[i]);
 		}
 
 		outputMembership = other.outputMembership;

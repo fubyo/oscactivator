@@ -144,9 +144,9 @@ class MainWindow  : public DocumentWindow, public MenuBarModel
 					ruleElement->setAttribute("outputvalues_" + String(ii),  rpc->ruleGenerator.rules[i]->outputValues[ii]);
 					ruleElement->setAttribute("outputdegrees_" + String(ii), rpc->ruleGenerator.rules[i]->outputDegrees[ii]);
 
-					if (rpc->ruleGenerator.rules[i]->outputTimeParameter.contains(ii))
+					if (rpc->ruleGenerator.rules[i]->outputTimers.contains(ii))
 					{
-						ruleElement->setAttribute("outputtimeparameter_" + String(ii),  rpc->ruleGenerator.rules[i]->outputTimeParameter[ii]);
+						ruleElement->setAttribute("outputtimeparameter_" + String(ii),  rpc->ruleGenerator.rules[i]->outputTimers[ii]->outputTimeParameter);
 					}
 
 					if (rpc->ruleGenerator.rules[i]->outputFromInput.contains(ii))
@@ -329,7 +329,9 @@ class MainWindow  : public DocumentWindow, public MenuBarModel
 						rule.outputDegrees.add(e->getDoubleAttribute("outputdegrees_" + String(ii)));
 						
 						if (e->hasAttribute("outputtimeparameter_" + String(ii)))
-							rule.outputTimeParameter.set(ii, e->getDoubleAttribute("outputtimeparameter_" + String(ii)));
+						{
+							rule.outputTimers.set(ii, new OutputTimer(e->getDoubleAttribute("outputtimeparameter_" + String(ii)), ii, e->getIntAttribute("outputtermindeces_" + String(ii)), i));
+						}
 
 						if (e->hasAttribute("outputfrominput_" + String(ii)))
 							rule.outputFromInput.set(ii, e->getDoubleAttribute("outputfrominput_" + String(ii)));

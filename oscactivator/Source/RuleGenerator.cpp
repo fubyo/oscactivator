@@ -28,6 +28,16 @@ RuleGenerator::~RuleGenerator(void)
 		{
 			delete ii.getValue();
 		}
+	}
+
+	//delete all output timers
+	for (int i=0; i<rules.size(); i++)
+	{
+		HashMap<int, OutputTimer*>::Iterator ii(rules[i]->outputTimers);
+		while (ii.next())
+		{
+			delete ii.getValue();
+		}
 	} 
 }
 
@@ -345,10 +355,10 @@ String RuleGenerator::getRuleText(Rule rule)
 			text += opc->outputs[i]->name+String(" is ");
 			text += String(opc->outputs[i]->termManager->terms[rule.outputTermIndeces[i]]->name());
 
-			if (rule.outputTimeParameter.contains(i))
+			if (rule.outputTimers.contains(i))
 			{
 				text+= String(" in ");
-				text+= String(rule.outputTimeParameter[i]);
+				text+= String(rule.outputTimers[i]->outputTimeParameter);
 				text+= String(" seconds");
 			}
 			
@@ -363,10 +373,10 @@ String RuleGenerator::getRuleText(Rule rule)
 			text += opc->outputs[i]->name+String(" is same as ");
 			text += String(ipc->inputs[rule.outputFromInput[i]]->name);
 
-			if (rule.outputTimeParameter.contains(i))
+			if (rule.outputTimers.contains(i))
 			{
 				text+= String(" in ");
-				text+= String(rule.outputTimeParameter[i]);
+				text+= String(rule.outputTimers[i]->outputTimeParameter);
 				text+= String(" seconds");
 			}
 			
@@ -644,7 +654,7 @@ Rule::Rule()
 	locked = false;
 	outputFromInput.remapTable(1024);
 	inputTimers.remapTable(1024);
-	outputTimeParameter.remapTable(1024);
+	outputTimers.remapTable(1024);
 
 	weightInputConnection = -1;
 }

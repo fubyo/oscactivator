@@ -141,6 +141,7 @@
     <ClCompile Include="..\..\Source\MyMenuBarModel.cpp" />
     <ClCompile Include="..\..\Source\OutputComponent.cpp" />
     <ClCompile Include="..\..\Source\OutputsPanelComponent.cpp" />
+    <ClCompile Include="..\..\Source\OutputTimer.cpp" />
     <ClCompile Include="..\..\Source\RuleComponent.cpp" />
     <ClCompile Include="..\..\Source\RuleEditorComponent.cpp" />
     <ClCompile Include="..\..\Source\RuleGenerator.cpp" />
@@ -1635,6 +1636,7 @@
     <ClInclude Include="..\..\Source\MyMenuBarModel.h" />
     <ClInclude Include="..\..\Source\OutputComponent.h" />
     <ClInclude Include="..\..\Source\OutputsPanelComponent.h" />
+    <ClInclude Include="..\..\Source\OutputTimer.h" />
     <ClInclude Include="..\..\Source\RuleComponent.h" />
     <ClInclude Include="..\..\Source\RuleEditorComponent.h" />
     <ClInclude Include="..\..\Source\RuleGenerator.h" />

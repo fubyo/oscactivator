@@ -1458,6 +1458,9 @@
     <ClCompile Include="..\..\Source\TrapezTerm.cpp">
       <Filter>oscactivator\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\OutputTimer.cpp">
+      <Filter>oscactivator\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_basics\buffers\juce_AudioDataConverters.h">
@@ -2814,6 +2817,9 @@
       <Filter>oscactivator\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\TrapezTerm.h">
+      <Filter>oscactivator\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\OutputTimer.h">
       <Filter>oscactivator\Source</Filter>
     </ClInclude>
   </ItemGroup>

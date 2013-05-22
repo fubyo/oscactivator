@@ -181,9 +181,21 @@ void StatementComponent::labelTextChanged (Label* labelThatHasChanged)
 				double timeParameter = secondsLabel->getText().getDoubleValue();
 
 				if (timeParameter>0)
-					ruleCopy->outputTimeParameter.set(outputIndex, timeParameter);
+				{
+					if (ruleCopy->outputTimers.contains(outputIndex))
+						ruleCopy->outputTimers[outputIndex]->outputTimeParameter = timeParameter;
+					else
+					{
+						OutputTimer* ot = new OutputTimer(timeParameter, outputIndex, ruleCopy->outputTermIndeces[outputIndex], rec->ruleIndex);
+						ruleCopy->outputTimers.set(outputIndex, ot);
+					}
+				}
 				else
-					ruleCopy->outputTimeParameter.remove(outputIndex);
+				{
+					OutputTimer* ot = ruleCopy->outputTimers[outputIndex];
+					delete ot;
+					ruleCopy->outputTimers.remove(outputIndex);
+				}
 			}
 		}
         //[/UserLabelCode_secondsLabel]
@@ -254,9 +266,9 @@ void StatementComponent::updateLabels()
 
 		termLabel->setText(termName, true);
 
-		if (ruleCopy->outputTimeParameter.contains(outputIndex))
+		if (ruleCopy->outputTimers.contains(outputIndex))
 		{
-			secondsLabel->setText(String(ruleCopy->outputTimeParameter[outputIndex]), true);
+			secondsLabel->setText(String(ruleCopy->outputTimers[outputIndex]->outputTimeParameter), true);
 		}
 	}
 }

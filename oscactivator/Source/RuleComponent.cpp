@@ -172,6 +172,13 @@ void RuleComponent::buttonClicked (Button* buttonThatWasClicked)
 				delete i.getValue();
 			}
 
+			//delete the outputtimers
+			HashMap<int, OutputTimer*>::Iterator j(rpc->ruleGenerator.rules[rowNumber]->outputTimers);
+			while (j.next())
+			{
+				delete j.getValue();
+			}
+
 			rpc->ruleGenerator.rules.remove(rowNumber);
 			hasToGetDeleted = true;
 			rpc->updateRuleList();
@@ -183,25 +190,44 @@ void RuleComponent::buttonClicked (Button* buttonThatWasClicked)
     {
         //[UserButtonCode_editButton] -- add your button handler code here..
 		RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
-		int rowNumber = -1;
+		int ruleIndex = -1;
 		if (rpc)
 		{
-			rowNumber = rpc->getRuleIndex((Component*)this);
+			ruleIndex = rpc->getRuleIndex((Component*)this);
 		}
-		String title = String("Editor: Rule ") + String(rowNumber);
+		String title = String("Editor: Rule ") + String(ruleIndex);
 
-		Pool::Instance()->reg("ruleIndexForEditing", rowNumber);
+		Pool::Instance()->reg("ruleIndexForEditing", ruleIndex);
 
-		ScopedPointer<RuleEditorComponent> rec = new RuleEditorComponent(rowNumber);
+		ScopedPointer<RuleEditorComponent> rec = new RuleEditorComponent(ruleIndex);
 		DialogWindow::showModalDialog(title, rec, this->getParentComponent(), Colours::lightgrey, false);
 
 		if (rec->okClicked)
 		{
-			rpc->ruleGenerator.rules.set(rowNumber, new Rule(rec->ruleCopy));
-			rpc->ruleGenerator.recalculateDegrees(rowNumber);
+			rpc->ruleGenerator.rules.set(ruleIndex, new Rule(rec->ruleCopy));
+			rpc->ruleGenerator.recalculateDegrees(ruleIndex);
 
 			rpc->updateRuleList();
-		} 
+		}
+		else
+		{
+			//Delete the input and output timers of the rule copy if no longer relevant
+			HashMap<int, InputTimer*>::Iterator i(rec->ruleCopy.inputTimers);
+			while (i.next())
+			{
+				if (!rpc->ruleGenerator.rules[ruleIndex]->inputTimers.containsValue(i.getValue()))
+					delete i.getValue();
+			}
+
+			HashMap<int, OutputTimer*>::Iterator j(rec->ruleCopy.outputTimers);
+			while (j.next())
+			{
+				if (!rpc->ruleGenerator.rules[ruleIndex]->outputTimers.containsValue(j.getValue()))
+					delete j.getValue();
+			}
+		}
+
+
         //[/UserButtonCode_editButton]
     }
     else if (buttonThatWasClicked == lockButton)

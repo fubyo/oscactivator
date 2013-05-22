@@ -182,8 +182,14 @@ void ConditionComponent::labelTextChanged (Label* labelThatHasChanged)
 
 				if (timeParameter>0)
 				{
-					ruleCopy->inputTimers.remove(inputIndex);
-					ruleCopy->inputTimers.set(inputIndex, new InputTimer(timeParameter, inputIndex, ruleCopy->inputTermIndeces[inputIndex]));
+					if (ruleCopy->inputTimers.contains(inputIndex))
+					{
+						ruleCopy->inputTimers[inputIndex]->inputTimeParameter = timeParameter;
+					}
+					else
+					{
+						ruleCopy->inputTimers.set(inputIndex, new InputTimer(timeParameter, inputIndex, ruleCopy->inputTermIndeces[inputIndex]));
+					}
 				}
 				else
 				{
