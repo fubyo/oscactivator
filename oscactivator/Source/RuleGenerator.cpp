@@ -13,7 +13,7 @@ RuleGenerator::RuleGenerator(void) : Thread("RuleGenerator")
 	threadShouldBeRunning = true;
 
 	savedOutputValue.remapTable(1024);
-	inputTimersAreCounting = false;
+	timersAreCounting = false;
 	
 	startThread();
 }
@@ -499,9 +499,8 @@ double RuleGenerator::calculateOutput(int index)
 	double denominator = 0;
 	double timeFactorProduct = 1;
 
-	inputTimersAreCounting = false;
+	timersAreCounting = false;
 
-	Array<double> timeFactors;
 	Array<double> numerators;
 	Array<double> denominators;
 
@@ -515,6 +514,8 @@ double RuleGenerator::calculateOutput(int index)
 			
 			tempNumerator = rules[i]->importance;
 
+			bool inputsTimersAreChanging = false;
+
 			for (int ii=0; ii<rules[i]->inputTermIndeces.size(); ii++)
 			{
 				if (rules[i]->inputTermIndeces[ii]!=-1)
@@ -526,34 +527,66 @@ double RuleGenerator::calculateOutput(int index)
 						timeFactor = rules[i]->inputTimers[ii]->timeFactor;
 
 						if (rules[i]->inputTimers[ii]->isChanging)
-							inputTimersAreCounting = true;
+						{
+							timersAreCounting = true;
+							inputsTimersAreChanging = true;
+						}
+							
 					}
 					tempTimeFactor*=timeFactor;
 
 					tempNumerator*=timeFactor;
-					tempNumerator*=ipc->inputs[ii]->termManager->terms[rules[i]->inputTermIndeces[ii]]->membership((float)*ipc->inputs[ii]->pValue);
+					tempNumerator*=ipc->inputs[ii]->termManager->terms[rules[i]->inputTermIndeces[ii]]->membership(*ipc->inputs[ii]->pValue);
 				}
 			}
 
 			tempDenominator = tempNumerator;
 
 			double output;
-
-			if (rules[i]->outputFromInput.contains(index))
+			if (rules[i]->outputTimers.contains(index))
 			{
-				output = *ipc->inputs[rules[i]->outputFromInput[index]]->pValue;
+				if (tempNumerator) //if the condition is to some extend fulfilled
+					rules[i]->outputTimers[index]->updateState(inputsTimersAreChanging);
+				else 
+				{	//if the conditions are not fulfilled, update the output timer, making it think that the inputs are still changing,
+					//in order to prepare itself for an occasional true input change. 
+					rules[i]->outputTimers[index]->updateState(true);
+				}
+
+				double outputTimeFactor = rules[i]->outputTimers[index]->timeFactor;
+				double savedValue = rules[i]->outputTimers[index]->savedValue;
+				double targetValue =rules[i]->outputTimers[index]->targetValue;
+				output = outputTimeFactor*targetValue + (1-outputTimeFactor)*savedValue;
+
+				if (rules[i]->outputTimers[index]->isChanging)
+					timersAreCounting = true;
 			}
 			else
 			{
-				int outputTermIndex = rules[i]->outputTermIndeces[index];
-				output = (opc->outputs[index]->termManager->terms[outputTermIndex]->b() + opc->outputs[index]->termManager->terms[outputTermIndex]->c())/2;
+				if (rules[i]->outputFromInput.contains(index))
+				{
+					output = *ipc->inputs[rules[i]->outputFromInput[index]]->pValue;
+				}
+				else
+				{
+					int outputTermIndex = rules[i]->outputTermIndeces[index];
+					output = (opc->outputs[index]->termManager->terms[outputTermIndex]->b() + opc->outputs[index]->termManager->terms[outputTermIndex]->c())/2;
+				}
+
+				if (!inputsTimersAreChanging)
+				{
+					rules[i]->savedOutputValues.set(index, *opc->outputs[index]->pValue);
+				}
+				else if (inputsTimersAreChanging)
+				{
+					output = tempTimeFactor*output + (1-tempTimeFactor)*rules[i]->savedOutputValues[index];
+				}
 			}
 
 			tempNumerator *= output;
 
 			numerators.add(tempNumerator);
 			denominators.add(tempDenominator);
-			timeFactors.add(tempTimeFactor);
 		}
 	}
 
@@ -561,20 +594,11 @@ double RuleGenerator::calculateOutput(int index)
 	{
 		numerator+=numerators[i];
 		denominator+=denominators[i];
-		timeFactorProduct*=timeFactors[i];
 	}
 
 	double result;
 
-	if (timeFactorProduct==1.0)
-	{
-		result = numerator/denominator;
-		savedOutputValue.set(index, result);
-	}
-	else
-	{
-		result = timeFactorProduct*numerator/denominator + (1-timeFactorProduct)*savedOutputValue[index];
-	}
+	result =  numerator/denominator;
 
 	return result;
 }
@@ -640,7 +664,7 @@ void RuleGenerator::run()
 		{
 			updateOutputs();
 
-			if (!inputTimersAreCounting)
+			if (!timersAreCounting)
 				outputsHaveToGetUpdated = false;
 		}
 
@@ -655,6 +679,7 @@ Rule::Rule()
 	outputFromInput.remapTable(1024);
 	inputTimers.remapTable(1024);
 	outputTimers.remapTable(1024);
+	savedOutputValues.remapTable(1024);
 
 	weightInputConnection = -1;
 }

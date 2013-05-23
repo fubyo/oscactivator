@@ -229,7 +229,10 @@ void RulesPanelComponent::buttonClicked (Button* buttonThatWasClicked)
     {
         //[UserButtonCode_applyToggleButton] -- add your button handler code here..
 		if (applyToggleButton->getToggleState())
+		{
 			interactionOn = true;
+			ruleGenerator.requestOutputUpdate();
+		}
 		else
 			interactionOn = false;
         //[/UserButtonCode_applyToggleButton]

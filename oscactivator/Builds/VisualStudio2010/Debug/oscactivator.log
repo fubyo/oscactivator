@@ -1,14 +1,24 @@
-﻿Build started 22.05.2013 17:34:17.
+﻿Build started 23.05.2013 18:31:09.
      1>Project "C:\Users\marinos\Promotion\Tools\oscactivator\oscactivator\Builds\VisualStudio2010\oscactivator.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating ".\Debug\oscactivator.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I..\..\JuceLibraryCode /ZI /nologo /W4 /WX- /MP /Od /Oy- /D WIN32 /D _WINDOWS /D DEBUG /D _DEBUG /D JUCER_VS2010_78A501D=1 /D _MBCS /Gm- /EHsc /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo".\Debug\\" /Fd".\Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\Source\RuleGenerator.cpp
-         RuleGenerator.cpp
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulegenerator.cpp(85): warning C4244: 'Initialisierung': Konvertierung von 'double' in 'float', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulegenerator.cpp(110): warning C4244: '=': Konvertierung von 'double' in 'float', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulegenerator.cpp(560): warning C4018: '<': Konflikt zwischen 'signed' und 'unsigned'
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I..\..\JuceLibraryCode /ZI /nologo /W4 /WX- /MP /Od /Oy- /D WIN32 /D _WINDOWS /D DEBUG /D _DEBUG /D JUCER_VS2010_78A501D=1 /D _MBCS /Gm- /EHsc /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo".\Debug\\" /Fd".\Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\Source\MembershipGraphComponent.cpp ..\..\Source\TermManager.cpp
+         MembershipGraphComponent.cpp
+         TermManager.cpp
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(82): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(82): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(82): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(83): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(83): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(84): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(84): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(84): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(99): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(99): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(100): warning C4244: 'Argument': Konvertierung von 'double' in 'int', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(100): warning C4244: 'Argument': Konvertierung von 'double' in 'int', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\termmanager.cpp(860): warning C4189: 'debug': Lokale Variable ist initialisiert aber nicht referenziert
        ResourceCompile:
          All outputs are up-to-date.
        ManifestResourceCompile:
@@ -74,4 +84,4 @@
 
 Das Erstellen war erfolgreich.
 
-Time Elapsed 00:00:06.10
+Time Elapsed 00:00:05.65

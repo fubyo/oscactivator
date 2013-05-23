@@ -23,7 +23,7 @@ public:
 
 	HashMap<int, InputTimer*> inputTimers;
 	HashMap<int, OutputTimer*> outputTimers;
-//	HashMap<int, double> outputTimeParameter;
+	HashMap<int, double> savedOutputValues;
 
 	int weightInputConnection;
 
@@ -64,7 +64,15 @@ public:
 			if (other.outputTimers.contains(i))
 				outputTimers.set(i, other.outputTimers[i]);
 		}
-		
+
+		savedOutputValues.clear();
+		savedOutputValues.remapTable(1024);
+		for (int i=0; i<other.outputTermIndeces.size(); i++)
+		{
+			if (other.savedOutputValues.contains(i))
+				savedOutputValues.set(i, other.savedOutputValues[i]);
+		}
+
 		outputMembership = other.outputMembership;
 		inputValues = other.inputValues;
 		outputValues = other.outputValues;
@@ -108,6 +116,14 @@ public:
 				outputTimers.set(i, other.outputTimers[i]);
 		}
 
+		savedOutputValues.clear();
+		savedOutputValues.remapTable(1024);
+		for (int i=0; i<other.outputTermIndeces.size(); i++)
+		{
+			if (other.savedOutputValues.contains(i))
+				savedOutputValues.set(i, other.savedOutputValues[i]);
+		}
+
 		outputMembership = other.outputMembership;
 		inputValues = other.inputValues;
 		outputValues = other.outputValues;
@@ -140,7 +156,7 @@ class RuleGenerator : public juce::Thread
 	bool isRuleRelevantToOutput(int ruleIndex, int outputIndex);
 
 	HashMap<int, double> savedOutputValue;
-	bool inputTimersAreCounting;
+	bool timersAreCounting;
 
 public:
 	OwnedArray<Rule, CriticalSection> rules;

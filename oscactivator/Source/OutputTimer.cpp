@@ -32,7 +32,7 @@ OutputTimer::~OutputTimer()
 
 }
 
-void OutputTimer::updateState(double inputsTimeFactor)
+void OutputTimer::updateState(bool inputTimersAreChanging)
 {
 	InputsPanelComponent* ipc = (InputsPanelComponent*)Pool::Instance()->getObject("InputsPanelComponent");
 	OutputsPanelComponent* opc = (OutputsPanelComponent*)Pool::Instance()->getObject("OutputsPanelComponent");
@@ -54,7 +54,7 @@ void OutputTimer::updateState(double inputsTimeFactor)
 		double timeDifference = currentTime - timeOfChange;
 		timeOfChange = currentTime;
 
-		if (inputsTimeFactor!=1)
+		if (inputTimersAreChanging)
 		{
 			timeFactor=0;
 			conditionsJustFulfilled = false;

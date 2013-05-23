@@ -952,7 +952,6 @@ double TermManager::getMidPointOfTrapezoidTable(int index)
 
 	assert(found);
 
-
 	return (terms[index]->b()+terms[index]->c())/2;
 }
 
@@ -987,9 +986,10 @@ void TermManager::sortTerms()
         {
 			if (getMidPointOfTrapezoidTable(j) > getMidPointOfTrapezoidTable(j+1)) 
             {
-				TrapezTerm* tmp = terms[j];
-				terms.set(j, terms[j + 1]);
-				terms.set(j+1, tmp);
+				terms.swap(j, j+1);
+				//TrapezTerm* tmp = terms[j];
+				//terms.set(j, terms[j + 1]);
+				//terms.set(j+1, tmp);
             }
         }
      }

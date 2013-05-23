@@ -21,7 +21,7 @@ public:
 
 	bool isChanging;
 
-	void updateState(double inputsTimeFactor);
+	void updateState(bool inputTimersAreChanging);
 
 	OutputTimer();
 	OutputTimer(double OutputTimeParameter, int OutputIndex, int TermIndex, int RuleIndex);
