@@ -456,7 +456,7 @@ public:
 		RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
 		if (rpc)
 		{
-			rpc->ruleGenerator.threadShouldBeRunning = false;
+			rpc->ruleGenerator.signalThreadShouldExit();
 			rpc->ruleGenerator.stopThread(100);
 		}
 

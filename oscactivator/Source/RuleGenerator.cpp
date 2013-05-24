@@ -9,9 +9,6 @@ RuleGenerator::RuleGenerator(void) : Thread("RuleGenerator")
 
 	outputsHaveToGetUpdated=false;
 
-	
-	threadShouldBeRunning = true;
-
 	savedOutputValue.remapTable(1024);
 	timersAreCounting = false;
 	
@@ -137,57 +134,60 @@ void RuleGenerator::mergeNewRulesToRuleBase()
 
 		while (ruleIndex<rules.size())  //for each old rule
 		{
-			bool inputsConflicting = areInputsConflicting(*queuedRules[i], *rules[ruleIndex]);
-			Array<int> outputsConflicting = areOutputsConflicting(*queuedRules[i], *rules[ruleIndex]);
-			Array<int> outputsCorrelating = isHavingSimilarEffectsToSomeOutputs(*queuedRules[i], *rules[ruleIndex]);
-
-			if (inputsConflicting && outputsConflicting.size())
+			if (!rules[i]->locked)
 			{
-				while (outputsConflicting.size())
+				bool inputsConflicting = areInputsConflicting(*queuedRules[i], *rules[ruleIndex]);
+				Array<int> outputsConflicting = areOutputsConflicting(*queuedRules[i], *rules[ruleIndex]);
+				Array<int> outputsCorrelating = isHavingSimilarEffectsToSomeOutputs(*queuedRules[i], *rules[ruleIndex]);
+
+				if (inputsConflicting && outputsConflicting.size())
 				{
-					if (queuedRules[i]->outputDegrees[outputsConflicting[0]]>=rules[ruleIndex]->outputDegrees[outputsConflicting[0]])
+					while (outputsConflicting.size())
 					{
-						rules[ruleIndex]->outputDegrees.set(outputsConflicting[0], 0);
-						rules[ruleIndex]->outputMembership.set(outputsConflicting[0] ,-1);
-						rules[ruleIndex]->outputTermIndeces.set(outputsConflicting[0] ,-1);
+						if (queuedRules[i]->outputDegrees[outputsConflicting[0]]>=rules[ruleIndex]->outputDegrees[outputsConflicting[0]])
+						{
+							rules[ruleIndex]->outputDegrees.set(outputsConflicting[0], 0);
+							rules[ruleIndex]->outputMembership.set(outputsConflicting[0] ,-1);
+							rules[ruleIndex]->outputTermIndeces.set(outputsConflicting[0] ,-1);
+						}
+						else
+						{
+							queuedRules[i]->outputDegrees.set(outputsConflicting[0], 0);
+							queuedRules[i]->outputMembership.set(outputsConflicting[0] ,-1);
+							queuedRules[i]->outputTermIndeces.set(outputsConflicting[0] ,-1);
+						}
+						outputsConflicting.remove(0);
 					}
-					else
-					{
-						queuedRules[i]->outputDegrees.set(outputsConflicting[0], 0);
-						queuedRules[i]->outputMembership.set(outputsConflicting[0] ,-1);
-						queuedRules[i]->outputTermIndeces.set(outputsConflicting[0] ,-1);
-					}
-					outputsConflicting.remove(0);
 				}
-			}
-			else if (outputsCorrelating.size())
-			{
-				while (outputsCorrelating.size())
+				else if (outputsCorrelating.size())
 				{
-					int outputIndex = outputsCorrelating[0];
-
-					if (queuedRules[i]->outputDegrees[outputIndex]>=rules[ruleIndex]->outputDegrees[outputIndex])
+					while (outputsCorrelating.size())
 					{
-						rules[ruleIndex]->outputMembership.set(outputIndex ,queuedRules[i]->outputMembership[outputIndex]);
-						rules[ruleIndex]->outputValues.set(outputIndex, queuedRules[i]->outputValues[outputIndex]);
-						rules[ruleIndex]->outputDegrees.set(outputIndex, rules[ruleIndex]->outputMembership[outputIndex]*rules[ruleIndex]->inputDegree);
+						int outputIndex = outputsCorrelating[0];
 
-						queuedRules[i]->outputDegrees.set(outputIndex, 0);
-						queuedRules[i]->outputMembership.set(outputIndex ,-1);
-						queuedRules[i]->outputTermIndeces.set(outputIndex ,-1);
+						if (queuedRules[i]->outputDegrees[outputIndex]>=rules[ruleIndex]->outputDegrees[outputIndex])
+						{
+							rules[ruleIndex]->outputMembership.set(outputIndex ,queuedRules[i]->outputMembership[outputIndex]);
+							rules[ruleIndex]->outputValues.set(outputIndex, queuedRules[i]->outputValues[outputIndex]);
+							rules[ruleIndex]->outputDegrees.set(outputIndex, rules[ruleIndex]->outputMembership[outputIndex]*rules[ruleIndex]->inputDegree);
+
+							queuedRules[i]->outputDegrees.set(outputIndex, 0);
+							queuedRules[i]->outputMembership.set(outputIndex ,-1);
+							queuedRules[i]->outputTermIndeces.set(outputIndex ,-1);
+						}
+						else
+						{
+							queuedRules[i]->outputMembership.set(outputIndex ,rules[ruleIndex]->outputMembership[outputIndex]);
+							queuedRules[i]->outputValues.set(outputIndex, rules[ruleIndex]->outputValues[outputIndex]);
+							queuedRules[i]->outputDegrees.set(outputIndex, queuedRules[i]->outputMembership[outputIndex]*queuedRules[i]->inputDegree);
+
+							rules[ruleIndex]->outputDegrees.set(outputIndex, 0);
+							rules[ruleIndex]->outputMembership.set(outputIndex ,-1);
+							rules[ruleIndex]->outputTermIndeces.set(outputIndex ,-1);
+						}
+
+						outputsCorrelating.remove(0);
 					}
-					else
-					{
-						queuedRules[i]->outputMembership.set(outputIndex ,rules[ruleIndex]->outputMembership[outputIndex]);
-						queuedRules[i]->outputValues.set(outputIndex, rules[ruleIndex]->outputValues[outputIndex]);
-						queuedRules[i]->outputDegrees.set(outputIndex, queuedRules[i]->outputMembership[outputIndex]*queuedRules[i]->inputDegree);
-
-						rules[ruleIndex]->outputDegrees.set(outputIndex, 0);
-						rules[ruleIndex]->outputMembership.set(outputIndex ,-1);
-						rules[ruleIndex]->outputTermIndeces.set(outputIndex ,-1);
-					}
-
-					outputsCorrelating.remove(0);
 				}
 			}
 
@@ -416,6 +416,20 @@ void RuleGenerator::removeInput(int index)
 		rules[i]->inputTermIndeces.remove(index);
 		rules[i]->inputValues.remove(index);
 
+		if (rules[i]->inputTimers.contains(index))
+		{
+			delete rules[i]->inputTimers[index];
+			rules[i]->inputTimers.remove(index);
+		}
+
+		if (rules[i]->weightInputConnection == index)
+			rules[i]->weightInputConnection = -1;
+
+		if (rules[i]->outputFromInput.containsValue(index))
+		{
+			rules[i]->outputFromInput.removeValue(index);
+		}
+
 		recalculateDegrees(i);
 	}
 }
@@ -433,6 +447,7 @@ void RuleGenerator::removeOutput(int index)
 		rules[i]->outputTermIndeces.remove(index);
 		rules[i]->outputDegrees.remove(index);
 		rules[i]->outputValues.remove(index);
+		rules[i]->outputFromInput.remove(index);
 
 		recalculateDegrees(i);
 	}
@@ -621,10 +636,15 @@ void RuleGenerator::updateOutputs()
 	}
 
 	//calculate each output
+	double timersRunning = false;
 	for (int i=0; i<opc->outputs.size(); i++)
 	{
 		*opc->outputs[i]->pValue = calculateOutput(i);
+		if (timersAreCounting)
+			timersRunning=true;
 	}
+
+	timersAreCounting = timersRunning;
 
 	opc->sendOuputValues();
 }
@@ -658,7 +678,7 @@ void RuleGenerator::updateRulesDueToAddingNewIO()
 
 void RuleGenerator::run()
 {
-	while (threadShouldBeRunning)
+	while (!threadShouldExit())
 	{
 		if (outputsHaveToGetUpdated)
 		{

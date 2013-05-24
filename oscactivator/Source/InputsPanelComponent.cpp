@@ -280,6 +280,8 @@ void InputsPanelComponent::buttonClicked (Button* buttonThatWasClicked)
 			if (abs(currentValueEditor->getText().getDoubleValue()-*inputs[inputsListBox->getSelectedRow()]->pValue)>0.00001)
 				currentValue = currentValueEditor->getText().getDoubleValue();
 
+			*inputs[inputsListBox->getSelectedRow()]->pValue = currentValue;
+
 			inputs[inputsListBox->getSelectedRow()]->termManager->addTerm(termEditor->getText(), currentValue);
 			membershipGraph->setTermManager(inputs[inputsListBox->getSelectedRow()]->termManager);
 
@@ -351,6 +353,9 @@ void InputsPanelComponent::changeListenerCallback (ChangeBroadcaster* source)
 
 			inputsListBox->updateContent();
 			inputsListBox->repaintRow(selectedRow);
+
+			RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
+			rpc->updateRuleList();
 		}
 
 		delete [] input->pValue;

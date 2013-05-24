@@ -19,11 +19,12 @@ struct ReceiverRegistration
 };
 
 class InputsPanelComponent;
+class OutputsPanelComponent;
 
 class SocketThread: public Thread, public osc::OscPacketListener
 {
 public:
-	SocketThread(vector<ReceiverRegistration>* Receivers, int Port);
+	SocketThread(Array<ReceiverRegistration, CriticalSection>* Receivers, int Port);
 	~SocketThread();
 
 	int getPort();
@@ -32,11 +33,12 @@ public:
 	void Break();
 
 private:
-	vector<ReceiverRegistration>* receivers;
+	Array<ReceiverRegistration, CriticalSection>* receivers;
 	int port;
 	ScopedPointer<UdpListeningReceiveSocket> s;
 
-	InputsPanelComponent* inputsPanel;
+	InputsPanelComponent* ipc;
+	OutputsPanelComponent* opc;
 
 protected:
 	virtual void ProcessMessage(const osc::ReceivedMessage& m, const IpEndpointName& remoteEndpoint);
@@ -63,8 +65,8 @@ public:
 
 private:
 
-	vector<ReceiverRegistration> receivers;
-	vector<SocketThread*> sockets;
+	Array<ReceiverRegistration, CriticalSection> receivers;
+	Array<SocketThread*, CriticalSection> sockets;
 
 	CriticalSection cs;
 };

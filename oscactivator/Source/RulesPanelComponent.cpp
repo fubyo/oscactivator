@@ -323,8 +323,12 @@ void RulesPanelComponent::addExample()
 
 void RulesPanelComponent::updateRules()
 {
+	ruleGenerator.stopThread(1000);
+
 	ruleGenerator.updateRulebase();
 	examplesNumberLabel->setText(String(ruleGenerator.getNumberOfQueuedExamples()) + String("  examples in the queue"), true);
+
+	ruleGenerator.startThread();
 
 	rulesListBox->updateContent();
 }

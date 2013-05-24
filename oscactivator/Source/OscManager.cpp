@@ -1,5 +1,6 @@
 #include "OscManager.h"
 #include "InputsPanelComponent.h"
+#include "OutputsPanelComponent.h"
 #include "MainComponent.h"
 
 juce_ImplementSingleton (OscManager)
@@ -24,7 +25,7 @@ void OscManager::registerReceiver(String Address, int ParameterIndex, int Port, 
 	receiver.port = Port;
 	receiver.pValue = pValue;
 
-	receivers.push_back(receiver);
+	receivers.add(receiver);
 
 	cs.exit();
 }
@@ -33,13 +34,16 @@ void OscManager::unregisterReceiver(double *pValue)
 {
 	cs.enter();
 
-	for (unsigned int i=0; i<receivers.size(); i++)
+	int index = -1;
+	for (int i=0; i<receivers.size(); i++)
 		if (receivers[i].pValue==pValue)
 		{
-			receivers.erase(receivers.begin()+i);
-			cs.exit();
-			return;
+			index = i;
 		}
+
+
+	if (index!=-1)
+		receivers.remove(index);
 
 	cs.exit();
 }
@@ -64,7 +68,7 @@ void OscManager::run()
 				SocketThread* st = new SocketThread(&receivers, receivers[i].port);
 				if (st)
 				{
-					sockets.push_back(st);
+					sockets.add(st);
 					st->startThread();
 				}
 			}
@@ -89,7 +93,7 @@ void OscManager::run()
 				sockets[j]->Break();
 				sockets[j]->stopThread(100);
 				delete sockets[j];
-				sockets.erase(sockets.begin()+j);
+				sockets.remove(j);
 			}
 			else
 				j++;
@@ -117,13 +121,14 @@ void OscManager::stop()
 	stopThread(1000);
 }
 
-SocketThread::SocketThread(vector<ReceiverRegistration>* Receivers, int Port) : Thread("SocketThread")
+SocketThread::SocketThread(Array<ReceiverRegistration, CriticalSection>* Receivers, int Port) : Thread("SocketThread")
 {
 	port = Port;
 	receivers=Receivers;
 	s = new UdpListeningReceiveSocket(IpEndpointName(IpEndpointName::ANY_ADDRESS, Port), this);
 
-	inputsPanel = (InputsPanelComponent*)Pool::Instance()->getObject("InputsPanelComponent");
+	ipc = (InputsPanelComponent*)Pool::Instance()->getObject("InputsPanelComponent");
+	opc = (OutputsPanelComponent*)Pool::Instance()->getObject("OutputsPanelComponent");
 }
 	
 SocketThread::~SocketThread()
@@ -185,10 +190,15 @@ void SocketThread::ProcessMessage(const osc::ReceivedMessage& m, const IpEndpoin
 				if (arguments.size())
 				{
 					newValue=arguments[(receivers->begin()+i)->parameterIndex];
-					(receivers->begin()+i)->pValue[0] = newValue;
 
-					const MessageManagerLock mmLock;
-					inputsPanel->updateCurrentValue();
+
+					if ((receivers->begin()+i)->pValue[0] != newValue)
+					{
+						(receivers->begin()+i)->pValue[0] = newValue;
+
+						const MessageManagerLock mmLock;
+						ipc->updateCurrentValue();
+					}
 				}
 			}
 		}	

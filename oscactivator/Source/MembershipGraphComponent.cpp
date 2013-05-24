@@ -128,7 +128,7 @@ void MembershipGraphComponent::mouseDown (const MouseEvent& e)
 		{
 			double x=0,y=0;
 			termManager->terms[i]->centroid(x,y);
-			x = (x-min)*width/difference;
+			x = (x-min+termManager->terms[i]->a())*width/difference; 
 			y = height-(y)*height/difference;
 
 			if (e.getMouseDownX()>x-5 && e.getMouseDownX()<x+5 && e.getMouseDownY()>y-5 && e.getMouseDownY()<y+5 )
