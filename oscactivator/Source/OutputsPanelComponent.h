@@ -66,12 +66,14 @@ public:
 
 	void executeSetExample();
 
-	OwnedArray<Output, CriticalSection> outputs;
+	OwnedArray<Output> outputs;
 	int numberOfOutputs;
 
 	void updateContent();
 
 	void clearOutputs();
+
+	void sliderSetEnabled(bool enabler);
     //[/UserMethods]
 
     void paint (Graphics& g);
@@ -87,7 +89,6 @@ public:
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
-	
     //[/UserVariables]
 
     //==============================================================================

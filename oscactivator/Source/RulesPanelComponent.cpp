@@ -231,10 +231,17 @@ void RulesPanelComponent::buttonClicked (Button* buttonThatWasClicked)
 		if (applyToggleButton->getToggleState())
 		{
 			interactionOn = true;
-			ruleGenerator.requestOutputUpdate();
+			//ruleGenerator.requestOutputUpdate();
+			
+			OutputsPanelComponent* opc = (OutputsPanelComponent*)Pool::Instance()->getObject("OutputsPanelComponent");
+			//opc->sliderSetEnabled(false);
 		}
 		else
+		{
 			interactionOn = false;
+			OutputsPanelComponent* opc = (OutputsPanelComponent*)Pool::Instance()->getObject("OutputsPanelComponent");
+			//opc->sliderSetEnabled(true);
+		}
         //[/UserButtonCode_applyToggleButton]
     }
     else if (buttonThatWasClicked == addRuleButton)

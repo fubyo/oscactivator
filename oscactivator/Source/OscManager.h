@@ -7,8 +7,11 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
+#include "../jucedOSC/jucetice_OpenSoundController.h"
+
 #include <vector>
 using namespace std;
+
 
 struct ReceiverRegistration
 {
@@ -21,6 +24,7 @@ struct ReceiverRegistration
 class InputsPanelComponent;
 class OutputsPanelComponent;
 
+/*
 class SocketThread: public Thread, public osc::OscPacketListener
 {
 public:
@@ -43,8 +47,32 @@ private:
 protected:
 	virtual void ProcessMessage(const osc::ReceivedMessage& m, const IpEndpointName& remoteEndpoint);
 };
+*/
 
+class OSCListener : public OpenSoundControllerListener
+{
+	Array<ReceiverRegistration, CriticalSection>* receivers;
 
+public:
+	OSCListener(Array<ReceiverRegistration, CriticalSection>* Receivers);
+    ~OSCListener ();
+
+    bool handleOSCMessage (OpenSoundController* controller, OpenSoundMessage *message);
+};
+
+class OpenSoundSocketThread : public OpenSoundController
+{
+	Array<ReceiverRegistration, CriticalSection>* receivers;
+	
+	OutputsPanelComponent* opc;
+	ScopedPointer<OSCListener> oscProcessor;
+
+public:
+	InputsPanelComponent* ipc;
+
+	OpenSoundSocketThread(Array<ReceiverRegistration, CriticalSection>* Receivers);
+	~OpenSoundSocketThread();
+};
 
 class OscManager : public Thread
 {
@@ -66,7 +94,8 @@ public:
 private:
 
 	Array<ReceiverRegistration, CriticalSection> receivers;
-	Array<SocketThread*, CriticalSection> sockets;
+	//Array<SocketThread*, CriticalSection> sockets;
+	OwnedArray<OpenSoundSocketThread> opensoundsockets;
 
 	CriticalSection cs;
 };

@@ -57,19 +57,31 @@ void OscManager::run()
 		{
 			bool found=false;
 
-			for (unsigned int j=0; j<sockets.size(); j++)
+			//for (unsigned int j=0; j<sockets.size(); j++)
+			for (int j=0; j<opensoundsockets.size(); j++)
 			{
-				if (sockets[j]->getPort()==receivers[i].port)
+				//if (sockets[j]->getPort()==receivers[i].port)
+				if (opensoundsockets[j]->getPort()==receivers[i].port)
 					found=true;
 			}
 
 			if (!found)
 			{
-				SocketThread* st = new SocketThread(&receivers, receivers[i].port);
+				/*SocketThread* st = new SocketThread(&receivers, receivers[i].port);
 				if (st)
 				{
 					sockets.add(st);
 					st->startThread();
+				}*/
+
+				
+				OpenSoundSocketThread* osst = new  OpenSoundSocketThread(&receivers);
+				osst->setPort(receivers[i].port);
+
+				if (osst)
+				{
+					opensoundsockets.add(osst);
+					osst->startListening();
 				}
 			}
 		}
@@ -78,22 +90,29 @@ void OscManager::run()
 		cs.enter();
 
 		int j=0;
-		while (j<sockets.size())
+		//while (j<sockets.size())
+		while (j<opensoundsockets.size())
 		{
 			bool found=false;
 
 			for (unsigned int i=0; i<receivers.size(); i++)
 			{
-				if (sockets[j]->getPort()==receivers[i].port)
+				/*if (sockets[j]->getPort()==receivers[i].port)
+					found=true;*/
+
+				if (opensoundsockets[j]->getPort() == receivers[i].port)
 					found=true;
 			}
 
 			if (!found)
 			{
-				sockets[j]->Break();
+				/*sockets[j]->Break();
 				sockets[j]->stopThread(100);
 				delete sockets[j];
-				sockets.remove(j);
+				sockets.remove(j);*/
+
+				opensoundsockets[j]->stopListening();
+				opensoundsockets.remove(j);
 			}
 			else
 				j++;
@@ -108,19 +127,24 @@ void OscManager::stop()
 {
 	cs.enter();
 
-	for (unsigned int i=0; i<sockets.size(); i++)
+	//for (unsigned int i=0; i<sockets.size(); i++)
+	for (unsigned int i=0; i<opensoundsockets.size(); i++)
 	{
-		sockets[i]->Break();
+		/*sockets[i]->Break();
 		sockets[i]->stopThread(500);
-		delete sockets[i];
+		delete sockets[i];*/
+
+		opensoundsockets[i]->stopListening();
 	}
-	sockets.clear();
+	//sockets.clear();
+	opensoundsockets.clear();
 
 	cs.exit();
 
 	stopThread(1000);
 }
 
+/*
 SocketThread::SocketThread(Array<ReceiverRegistration, CriticalSection>* Receivers, int Port) : Thread("SocketThread")
 {
 	port = Port;
@@ -130,6 +154,7 @@ SocketThread::SocketThread(Array<ReceiverRegistration, CriticalSection>* Receive
 	ipc = (InputsPanelComponent*)Pool::Instance()->getObject("InputsPanelComponent");
 	opc = (OutputsPanelComponent*)Pool::Instance()->getObject("OutputsPanelComponent");
 }
+
 	
 SocketThread::~SocketThread()
 {
@@ -202,4 +227,82 @@ void SocketThread::ProcessMessage(const osc::ReceivedMessage& m, const IpEndpoin
 				}
 			}
 		}	
+}
+*/
+OSCListener::OSCListener(Array<ReceiverRegistration, CriticalSection>* Receivers)
+{
+	receivers = Receivers;
+}
+
+OSCListener::~OSCListener()
+{
+
+}
+
+bool OSCListener::handleOSCMessage (OpenSoundController* controller, OpenSoundMessage *message)
+{
+	String mesAddress = message->getAddress();
+	double currentTime = Time::getMillisecondCounterHiRes();
+
+	vector<float> arguments;
+
+	for (int i=0; i<message->getNumFloats(); i++)
+	{
+		arguments.push_back(message->getFloat(i));
+	}
+
+	if (mesAddress.matchesWildcard("/setExample", false))
+	{
+		MainComponent* mc = (MainComponent*)Pool::Instance()->getObject("MainComponent");
+		if (mc)
+		{
+			const MessageManagerLock mmLock;
+			mc->executeSetExample();
+
+			return true;
+		}
+	}
+	else
+		for (unsigned int i=0; i<receivers->size(); i++)
+		{
+			String recAddress = (receivers->begin()+i)->address.trim();
+		
+			if (mesAddress.matchesWildcard(recAddress, false))
+			{
+				//Save the current value
+				float newValue=0;
+				if (arguments.size())
+				{
+					newValue=arguments[(receivers->begin()+i)->parameterIndex];
+
+					if ((receivers->begin()+i)->pValue[0] != newValue)
+					{
+						(receivers->begin()+i)->pValue[0] = newValue;
+
+						const MessageManagerLock mmLock;
+						((OpenSoundSocketThread*)controller)->ipc->updateCurrentValue();
+
+						return true;
+					}
+				}
+			}
+		}	
+
+	return false;
+}
+
+OpenSoundSocketThread::OpenSoundSocketThread(Array<ReceiverRegistration, CriticalSection>* Receivers)
+	: OpenSoundController ()
+{
+	receivers = Receivers;
+	ipc = (InputsPanelComponent*)Pool::Instance()->getObject("InputsPanelComponent");
+	opc = (OutputsPanelComponent*)Pool::Instance()->getObject("OutputsPanelComponent");
+
+	oscProcessor = new OSCListener(receivers);
+	addListener(oscProcessor);
+}
+
+OpenSoundSocketThread::~OpenSoundSocketThread()
+{
+
 }

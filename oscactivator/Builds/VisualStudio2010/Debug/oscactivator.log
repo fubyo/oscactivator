@@ -1,22 +1,15 @@
-﻿Build started 24.05.2013 17:36:32.
+﻿Build started 27.05.2013 18:56:05.
      1>Project "C:\Users\marinos\Promotion\Tools\oscactivator\oscactivator\Builds\VisualStudio2010\oscactivator.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating ".\Debug\oscactivator.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I..\..\JuceLibraryCode /ZI /nologo /W4 /WX- /MP /Od /Oy- /D WIN32 /D _WINDOWS /D DEBUG /D _DEBUG /D JUCER_VS2010_78A501D=1 /D _MBCS /Gm- /EHsc /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo".\Debug\\" /Fd".\Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\Source\MembershipGraphComponent.cpp
-         MembershipGraphComponent.cpp
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(82): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(82): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(82): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(83): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(83): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(84): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(84): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(84): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(99): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(99): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(100): warning C4244: 'Argument': Konvertierung von 'double' in 'int', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(100): warning C4244: 'Argument': Konvertierung von 'double' in 'int', möglicher Datenverlust
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I..\..\JuceLibraryCode /ZI /nologo /W4 /WX- /MP /Od /Oy- /D WIN32 /D _WINDOWS /D DEBUG /D _DEBUG /D JUCER_VS2010_78A501D=1 /D _MBCS /Gm- /EHsc /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo".\Debug\\" /Fd".\Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\Source\RuleGenerator.cpp
+         RuleGenerator.cpp
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulegenerator.cpp(84): warning C4244: 'Initialisierung': Konvertierung von 'double' in 'float', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulegenerator.cpp(109): warning C4244: '=': Konvertierung von 'double' in 'float', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulegenerator.cpp(610): warning C4018: '<': Konflikt zwischen 'signed' und 'unsigned'
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulegenerator.cpp(517): warning C4189: 'timeFactorProduct': Lokale Variable ist initialisiert aber nicht referenziert
        ResourceCompile:
          All outputs are up-to-date.
        ManifestResourceCompile:
@@ -24,6 +17,11 @@
        Link:
          c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:".\Debug\oscactivator.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /NODEFAULTLIB:libcmt.lib /NODEFAULTLIB:msvcrt.lib /MANIFEST /ManifestFile:".\Debug\oscactivator.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:".\Debug\oscactivator.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\Debug\oscactivator.lib" /MACHINE:X86 .\Debug\resources.res
          .\Debug\oscactivator.exe.embed.manifest.res
+         .\Debug\jucetice_OpenSoundBundle.obj
+         .\Debug\jucetice_OpenSoundController.obj
+         .\Debug\jucetice_OpenSoundMessage.obj
+         .\Debug\jucetice_OpenSoundTimeTag.obj
+         .\Debug\jucetice_UDPSocket.obj
          .\Debug\IpEndpointName.obj
          .\Debug\NetworkingUtils.obj
          .\Debug\UdpSocket.obj
@@ -82,4 +80,4 @@
 
 Das Erstellen war erfolgreich.
 
-Time Elapsed 00:00:05.85
+Time Elapsed 00:00:07.21

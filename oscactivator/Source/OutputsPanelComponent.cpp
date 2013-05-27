@@ -307,16 +307,43 @@ void OutputsPanelComponent::sliderValueChanged (Slider* sliderThatWasMoved)
 		int selectedRow = outputsListBox->getSelectedRow();
 		if (selectedRow!=-1)
 		{
-			double value = valueSlider->getValue();
-			*outputs[selectedRow]->pValue = value;
+			RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
+			if (!rpc->interactionOn)
+			{
+				double value = valueSlider->getValue();
+				*outputs[selectedRow]->pValue = value;
 
-			osc::OutboundPacketStream p(outputs[selectedRow]->buffer, 128);
+				osc::OutboundPacketStream p(outputs[selectedRow]->buffer, 128);
 
-			p << osc::BeginMessage( outputs[selectedRow]->oscaddress.toUTF8() )
-              << (float)value
-			  << osc::EndMessage;
+				if (!outputs[selectedRow]->sendStateChanges)
+				{
+					osc::OutboundPacketStream p(outputs[selectedRow]->buffer, 128);
 
-			 outputs[selectedRow]->socket->Send( p.Data(), p.Size() );        
+					p << osc::BeginMessage( outputs[selectedRow]->oscaddress.toUTF8() )
+						<< (float)value
+					<< osc::EndMessage;
+
+					outputs[selectedRow]->socket->Send( p.Data(), p.Size() );
+				}
+				else
+				{
+					int termIndex = outputs[selectedRow]->termManager->getIndex(*outputs[selectedRow]->pValue);
+					double memberShip = outputs[selectedRow]->termManager->terms[termIndex]->membership(*outputs[selectedRow]->pValue);
+
+					if (memberShip==1.0 && termIndex!=outputs[selectedRow]->lastState)
+					{
+						outputs[selectedRow]->lastState = termIndex;
+
+						osc::OutboundPacketStream p(outputs[selectedRow]->buffer, 128);
+
+						p << osc::BeginMessage( outputs[selectedRow]->oscaddress.toUTF8() )
+							<< (float)termIndex
+						<< osc::EndMessage;
+
+						outputs[selectedRow]->socket->Send( p.Data(), p.Size() );
+					}
+				}
+			}
 		}
         //[/UserSliderCode_valueSlider]
     }
@@ -357,10 +384,14 @@ void OutputsPanelComponent::selectedRowsChanged (int lastRowSelected)
 		minEditor->setText(String(outputs[lastRowSelected]->termManager->getMin()));
 		maxEditor->setText(String(outputs[lastRowSelected]->termManager->getMax()));
 
-		valueSlider->setRange(minEditor->getText().getDoubleValue(), maxEditor->getText().getDoubleValue());
-		valueSlider->setValue(*outputs[lastRowSelected]->pValue);
+		RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
+		if (!rpc->interactionOn)
+		{
+			valueSlider->setRange(minEditor->getText().getDoubleValue(), maxEditor->getText().getDoubleValue());
+			valueSlider->setValue(*outputs[lastRowSelected]->pValue);
+		}
 
-		membershipGraph->setTermManager(outputs[lastRowSelected]->termManager);
+		membershipGraph->setTermManager(outputs[lastRowSelected]->termManager); 
 	}
 
 	//updateCurrentValue();
@@ -484,6 +515,11 @@ void OutputsPanelComponent::clearOutputs()
 	}
 
 	outputs.clear();
+}
+
+void OutputsPanelComponent::sliderSetEnabled(bool enabler)
+{
+	valueSlider->setEnabled(enabler);
 }
 //[/MiscUserCode]
 

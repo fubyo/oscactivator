@@ -298,6 +298,9 @@
     <Filter Include="oscpack">
       <UniqueIdentifier>{f0c4e9ca-f983-4b72-ad60-7739b6366baf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="jucedOSC">
+      <UniqueIdentifier>{69b43198-71c3-4ad9-a978-f4a5751a3348}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\Main.cpp">
@@ -1460,6 +1463,21 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\OutputTimer.cpp">
       <Filter>oscactivator\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jucedOSC\jucetice_OpenSoundBundle.cpp">
+      <Filter>jucedOSC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jucedOSC\jucetice_OpenSoundController.cpp">
+      <Filter>jucedOSC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jucedOSC\jucetice_OpenSoundMessage.cpp">
+      <Filter>jucedOSC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jucedOSC\jucetice_OpenSoundTimeTag.cpp">
+      <Filter>jucedOSC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\jucedOSC\jucetice_UDPSocket.cpp">
+      <Filter>jucedOSC</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2821,6 +2839,24 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\OutputTimer.h">
       <Filter>oscactivator\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jucedOSC\jucetice_OpenSoundBase.h">
+      <Filter>jucedOSC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jucedOSC\jucetice_OpenSoundBundle.h">
+      <Filter>jucedOSC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jucedOSC\jucetice_OpenSoundController.h">
+      <Filter>jucedOSC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jucedOSC\jucetice_OpenSoundMessage.h">
+      <Filter>jucedOSC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jucedOSC\jucetice_OpenSoundTimeTag.h">
+      <Filter>jucedOSC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\jucedOSC\jucetice_UDPSocket.h">
+      <Filter>jucedOSC</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

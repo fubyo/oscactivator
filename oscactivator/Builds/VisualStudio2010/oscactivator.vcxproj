@@ -125,6 +125,11 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\jucedOSC\jucetice_OpenSoundBundle.cpp" />
+    <ClCompile Include="..\..\jucedOSC\jucetice_OpenSoundController.cpp" />
+    <ClCompile Include="..\..\jucedOSC\jucetice_OpenSoundMessage.cpp" />
+    <ClCompile Include="..\..\jucedOSC\jucetice_OpenSoundTimeTag.cpp" />
+    <ClCompile Include="..\..\jucedOSC\jucetice_UDPSocket.cpp" />
     <ClCompile Include="..\..\oscpack\ip\IpEndpointName.cpp" />
     <ClCompile Include="..\..\oscpack\ip\win32\NetworkingUtils.cpp" />
     <ClCompile Include="..\..\oscpack\ip\win32\UdpSocket.cpp" />
@@ -1198,6 +1203,12 @@
     <ClCompile Include="..\..\Source\TrapezTerm.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\jucedOSC\jucetice_OpenSoundBase.h" />
+    <ClInclude Include="..\..\jucedOSC\jucetice_OpenSoundBundle.h" />
+    <ClInclude Include="..\..\jucedOSC\jucetice_OpenSoundController.h" />
+    <ClInclude Include="..\..\jucedOSC\jucetice_OpenSoundMessage.h" />
+    <ClInclude Include="..\..\jucedOSC\jucetice_OpenSoundTimeTag.h" />
+    <ClInclude Include="..\..\jucedOSC\jucetice_UDPSocket.h" />
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_basics\buffers\juce_AudioDataConverters.h" />
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_basics\buffers\juce_AudioSampleBuffer.h" />
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_basics\midi\juce_MidiBuffer.h" />

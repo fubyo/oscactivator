@@ -1,5 +1,7 @@
 #include "RuleGenerator.h"
 
+#include "RulesPanelComponent.h"
+
 RuleGenerator::RuleGenerator(void) : Thread("RuleGenerator")
 {
 	ipc = (InputsPanelComponent*)Pool::Instance()->getObject("InputsPanelComponent");
@@ -79,7 +81,7 @@ void RuleGenerator::createRulesFromQueuedExamples()
 				rule.inputTermIndeces.add(inputTermIndex);
 				
 				TermManager* termManager=ipc->inputs[ii]->termManager;
-				float membership = termManager->terms[inputTermIndex]->membership((float)queuedExamples[i]->inputValues[ii].value);
+				float membership = termManager->terms[inputTermIndex]->membership(queuedExamples[i]->inputValues[ii].value);
 				
 				rule.inputDegree*=membership;
 				rule.inputMembership.add(membership);
@@ -636,7 +638,7 @@ void RuleGenerator::updateOutputs()
 	}
 
 	//calculate each output
-	double timersRunning = false;
+	bool timersRunning = false;
 	for (int i=0; i<opc->outputs.size(); i++)
 	{
 		*opc->outputs[i]->pValue = calculateOutput(i);
