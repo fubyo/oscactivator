@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  23 Jan 2013 5:58:35pm
+  Creation date:  28 May 2013 12:08:35pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -128,12 +128,13 @@ void MembershipGraphComponent::mouseDown (const MouseEvent& e)
 		{
 			double x=0,y=0;
 			termManager->terms[i]->centroid(x,y);
-			x = (x-min+termManager->terms[i]->a())*width/difference; 
+			x = (x-min+termManager->terms[i]->a())*width/difference;
 			y = height-(y)*height/difference;
 
 			if (e.getMouseDownX()>x-5 && e.getMouseDownX()<x+5 && e.getMouseDownY()>y-5 && e.getMouseDownY()<y+5 )
 			{
 				selectionIndex = i;
+				sendChangeMessage();
 			}
 		}
 
@@ -176,9 +177,9 @@ void MembershipGraphComponent::setTermManager(TermManager* pTermManager)
 BEGIN_JUCER_METADATA
 
 <JUCER_COMPONENT documentType="Component" className="MembershipGraphComponent"
-                 componentName="" parentClasses="public Component" constructorParams=""
-                 variableInitialisers="" snapPixels="8" snapActive="1" snapShown="1"
-                 overlayOpacity="0.330000013" fixedSize="1" initialWidth="592"
+                 componentName="" parentClasses="public Component, public ChangeBroadcaster"
+                 constructorParams="" variableInitialisers="" snapPixels="8" snapActive="1"
+                 snapShown="1" overlayOpacity="0.330000013" fixedSize="1" initialWidth="592"
                  initialHeight="200">
   <METHODS>
     <METHOD name="mouseDown (const MouseEvent&amp; e)"/>

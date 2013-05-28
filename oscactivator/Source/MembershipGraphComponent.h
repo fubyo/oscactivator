@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  23 Jan 2013 5:58:35pm
+  Creation date:  28 May 2013 12:08:35pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -19,8 +19,8 @@
   ==============================================================================
 */
 
-#ifndef __JUCER_HEADER_MEMBERSHIPGRAPHCOMPONENT_MEMBERSHIPGRAPHCOMPONENT_A667E173__
-#define __JUCER_HEADER_MEMBERSHIPGRAPHCOMPONENT_MEMBERSHIPGRAPHCOMPONENT_A667E173__
+#ifndef __JUCER_HEADER_MEMBERSHIPGRAPHCOMPONENT_MEMBERSHIPGRAPHCOMPONENT_C65459FC__
+#define __JUCER_HEADER_MEMBERSHIPGRAPHCOMPONENT_MEMBERSHIPGRAPHCOMPONENT_C65459FC__
 
 //[Headers]     -- You can add your own extra header files here --
 #include "..\JuceLibraryCode\JuceHeader.h"
@@ -37,7 +37,8 @@
     Describe your class and how it works here!
                                                                     //[/Comments]
 */
-class MembershipGraphComponent  : public Component
+class MembershipGraphComponent  : public Component,
+                                  public ChangeBroadcaster
 {
 public:
     //==============================================================================
@@ -47,6 +48,8 @@ public:
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
 	void setTermManager(TermManager* pTermManager);
+	int selectionIndex;
+	TermManager* termManager;
     //[/UserMethods]
 
     void paint (Graphics& g);
@@ -55,14 +58,11 @@ public:
     bool keyPressed (const KeyPress& key);
 
 
-
     //==============================================================================
     juce_UseDebuggingNewOperator
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
-	TermManager* termManager;
-	int selectionIndex;
     //[/UserVariables]
 
     //==============================================================================
@@ -75,4 +75,4 @@ private:
 };
 
 
-#endif   // __JUCER_HEADER_MEMBERSHIPGRAPHCOMPONENT_MEMBERSHIPGRAPHCOMPONENT_A667E173__
+#endif   // __JUCER_HEADER_MEMBERSHIPGRAPHCOMPONENT_MEMBERSHIPGRAPHCOMPONENT_C65459FC__

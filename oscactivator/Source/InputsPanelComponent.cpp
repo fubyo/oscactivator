@@ -128,9 +128,10 @@ InputsPanelComponent::InputsPanelComponent ()
 
 	Pool::Instance()->reg("InputsPanelComponent", this);
 
-
 	minEditor->addListener(this);
 	maxEditor->addListener(this);
+
+	membershipGraph->addChangeListener(this);
     //[/UserPreSize]
 
     setSize (609, 500);
@@ -361,6 +362,10 @@ void InputsPanelComponent::changeListenerCallback (ChangeBroadcaster* source)
 		delete [] input->pValue;
 		delete input->termManager;
 		delete input;
+	}
+	else if (source == membershipGraph)
+	{
+		termEditor->setText(membershipGraph->termManager->terms[membershipGraph->selectionIndex]->name());
 	}
 }
 

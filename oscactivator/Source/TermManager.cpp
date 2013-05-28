@@ -159,6 +159,10 @@ void TermManager::addTerm(String termName, double value)
 						terms[index+1]->setB(terms[index+1]->c());
 						terms[index]->setD(terms[index+1]->c());
 					}
+					else if (value >= terms[index+1]->a())
+					{
+						terms[index+1]->setA(value);
+					}
 				}
 			}
 			else if (value>terms[index]->d()) //outside of membership

@@ -129,6 +129,7 @@ OutputsPanelComponent::OutputsPanelComponent ()
 	minEditor->addListener(this);
 	maxEditor->addListener(this);
 
+	membershipGraph->addChangeListener(this);
     //[/UserPreSize]
 
     setSize (609, 600);
@@ -422,6 +423,10 @@ void OutputsPanelComponent::changeListenerCallback (ChangeBroadcaster* source)
 		delete [] output->pValue;
 		delete output->termManager;
 		delete output;
+	}
+	else if (source == membershipGraph)
+	{
+		termEditor->setText(membershipGraph->termManager->terms[membershipGraph->selectionIndex]->name());
 	}
 }
 
