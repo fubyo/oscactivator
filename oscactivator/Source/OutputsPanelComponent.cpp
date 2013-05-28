@@ -249,7 +249,7 @@ void OutputsPanelComponent::buttonClicked (Button* buttonThatWasClicked)
 
 			if (selectedrow<outputs.size())
 			{
-				outputComponent->setOutput(outputs[selectedrow]);
+				outputComponent->setOutputInfo(OutputInfo(outputs[selectedrow]));
 
 				minEditor->setText(String(outputs[selectedrow]->termManager->getMin()));
 				maxEditor->setText(String(outputs[selectedrow]->termManager->getMax()));
@@ -379,7 +379,7 @@ void OutputsPanelComponent::selectedRowsChanged (int lastRowSelected)
 {
 	if (lastRowSelected!=-1)
 	{
-		outputComponent->setOutput(outputs[lastRowSelected]);
+		outputComponent->setOutputInfo(OutputInfo(outputs[lastRowSelected]));
 		outputComponent->setVisible(true);
 
 		minEditor->setText(String(outputs[lastRowSelected]->termManager->getMin()));
@@ -402,27 +402,22 @@ void OutputsPanelComponent::changeListenerCallback (ChangeBroadcaster* source)
 {
 	if (source==outputComponent)
 	{
-		Output* output = outputComponent->getOutput();
+		OutputInfo output = outputComponent->getOutputInfo();
 		int selectedRow=outputsListBox->getSelectedRow();
 
 		if (selectedRow!=-1)
 		{
-			outputs[selectedRow]->name = output->name;
-			outputs[selectedRow]->oscaddress = output->oscaddress;
-			outputs[selectedRow]->port = output->port;
-			outputs[selectedRow]->host = output->host;
-			outputs[selectedRow]->sendStateChanges = output->sendStateChanges;
+			outputs[selectedRow]->name = output.name;
+			outputs[selectedRow]->oscaddress = output.oscaddress;
+			outputs[selectedRow]->port = output.port;
+			outputs[selectedRow]->host = output.host;
+			outputs[selectedRow]->sendStateChanges = output.sendStateChanges;
 
 			outputs[selectedRow]->prepareSocket();
 
 			outputsListBox->updateContent();
 			outputsListBox->repaintRow(selectedRow);
 		}
-
-		delete [] output->buffer;
-		delete [] output->pValue;
-		delete output->termManager;
-		delete output;
 	}
 	else if (source == membershipGraph)
 	{
@@ -525,6 +520,12 @@ void OutputsPanelComponent::clearOutputs()
 void OutputsPanelComponent::sliderSetEnabled(bool enabler)
 {
 	valueSlider->setEnabled(enabler);
+}
+
+void OutputsPanelComponent::disconnectTermManagerFromMembershipGraphComponent()
+{
+	outputsListBox->deselectAllRows();
+	membershipGraph->termManager = 0;
 }
 //[/MiscUserCode]
 

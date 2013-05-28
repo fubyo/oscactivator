@@ -166,7 +166,7 @@ bool OSCListener::handleOSCMessage (OpenSoundController* controller, OpenSoundMe
 	else
 		for (int i=0; i<receivers->size(); i++)
 		{
-			String recAddress = (receivers->begin()+i)->address.trim();
+			String recAddress = (*receivers)[i].address.trim();
 		
 			if (mesAddress.matchesWildcard(recAddress, false))
 			{
@@ -174,11 +174,11 @@ bool OSCListener::handleOSCMessage (OpenSoundController* controller, OpenSoundMe
 				float newValue=0;
 				if (arguments.size())
 				{
-					newValue=arguments[(receivers->begin()+i)->parameterIndex];
+					newValue=arguments[(*receivers)[i].parameterIndex];
 
-					if ((receivers->begin()+i)->pValue[0] != newValue)
+					if ((*receivers)[i].pValue[0] != newValue)
 					{
-						(receivers->begin()+i)->pValue[0] = newValue;
+						(*receivers)[i].pValue[0] = newValue;
 
 						const MessageManagerLock mmLock;
 						((OpenSoundSocketThread*)controller)->ipc->updateCurrentValue();

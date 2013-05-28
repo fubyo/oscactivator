@@ -75,6 +75,8 @@ public:
 	void updateContent();
 
 	void clearInputs();
+
+	void disconnectTermManagerFromMembershipGraphComponent();
     //[/UserMethods]
 
     void paint (Graphics& g);

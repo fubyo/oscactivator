@@ -24,31 +24,6 @@ struct ReceiverRegistration
 class InputsPanelComponent;
 class OutputsPanelComponent;
 
-/*
-class SocketThread: public Thread, public osc::OscPacketListener
-{
-public:
-	SocketThread(Array<ReceiverRegistration, CriticalSection>* Receivers, int Port);
-	~SocketThread();
-
-	int getPort();
-
-	void run();
-	void Break();
-
-private:
-	Array<ReceiverRegistration, CriticalSection>* receivers;
-	int port;
-	ScopedPointer<UdpListeningReceiveSocket> s;
-
-	InputsPanelComponent* ipc;
-	OutputsPanelComponent* opc;
-
-protected:
-	virtual void ProcessMessage(const osc::ReceivedMessage& m, const IpEndpointName& remoteEndpoint);
-};
-*/
-
 class OSCListener : public OpenSoundControllerListener
 {
 	Array<ReceiverRegistration, CriticalSection>* receivers;

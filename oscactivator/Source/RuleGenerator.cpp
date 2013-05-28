@@ -136,7 +136,7 @@ void RuleGenerator::mergeNewRulesToRuleBase()
 
 		while (ruleIndex<rules.size())  //for each old rule
 		{
-			if (!rules[i]->locked)
+			if (!rules[ruleIndex]->locked)
 			{
 				bool inputsConflicting = areInputsConflicting(*queuedRules[i], *rules[ruleIndex]);
 				Array<int> outputsConflicting = areOutputsConflicting(*queuedRules[i], *rules[ruleIndex]);

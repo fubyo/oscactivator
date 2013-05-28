@@ -21,13 +21,13 @@ class MainWindow  : public DocumentWindow, public MenuBarModel
 {
 	void save()
 	{
+		const MessageManagerLock mmLock;
+
 		InputsPanelComponent* ipc = (InputsPanelComponent*)Pool::Instance()->getObject("InputsPanelComponent");
 		OutputsPanelComponent* opc = (OutputsPanelComponent*)Pool::Instance()->getObject("OutputsPanelComponent");
 		RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
 
-		FileChooser myChooser ("Please select where you want to save the configuration to...",
-                               File::getSpecialLocation (File::userHomeDirectory),
-                               "*.xml");
+		FileChooser myChooser(String("Please select where you want to save the configuration to..."), File::getSpecialLocation (File::userHomeDirectory), String("*.xml"), false);
 
 		if (myChooser.browseForFileToSave(true))
 		{
@@ -164,13 +164,15 @@ class MainWindow  : public DocumentWindow, public MenuBarModel
 	
 	void load()
 	{
+		const MessageManagerLock mmLock;
+
 		InputsPanelComponent* ipc = (InputsPanelComponent*)Pool::Instance()->getObject("InputsPanelComponent");
 		OutputsPanelComponent* opc = (OutputsPanelComponent*)Pool::Instance()->getObject("OutputsPanelComponent");
 		RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
 
 		FileChooser myChooser ("Please select where you want to load the configuration from...",
                                File::getSpecialLocation (File::userHomeDirectory),
-                               "*.xml");
+                               "*.xml", false);
 
 		if (myChooser.browseForFileToOpen())
 		{
@@ -341,6 +343,8 @@ class MainWindow  : public DocumentWindow, public MenuBarModel
 				}
 				rpc->updateContent();
 
+				ipc->disconnectTermManagerFromMembershipGraphComponent();
+				opc->disconnectTermManagerFromMembershipGraphComponent();
 			}
 		}
 	}

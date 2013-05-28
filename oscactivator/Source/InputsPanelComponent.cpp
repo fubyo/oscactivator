@@ -245,7 +245,7 @@ void InputsPanelComponent::buttonClicked (Button* buttonThatWasClicked)
 
 			if (selectedrow<inputs.size())
 			{
-				inputComponent->setInput(*inputs[selectedrow]);
+				inputComponent->setInputInfo(InputInfo(inputs[selectedrow]));
 
 				minEditor->setText(String(inputs[selectedrow]->termManager->getMin()));
 				maxEditor->setText(String(inputs[selectedrow]->termManager->getMax()));
@@ -323,7 +323,7 @@ void InputsPanelComponent::selectedRowsChanged (int lastRowSelected)
 {
 	if (lastRowSelected!=-1)
 	{
-		inputComponent->setInput(*inputs[lastRowSelected]);
+		inputComponent->setInputInfo(inputs[lastRowSelected]);
 		inputComponent->setVisible(true);
 
 		minEditor->setText(String(inputs[lastRowSelected]->termManager->getMin()));
@@ -339,15 +339,15 @@ void InputsPanelComponent::changeListenerCallback (ChangeBroadcaster* source)
 {
 	if (source==inputComponent)
 	{
-		Input* input=inputComponent->getInput();
+		InputInfo input=inputComponent->getInputInfo();
 		int selectedRow=inputsListBox->getSelectedRow();
 
 		if (selectedRow!=-1)
 		{
-			inputs[selectedRow]->name = input->name;
-			inputs[selectedRow]->oscaddress = input->oscaddress;
-			inputs[selectedRow]->port = input->port;
-			inputs[selectedRow]->parameterindex = input->parameterindex;
+			inputs[selectedRow]->name = input.name;
+			inputs[selectedRow]->oscaddress = input.oscaddress;
+			inputs[selectedRow]->port = input.port;
+			inputs[selectedRow]->parameterindex = input.parameterindex;
 
 			OscManager::getInstance()->unregisterReceiver(inputs[selectedRow]->pValue);
 			OscManager::getInstance()->registerReceiver(inputs[selectedRow]->oscaddress, inputs[selectedRow]->parameterindex, inputs[selectedRow]->port, inputs[selectedRow]->pValue);
@@ -358,10 +358,6 @@ void InputsPanelComponent::changeListenerCallback (ChangeBroadcaster* source)
 			RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
 			rpc->updateRuleList();
 		}
-
-		delete [] input->pValue;
-		delete input->termManager;
-		delete input;
 	}
 	else if (source == membershipGraph)
 	{
@@ -415,7 +411,7 @@ void InputsPanelComponent::updateContent()
 {
 	for (int i=0; i<inputs.size(); i++)
 	{
-		OscManager::getInstance()->unregisterReceiver(inputs[i]->pValue);
+		//OscManager::getInstance()->unregisterReceiver(inputs[i]->pValue);
 		OscManager::getInstance()->registerReceiver(inputs[i]->oscaddress, inputs[i]->parameterindex, inputs[i]->port, inputs[i]->pValue);
 	}
 
@@ -431,6 +427,12 @@ void InputsPanelComponent::clearInputs()
 	}
 
 	inputs.clear();
+}
+
+void InputsPanelComponent::disconnectTermManagerFromMembershipGraphComponent()
+{
+	inputsListBox->deselectAllRows();
+	membershipGraph->termManager = 0;
 }
 
 //[/MiscUserCode]

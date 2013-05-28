@@ -74,6 +74,8 @@ public:
 	void clearOutputs();
 
 	void sliderSetEnabled(bool enabler);
+
+	void disconnectTermManagerFromMembershipGraphComponent();
     //[/UserMethods]
 
     void paint (Graphics& g);

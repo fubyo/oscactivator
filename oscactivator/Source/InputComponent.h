@@ -25,6 +25,7 @@
 //[Headers]     -- You can add your own extra header files here --
 #include "..\JuceLibraryCode\JuceHeader.h"
 #include "TermManager.h"
+#include "OscManager.h"
 
 class Input
 {
@@ -49,30 +50,27 @@ public:
 
 	~Input()
 	{
-		
+		OscManager::getInstance()->unregisterReceiver(pValue);
 	};
+};
 
-	/*Input &operator= (const Input &other)
+class InputInfo
+{
+public:
+	String name;
+	String oscaddress;
+	int port;
+	int parameterindex;
+
+	InputInfo() {};
+
+	InputInfo(Input* input)
 	{
-		name = other.name;
-		oscaddress = other.oscaddress;
-		port = other.port;
-		parameterindex = other.parameterindex;
-		pValue = other.pValue;
-		termManager = other.termManager;
-
-		return *this;
-	}
-
-	Input(const Input& other)
-	{
-		name = other.name;
-		oscaddress = other.oscaddress;
-		port = other.port;
-		parameterindex = other.parameterindex;
-		pValue = other.pValue;
-		termManager = other.termManager;
-	}*/
+		name = input->name;
+		oscaddress = input->oscaddress;
+		port = input->port;
+		parameterindex = input->parameterindex;
+	};
 };
 //[/Headers]
 
@@ -98,8 +96,8 @@ public:
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
-	void setInput(Input input);
-	Input* getInput();
+	void setInputInfo(InputInfo input);
+	InputInfo getInputInfo();
 
 	void textEditorTextChanged (TextEditor& editor);
     //[/UserMethods]

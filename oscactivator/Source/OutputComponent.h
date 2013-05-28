@@ -73,6 +73,27 @@ public:
 
 	};
 };
+
+class OutputInfo
+{
+public:
+	String name;
+	String oscaddress;
+	int port;
+	String host;
+	bool sendStateChanges;
+
+	OutputInfo() {};
+
+	OutputInfo(Output* output)
+	{
+		name = output->name;
+		oscaddress = output->oscaddress;
+		port = output->port;
+		host = output->host;
+		sendStateChanges = output->sendStateChanges;
+	};
+};
 //[/Headers]
 
 
@@ -97,8 +118,8 @@ public:
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
-	void setOutput(Output* output);
-	Output* getOutput();
+	void setOutputInfo(OutputInfo output);
+	OutputInfo getOutputInfo();
 
 	void textEditorTextChanged (TextEditor& editor);
     //[/UserMethods]

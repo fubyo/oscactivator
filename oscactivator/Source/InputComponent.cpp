@@ -202,7 +202,7 @@ void InputComponent::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 
 
 //[MiscUserCode] You can add your own definitions of your custom methods or any other code here...
-void InputComponent::setInput(Input input)
+void InputComponent::setInputInfo(InputInfo input)
 {
 	nameEditor->setText(input.name);
 	addressEditor->setText(input.oscaddress);
@@ -210,15 +210,16 @@ void InputComponent::setInput(Input input)
 	parameterIndexComboBox->setSelectedItemIndex(input.parameterindex);
 }
 
-Input* InputComponent::getInput()
+InputInfo InputComponent::getInputInfo()
 {
-	Input* input = new Input();
-	input->name = nameEditor->getText();
-	input->oscaddress = addressEditor->getText();
-	input->parameterindex = parameterIndexComboBox->getSelectedItemIndex();
-	input->port = portEditor->getText().getIntValue();
+	InputInfo ii;
+	
+	ii.name = nameEditor->getText();
+	ii.oscaddress = addressEditor->getText();
+	ii.parameterindex = parameterIndexComboBox->getSelectedItemIndex();
+	ii.port = portEditor->getText().getIntValue();
 
-	return input;
+	return ii;
 }
 
 void InputComponent::textEditorTextChanged(TextEditor& editor)
