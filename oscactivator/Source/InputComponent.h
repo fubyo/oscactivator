@@ -51,6 +51,8 @@ public:
 	~Input()
 	{
 		OscManager::getInstance()->unregisterReceiver(pValue);
+		delete [] pValue;
+		delete termManager;
 	};
 };
 

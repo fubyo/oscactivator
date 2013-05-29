@@ -86,6 +86,11 @@ private:
 	void addExample();
 	void updateRules();
 	void clearExamples();
+
+	ScopedPointer<ListBoxModel> ilbm;
+	ScopedPointer<ListBoxModel> olbm;
+	ScopedPointer<ListBoxModel> rlbm;
+
     //[/UserVariables]
 
     //==============================================================================

@@ -142,6 +142,7 @@ OutputsPanelComponent::OutputsPanelComponent ()
 OutputsPanelComponent::~OutputsPanelComponent()
 {
     //[Destructor_pre]. You can add your own custom destruction code here..
+	/*
 	for (int i=0; i<outputs.size(); i++)
 	{
 		delete [] outputs[i]->buffer;
@@ -149,6 +150,7 @@ OutputsPanelComponent::~OutputsPanelComponent()
 		delete outputs[i]->socket;
 		delete outputs[i]->termManager;
 	}
+	*/
     //[/Destructor_pre]
 
     deleteAndZero (groupComponent);
@@ -238,10 +240,10 @@ void OutputsPanelComponent::buttonClicked (Button* buttonThatWasClicked)
 
 		if (selectedrow!=-1 && selectedrow < (int)outputs.size())
 		{
-			delete[] outputs[selectedrow]->pValue;
-			delete outputs[selectedrow]->termManager;
-			delete[] outputs[selectedrow]->buffer;
-			delete outputs[selectedrow]->socket;
+			//delete[] outputs[selectedrow]->pValue;
+			//delete outputs[selectedrow]->termManager;
+			//delete[] outputs[selectedrow]->buffer;
+			//delete outputs[selectedrow]->socket;
 
 			membershipGraph->setTermManager(0);
 
@@ -344,7 +346,7 @@ void OutputsPanelComponent::sliderValueChanged (Slider* sliderThatWasMoved)
 						outputs[selectedRow]->socket->Send( p.Data(), p.Size() );
 					}
 				}
-			}
+			} 
 		}
         //[/UserSliderCode_valueSlider]
     }
@@ -391,7 +393,7 @@ void OutputsPanelComponent::selectedRowsChanged (int lastRowSelected)
 			valueSlider->setRange(minEditor->getText().getDoubleValue(), maxEditor->getText().getDoubleValue());
 			valueSlider->setValue(*outputs[lastRowSelected]->pValue);
 		}
-
+		
 		membershipGraph->setTermManager(outputs[lastRowSelected]->termManager); 
 	}
 
@@ -506,6 +508,7 @@ void OutputsPanelComponent::updateContent()
 
 void OutputsPanelComponent::clearOutputs()
 {
+	/*
 	for (int i=0; i<outputs.size(); i++)
 	{
 		delete [] outputs[i]->buffer;
@@ -513,6 +516,7 @@ void OutputsPanelComponent::clearOutputs()
 		delete outputs[i]->socket;
 		delete outputs[i]->termManager;
 	}
+	*/
 
 	outputs.clear();
 }

@@ -99,11 +99,6 @@ void OscManager::run()
 
 				if (!found)
 				{
-					/*sockets[j]->Break();
-					sockets[j]->stopThread(100);
-					delete sockets[j];
-					sockets.remove(j);*/
-
 					opensoundsockets[j]->stopListening();
 					opensoundsockets.remove(j);
 				}
@@ -184,7 +179,7 @@ bool OSCListener::handleOSCMessage (OpenSoundController* controller, OpenSoundMe
 						((OpenSoundSocketThread*)controller)->ipc->updateCurrentValue();
 
 						return true;
-					}
+					} 
 				}
 			}
 		}	

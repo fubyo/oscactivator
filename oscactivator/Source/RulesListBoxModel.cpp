@@ -44,7 +44,7 @@ Component* RulesListBoxModel::refreshComponentForRow(int rowNumber, bool isRowSe
 			bool alreadyDeleted = false;
 			if  (((RuleComponent*)existingComponentToUpdate)->hasToGetDeleted)
 			{
-				delete existingComponentToUpdate;
+				deleteAndZero(existingComponentToUpdate);
 				alreadyDeleted = true;
 				if (validRow)
 					existingComponentToUpdate = new RuleComponent();
@@ -62,7 +62,7 @@ Component* RulesListBoxModel::refreshComponentForRow(int rowNumber, bool isRowSe
 			else
 			{
 				if (!alreadyDeleted)
-					delete existingComponentToUpdate;
+					deleteAndZero(existingComponentToUpdate);
 
 				return 0;
 			}

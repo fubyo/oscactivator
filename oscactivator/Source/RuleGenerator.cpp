@@ -19,25 +19,7 @@ RuleGenerator::RuleGenerator(void) : Thread("RuleGenerator")
 
 RuleGenerator::~RuleGenerator(void)
 {
-	//delete all input timers
-	for (int i=0; i<rules.size(); i++)
-	{
-		HashMap<int, InputTimer*>::Iterator ii(rules[i]->inputTimers);
-		while (ii.next())
-		{
-			delete ii.getValue();
-		}
-	}
-
-	//delete all output timers
-	for (int i=0; i<rules.size(); i++)
-	{
-		HashMap<int, OutputTimer*>::Iterator ii(rules[i]->outputTimers);
-		while (ii.next())
-		{
-			delete ii.getValue();
-		}
-	} 
+	deleteAllTimers();
 }
 
 void RuleGenerator::addExample(Example example)
@@ -219,7 +201,21 @@ void RuleGenerator::mergeNewRulesToRuleBase()
 		if (outputContribution)
 			ruleIndex++;
 		else
+		{
+			HashMap<int, InputTimer*>::Iterator ii(rules[ruleIndex]->inputTimers);
+			while (ii.next())
+			{
+				delete ii.getValue();
+			}
+
+			HashMap<int, OutputTimer*>::Iterator jj(rules[ruleIndex]->outputTimers);
+			while (jj.next())
+			{
+				delete jj.getValue();
+			}
+
 			rules.remove(ruleIndex);
+		}
 	}
 
 	//Clean up rules that have no input
@@ -236,7 +232,21 @@ void RuleGenerator::mergeNewRulesToRuleBase()
 		if (hasInputs)
 			ruleIndex++;
 		else
+		{
+			HashMap<int, InputTimer*>::Iterator ii(rules[ruleIndex]->inputTimers);
+			while (ii.next())
+			{
+				delete ii.getValue();
+			}
+
+			HashMap<int, OutputTimer*>::Iterator jj(rules[ruleIndex]->outputTimers);
+			while (jj.next())
+			{
+				delete jj.getValue();
+			}
+
 			rules.remove(ruleIndex);
+		}
 	}
 }
 
@@ -399,7 +409,21 @@ void RuleGenerator::deleteAllRules()
 	while (iter<rules.size() && !unlockedFound)
 	{
 		if (!rules[iter]->locked)
+		{
+			HashMap<int, InputTimer*>::Iterator ii(rules[iter]->inputTimers);
+			while (ii.next())
+			{
+				delete ii.getValue();
+			}
+
+			HashMap<int, OutputTimer*>::Iterator jj(rules[iter]->outputTimers);
+			while (jj.next())
+			{
+				delete jj.getValue();
+			}
+
 			rules.remove(iter);
+		}
 		else
 			iter++;
 	}
@@ -414,6 +438,12 @@ void RuleGenerator::removeInput(int index)
 
 	for (int i=0; i<rules.size(); i++)
 	{
+		if (rules[i]->inputTimers.contains(index))
+		{
+			delete rules[i]->inputTimers[index];
+			rules[i]->inputTimers.remove(index);
+		}
+
 		rules[i]->inputMembership.remove(index);
 		rules[i]->inputTermIndeces.remove(index);
 		rules[i]->inputValues.remove(index);
@@ -445,6 +475,12 @@ void RuleGenerator::removeOutput(int index)
 
 	for (int i=0; i<rules.size(); i++)
 	{
+		if (rules[i]->outputTimers.contains(index))
+		{
+			delete rules[i]->outputTimers[index];
+			rules[i]->outputTimers.remove(index);
+		}
+
 		rules[i]->outputMembership.remove(index);
 		rules[i]->outputTermIndeces.remove(index);
 		rules[i]->outputDegrees.remove(index);
@@ -604,7 +640,7 @@ double RuleGenerator::calculateOutput(int index)
 
 			numerators.add(tempNumerator);
 			denominators.add(tempDenominator);
-		}
+		} 
 	}
 
 	for (unsigned int i=0; i<numerators.size(); i++)
@@ -616,6 +652,9 @@ double RuleGenerator::calculateOutput(int index)
 	double result;
 
 	result =  numerator/denominator;
+
+	if (result!=result)
+		result = *opc->outputs[index]->pValue;
 
 	return result;
 }
@@ -646,7 +685,7 @@ void RuleGenerator::updateOutputs()
 			timersRunning=true;
 	}
 
-	timersAreCounting = timersRunning;
+	timersAreCounting = timersRunning; 
 
 	opc->sendOuputValues();
 }
@@ -682,6 +721,7 @@ void RuleGenerator::run()
 {
 	while (!threadShouldExit())
 	{
+		
 		if (outputsHaveToGetUpdated)
 		{
 			updateOutputs();
@@ -689,6 +729,7 @@ void RuleGenerator::run()
 			if (!timersAreCounting)
 				outputsHaveToGetUpdated = false;
 		}
+		
 
 		sleep(10);
 	}
@@ -708,4 +749,27 @@ Rule::Rule()
 
 Rule::~Rule()
 {
+}
+
+void RuleGenerator::deleteAllTimers()
+{
+	//delete all input timers
+	for (int i=0; i<rules.size(); i++)
+	{
+		HashMap<int, InputTimer*>::Iterator ii(rules[i]->inputTimers);
+		while (ii.next())
+		{
+			delete ii.getValue();
+		}
+	}
+
+	//delete all output timers
+	for (int i=0; i<rules.size(); i++)
+	{
+		HashMap<int, OutputTimer*>::Iterator ii(rules[i]->outputTimers);
+		while (ii.next())
+		{
+			delete ii.getValue();
+		}
+	} 
 }

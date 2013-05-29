@@ -70,7 +70,10 @@ public:
 
 	~Output()
 	{
-
+		delete [] buffer;
+		delete [] pValue;
+		delete socket;
+		delete termManager;
 	};
 };
 

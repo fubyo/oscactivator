@@ -108,8 +108,10 @@ RulesPanelComponent::RulesPanelComponent ()
 
 
     //[UserPreSize]
-	inputsListBox->setModel(new MultipleSelectionListBoxModel(false));
-	outputsListBox->setModel(new MultipleSelectionListBoxModel(true));
+	ilbm = new MultipleSelectionListBoxModel(false);
+	olbm = new MultipleSelectionListBoxModel(true);
+	inputsListBox->setModel(ilbm);
+	outputsListBox->setModel(olbm);
 
 	outputsListBox->setColour(outputsListBox->backgroundColourId, Colours::lightgrey);
 	inputsListBox->setColour(outputsListBox->backgroundColourId, Colours::lightgrey);
@@ -123,7 +125,8 @@ RulesPanelComponent::RulesPanelComponent ()
 
 	interactionOn = false;
 
-	rulesListBox->setModel(new RulesListBoxModel());
+	rlbm = new RulesListBoxModel();
+	rulesListBox->setModel(rlbm);
 	rulesListBox->setColour(rulesListBox->backgroundColourId, Colours::lightgrey);
 	rulesListBox->setRowHeight(80);
     //[/UserPreSize]
@@ -138,10 +141,6 @@ RulesPanelComponent::RulesPanelComponent ()
 RulesPanelComponent::~RulesPanelComponent()
 {
     //[Destructor_pre]. You can add your own custom destruction code here..
-	delete inputsListBox->getModel();
-	delete outputsListBox->getModel();
-	delete rulesListBox->getModel();
-
     //[/Destructor_pre]
 
     deleteAndZero (groupComponent);
@@ -231,7 +230,7 @@ void RulesPanelComponent::buttonClicked (Button* buttonThatWasClicked)
 		if (applyToggleButton->getToggleState())
 		{
 			interactionOn = true;
-			//ruleGenerator.requestOutputUpdate();
+			ruleGenerator.requestOutputUpdate();
 			
 			//OutputsPanelComponent* opc = (OutputsPanelComponent*)Pool::Instance()->getObject("OutputsPanelComponent");
 			//opc->sliderSetEnabled(false);
@@ -239,6 +238,7 @@ void RulesPanelComponent::buttonClicked (Button* buttonThatWasClicked)
 		else
 		{
 			interactionOn = false;
+			ruleGenerator.timersAreCounting = false;
 			//OutputsPanelComponent* opc = (OutputsPanelComponent*)Pool::Instance()->getObject("OutputsPanelComponent");
 			//opc->sliderSetEnabled(true);
 		}

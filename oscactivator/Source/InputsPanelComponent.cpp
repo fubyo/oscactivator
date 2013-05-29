@@ -144,11 +144,12 @@ InputsPanelComponent::InputsPanelComponent ()
 InputsPanelComponent::~InputsPanelComponent()
 {
     //[Destructor_pre]. You can add your own custom destruction code here..
+	/*
 	for (int i=0; i<inputs.size(); i++)
 	{
 		delete inputs[i]->termManager;
 		delete [] inputs[i]->pValue;
-	}
+	}*/
 
     //[/Destructor_pre]
 
@@ -237,8 +238,8 @@ void InputsPanelComponent::buttonClicked (Button* buttonThatWasClicked)
 		if (selectedrow!=-1 && selectedrow < (int)inputs.size())
 		{
 			OscManager::getInstance()->unregisterReceiver(inputs[selectedrow]->pValue);
-			delete[] inputs[selectedrow]->pValue;
-			delete inputs[selectedrow]->termManager;
+			//delete[] inputs[selectedrow]->pValue;
+			//delete inputs[selectedrow]->termManager;
 			membershipGraph->setTermManager(0);
 
 			inputs.remove(selectedrow);
@@ -330,9 +331,9 @@ void InputsPanelComponent::selectedRowsChanged (int lastRowSelected)
 		maxEditor->setText(String(inputs[lastRowSelected]->termManager->getMax()));
 
 		membershipGraph->setTermManager(inputs[lastRowSelected]->termManager);
-	}
 
-	updateCurrentValue();
+		currentValueEditor->setText(String(*inputs[lastRowSelected]->pValue), true);
+	}
 }
 
 void InputsPanelComponent::changeListenerCallback (ChangeBroadcaster* source)
@@ -370,16 +371,19 @@ void InputsPanelComponent::updateCurrentValue()
 	int selectedRow=inputsListBox->getSelectedRow();
 	if (selectedRow!=-1)
 	{
-		currentValueEditor->setText(String(*inputs[selectedRow]->pValue));
+		currentValueEditor->setText(String(*inputs[selectedRow]->pValue), false);
 	}
 	else
-		currentValueEditor->setText(String(0));
+		currentValueEditor->setText(String(0), false); 
 
+	
 	RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
 	if (rpc)
 	{
 		if (rpc->interactionOn)
+		{
 			rpc->ruleGenerator.requestOutputUpdate();
+		}
 	}
 }
 
@@ -420,11 +424,13 @@ void InputsPanelComponent::updateContent()
 
 void InputsPanelComponent::clearInputs()
 {
+	/*
 	for (int i=0; i<inputs.size(); i++)
 	{
 		delete inputs[i]->termManager;
 		delete [] inputs[i]->pValue;
 	}
+	*/
 
 	inputs.clear();
 }

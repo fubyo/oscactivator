@@ -27,7 +27,7 @@ class MainWindow  : public DocumentWindow, public MenuBarModel
 		OutputsPanelComponent* opc = (OutputsPanelComponent*)Pool::Instance()->getObject("OutputsPanelComponent");
 		RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
 
-		FileChooser myChooser(String("Please select where you want to save the configuration to..."), File::getSpecialLocation (File::userHomeDirectory), String("*.xml"), false);
+		FileChooser myChooser(String("Please select where you want to save the configuration to..."), File::getSpecialLocation (File::userHomeDirectory), String("*.xml"), true);
 
 		if (myChooser.browseForFileToSave(true))
 		{
@@ -172,7 +172,7 @@ class MainWindow  : public DocumentWindow, public MenuBarModel
 
 		FileChooser myChooser ("Please select where you want to load the configuration from...",
                                File::getSpecialLocation (File::userHomeDirectory),
-                               "*.xml", false);
+                               "*.xml", true);
 
 		if (myChooser.browseForFileToOpen())
 		{
@@ -297,6 +297,7 @@ class MainWindow  : public DocumentWindow, public MenuBarModel
 				opc->updateContent();
 
 				int ruleNumber = configurationElement->getIntAttribute("RuleNumber");
+				rpc->ruleGenerator.deleteAllTimers();
 				rpc->ruleGenerator.rules.clear();
 
 				for (int i=0; i<ruleNumber; i++)

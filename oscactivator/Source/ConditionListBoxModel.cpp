@@ -85,7 +85,7 @@ Component* ConditionListBoxModel::refreshComponentForRow(int rowNumber, bool isR
 		}
 		else
 		{
-			delete existingComponentToUpdate;
+			deleteAndZero(existingComponentToUpdate);
 			return 0;
 		}
 	}
