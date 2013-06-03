@@ -73,6 +73,10 @@ public:
 		delete [] buffer;
 		delete [] pValue;
 		delete socket;
+
+		if (termManager == (TermManager*)Pool::Instance()->getObject("CopyTermManager"))
+			Pool::Instance()->unreg("CopyTermManager");
+
 		delete termManager;
 	};
 };

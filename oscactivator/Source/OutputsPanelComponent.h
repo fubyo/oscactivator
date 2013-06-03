@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  15 Feb 2013 6:19:51pm
+  Creation date:  3 Jun 2013 3:48:01pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -19,8 +19,8 @@
   ==============================================================================
 */
 
-#ifndef __JUCER_HEADER_OUTPUTSPANELCOMPONENT_OUTPUTSPANELCOMPONENT_18D603F1__
-#define __JUCER_HEADER_OUTPUTSPANELCOMPONENT_OUTPUTSPANELCOMPONENT_18D603F1__
+#ifndef __JUCER_HEADER_OUTPUTSPANELCOMPONENT_OUTPUTSPANELCOMPONENT_C17314A2__
+#define __JUCER_HEADER_OUTPUTSPANELCOMPONENT_OUTPUTSPANELCOMPONENT_C17314A2__
 
 //[Headers]     -- You can add your own extra header files here --
 #include "..\JuceLibraryCode\JuceHeader.h"
@@ -76,6 +76,10 @@ public:
 	void sliderSetEnabled(bool enabler);
 
 	void disconnectTermManagerFromMembershipGraphComponent();
+
+	int getOutputIndex(TermManager* tm);
+
+	void updateMinMax();
     //[/UserMethods]
 
     void paint (Graphics& g);
@@ -116,4 +120,4 @@ private:
 };
 
 
-#endif   // __JUCER_HEADER_OUTPUTSPANELCOMPONENT_OUTPUTSPANELCOMPONENT_18D603F1__
+#endif   // __JUCER_HEADER_OUTPUTSPANELCOMPONENT_OUTPUTSPANELCOMPONENT_C17314A2__

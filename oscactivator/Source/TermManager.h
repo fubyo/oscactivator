@@ -30,7 +30,6 @@ public:
 	
 	int getIndex(double value);
 	
-
 	TermManager(void);
 	~TermManager(void);
 };

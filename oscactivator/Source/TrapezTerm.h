@@ -34,4 +34,20 @@ public:
 	TrapezTerm(void);
 	TrapezTerm(String name);
 	~TrapezTerm(void);
+
+	TrapezTerm & operator= (const TrapezTerm & other)
+    {
+        if (this != &other) // protect against invalid self-assignment
+        {
+			A = other.A;
+			B = other.B;
+			C = other.C;
+			D = other.D;
+
+			Name = other.Name;
+        }
+
+        // by convention, always return *this
+        return *this;
+    };
 };

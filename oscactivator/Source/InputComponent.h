@@ -52,6 +52,10 @@ public:
 	{
 		OscManager::getInstance()->unregisterReceiver(pValue);
 		delete [] pValue;
+
+		if (termManager == (TermManager*)Pool::Instance()->getObject("CopyTermManager"))
+			Pool::Instance()->unreg("CopyTermManager");
+
 		delete termManager;
 	};
 };

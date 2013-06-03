@@ -81,7 +81,7 @@ public:
 		weightInputConnection = other.weightInputConnection;
 
 		return *this;
-	}
+	};
 
 	Rule(const Rule& other)
 	{
@@ -131,7 +131,7 @@ public:
 		weightInputConnection = other.weightInputConnection;
 
 		locked = other.locked;
-	}
+	};
 };
 
 class RuleGenerator : public juce::Thread
@@ -174,6 +174,9 @@ public:
 
 	void removeInput(int index);
 	void removeOutput(int index);
+
+	void updateRulesBecauseOfTermChangesOnInput(int index);
+	void updateRulesBecauseOfTermChangesOnOutput(int index);
 
 	void updateRulesDueToAddingNewIO();
 

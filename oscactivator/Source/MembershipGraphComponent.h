@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  28 May 2013 12:08:35pm
+  Creation date:  3 Jun 2013 2:17:31pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -19,12 +19,13 @@
   ==============================================================================
 */
 
-#ifndef __JUCER_HEADER_MEMBERSHIPGRAPHCOMPONENT_MEMBERSHIPGRAPHCOMPONENT_C65459FC__
-#define __JUCER_HEADER_MEMBERSHIPGRAPHCOMPONENT_MEMBERSHIPGRAPHCOMPONENT_C65459FC__
+#ifndef __JUCER_HEADER_MEMBERSHIPGRAPHCOMPONENT_MEMBERSHIPGRAPHCOMPONENT_D674C028__
+#define __JUCER_HEADER_MEMBERSHIPGRAPHCOMPONENT_MEMBERSHIPGRAPHCOMPONENT_D674C028__
 
 //[Headers]     -- You can add your own extra header files here --
 #include "..\JuceLibraryCode\JuceHeader.h"
 #include "TermManager.h"
+#include "Pool.h"
 //[/Headers]
 
 
@@ -55,7 +56,9 @@ public:
     void paint (Graphics& g);
     void resized();
     void mouseDown (const MouseEvent& e);
+    void mouseUp (const MouseEvent& e);
     bool keyPressed (const KeyPress& key);
+
 
 
     //==============================================================================
@@ -75,4 +78,4 @@ private:
 };
 
 
-#endif   // __JUCER_HEADER_MEMBERSHIPGRAPHCOMPONENT_MEMBERSHIPGRAPHCOMPONENT_C65459FC__
+#endif   // __JUCER_HEADER_MEMBERSHIPGRAPHCOMPONENT_MEMBERSHIPGRAPHCOMPONENT_D674C028__

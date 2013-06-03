@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  28 May 2013 12:08:35pm
+  Creation date:  3 Jun 2013 2:17:31pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -26,6 +26,7 @@
 
 
 //[MiscUserDefs] You can add your own user definitions and misc code here...
+#include "RulesPanelComponent.h"
 //[/MiscUserDefs]
 
 //==============================================================================
@@ -114,7 +115,7 @@ void MembershipGraphComponent::resized()
 void MembershipGraphComponent::mouseDown (const MouseEvent& e)
 {
     //[UserCode_mouseDown] -- Add your code here...
-	if (termManager)
+	if (termManager && e.mods.isLeftButtonDown())
 	{
 		double width = 592;
 		double height = 200;
@@ -144,12 +145,98 @@ void MembershipGraphComponent::mouseDown (const MouseEvent& e)
     //[/UserCode_mouseDown]
 }
 
+void MembershipGraphComponent::mouseUp (const MouseEvent& e)
+{
+	
+    //[UserCode_mouseUp] -- Add your code here...
+	if (e.mods.isRightButtonDown())
+	{
+		if (termManager)
+		{
+			PopupMenu m;
+
+			m.addItem (1, "Copy terms", (bool)termManager->terms.size());
+
+			TermManager* termManagerToCopyFrom = (TermManager*)Pool::Instance()->getObject("CopyTermManager");
+			m.addItem (2, "Paste terms", (bool)termManagerToCopyFrom);
+		
+			const int result = m.show();
+			if (result == 0)
+			{
+				// user dismissed the menu without picking anything
+			}
+			else if (result == 1)
+			{
+				Pool::Instance()->reg("CopyTermManager", (void*)termManager);
+			}
+			else if (result == 2)
+			{
+				RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
+				InputsPanelComponent* ipc = (InputsPanelComponent*)Pool::Instance()->getObject("InputsPanelComponent");
+				OutputsPanelComponent* opc = (OutputsPanelComponent*)Pool::Instance()->getObject("OutputsPanelComponent");
+
+				int belongsToInput = ipc->getInputIndex(termManager);
+				int belongsToOutput = opc->getOutputIndex(termManager);
+
+				termManager->terms.clear();
+
+				for (int i=0; i<termManagerToCopyFrom->terms.size(); i++)
+				{
+					TrapezTerm* copyTerm = new TrapezTerm(*termManagerToCopyFrom->terms[i]);
+					termManager->terms.add(copyTerm);
+				}
+
+				termManager->setMin(termManagerToCopyFrom->getMin());
+				termManager->setMax(termManagerToCopyFrom->getMax());
+
+				ipc->updateMinMax();
+				opc->updateMinMax();
+				
+				if (belongsToInput!=-1)
+					rpc->ruleGenerator.updateRulesBecauseOfTermChangesOnInput(belongsToInput);
+				else if (belongsToOutput!=-1)
+					rpc->ruleGenerator.updateRulesBecauseOfTermChangesOnOutput(belongsToOutput);
+
+
+				rpc->updateContent();
+			}
+		}
+		else
+		{
+			PopupMenu m;
+			m.addItem (1, "Copy terms", false);
+			m.addItem (2, "Paste terms", false);
+			m.show();
+		}
+
+		repaint();
+	}
+
+	
+    //[/UserCode_mouseUp]
+}
+
 bool MembershipGraphComponent::keyPressed (const KeyPress& key)
 {
     //[UserCode_keyPressed] -- Add your code here...
 	if (key == juce::KeyPress::deleteKey && termManager && selectionIndex!=-1)
 	{
 		termManager->removeTerm(selectionIndex);
+
+		RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
+		InputsPanelComponent* ipc = (InputsPanelComponent*)Pool::Instance()->getObject("InputsPanelComponent");
+		OutputsPanelComponent* opc = (OutputsPanelComponent*)Pool::Instance()->getObject("OutputsPanelComponent");
+
+		int belongsToInput = ipc->getInputIndex(termManager);
+		int belongsToOutput = opc->getOutputIndex(termManager);
+				
+		if (belongsToInput!=-1)
+			rpc->ruleGenerator.updateRulesBecauseOfTermChangesOnInput(belongsToInput);
+		else if (belongsToOutput!=-1)
+			rpc->ruleGenerator.updateRulesBecauseOfTermChangesOnOutput(belongsToOutput);
+
+		rpc->updateContent();
+
 		repaint();
 	}
 
@@ -184,6 +271,7 @@ BEGIN_JUCER_METADATA
   <METHODS>
     <METHOD name="mouseDown (const MouseEvent&amp; e)"/>
     <METHOD name="keyPressed (const KeyPress&amp; key)"/>
+    <METHOD name="mouseUp (const MouseEvent&amp; e)"/>
   </METHODS>
   <BACKGROUND backgroundColour="ffe0e0e0"/>
 </JUCER_COMPONENT>

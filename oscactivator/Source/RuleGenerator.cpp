@@ -651,10 +651,10 @@ double RuleGenerator::calculateOutput(int index)
 
 	double result;
 
-	result =  numerator/denominator;
-
-	if (result!=result)
+	if (denominator == 0)
 		result = *opc->outputs[index]->pValue;
+	else
+		result =  numerator/denominator;
 
 	return result;
 }
@@ -772,4 +772,42 @@ void RuleGenerator::deleteAllTimers()
 			delete ii.getValue();
 		}
 	} 
+}
+
+void RuleGenerator::updateRulesBecauseOfTermChangesOnInput(int index)
+{
+	for (int i=0; i<rules.size(); i++)
+	{
+		if (rules[i]->inputTermIndeces[index]!=-1)
+		{
+			double value = rules[i]->inputValues[index];
+
+			double termIndex = ipc->inputs[index]->termManager->getIndex(value);
+			double membership = ipc->inputs[index]->termManager->terms[termIndex]->membership(value);
+
+			rules[i]->inputTermIndeces.set(index, termIndex);
+			rules[i]->inputMembership.set(index, membership);
+			
+			recalculateDegrees(i);
+		}		
+	}
+}
+
+void RuleGenerator::updateRulesBecauseOfTermChangesOnOutput(int index)
+{
+	for (int i=0; i<rules.size(); i++)
+	{
+		if (rules[i]->outputTermIndeces[index]!=-1)
+		{
+			double value = rules[i]->outputValues[index];
+
+			double termIndex = opc->outputs[index]->termManager->getIndex(value);
+			double membership = opc->outputs[index]->termManager->terms[termIndex]->membership(value);
+
+			rules[i]->outputTermIndeces.set(index, termIndex);
+			rules[i]->outputMembership.set(index, membership);
+			
+			recalculateDegrees(i);
+		}		
+	}
 }

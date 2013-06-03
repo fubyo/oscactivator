@@ -29,7 +29,6 @@ using namespace std;
 
 #include "Pool.h"
 #include "OscManager.h"
-#include "MembershipGraphComponent.h"
 //[/Headers]
 
 #include "C:/Users/marinos/Promotion/Tools/oscactivator/oscactivator/Source/InputComponent.h"
@@ -77,6 +76,10 @@ public:
 	void clearInputs();
 
 	void disconnectTermManagerFromMembershipGraphComponent();
+
+	int getInputIndex(TermManager* tm);
+
+	void updateMinMax();
     //[/UserMethods]
 
     void paint (Graphics& g);

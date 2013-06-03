@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  8 May 2013 4:09:06pm
+  Creation date:  29 May 2013 4:55:14pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -130,10 +130,10 @@ void RuleComponent::paint (Graphics& g)
     g.fillAll (Colours::white);
 
     g.setColour (Colours::white);
-    g.fillRect (0, 0, 576, 88);
+    g.fillRect (0, 0, 574, 80);
 
     g.setColour (Colours::black);
-    g.drawRect (0, 0, 576, 88, 1);
+    g.drawRect (0, 0, 574, 80, 1);
 
     //[UserPaint] Add your own custom painting code here..
     //[/UserPaint]
@@ -347,7 +347,7 @@ void RuleComponent::mouseUp(const MouseEvent& event)
 				else
 				{
 					int inputIndex=result-2;
-	
+
 					rpc->ruleGenerator.rules[ruleIndex]->weightInputConnection = inputIndex;
 					weightLabel->setText(ipc->inputs[inputIndex]->name, true);
 				}
@@ -382,7 +382,7 @@ BEGIN_JUCER_METADATA
                  snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330000013"
                  fixedSize="1" initialWidth="574" initialHeight="80">
   <BACKGROUND backgroundColour="ffffffff">
-    <RECT pos="0 0 576 88" fill="solid: ffffffff" hasStroke="1" stroke="1.29999995, mitered, butt"
+    <RECT pos="0 0 574 80" fill="solid: ffffffff" hasStroke="1" stroke="1.29999995, mitered, butt"
           strokeColour="solid: ff000000"/>
   </BACKGROUND>
   <TEXTBUTTON name="new button" id="1af03cca41ed72e4" memberName="deleteButton"

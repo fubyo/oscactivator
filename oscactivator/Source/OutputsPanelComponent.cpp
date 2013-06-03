@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  15 Feb 2013 6:19:51pm
+  Creation date:  3 Jun 2013 3:48:01pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -346,7 +346,7 @@ void OutputsPanelComponent::sliderValueChanged (Slider* sliderThatWasMoved)
 						outputs[selectedRow]->socket->Send( p.Data(), p.Size() );
 					}
 				}
-			} 
+			}
 		}
         //[/UserSliderCode_valueSlider]
     }
@@ -393,8 +393,8 @@ void OutputsPanelComponent::selectedRowsChanged (int lastRowSelected)
 			valueSlider->setRange(minEditor->getText().getDoubleValue(), maxEditor->getText().getDoubleValue());
 			valueSlider->setValue(*outputs[lastRowSelected]->pValue);
 		}
-		
-		membershipGraph->setTermManager(outputs[lastRowSelected]->termManager); 
+
+		membershipGraph->setTermManager(outputs[lastRowSelected]->termManager);
 	}
 
 	//updateCurrentValue();
@@ -530,6 +530,27 @@ void OutputsPanelComponent::disconnectTermManagerFromMembershipGraphComponent()
 {
 	outputsListBox->deselectAllRows();
 	membershipGraph->termManager = 0;
+}
+
+int OutputsPanelComponent::getOutputIndex(TermManager* tm)
+{
+	int result = -1;
+	for (int i=0; i<outputs.size(); i++)
+		if (outputs[i]->termManager == tm)
+			result = i;
+
+	return result;
+}
+
+void OutputsPanelComponent::updateMinMax()
+{
+	int selectedrow=outputsListBox->getSelectedRow();
+
+	if (selectedrow!=-1)
+	{
+		minEditor->setText(String(outputs[selectedrow]->termManager->getMin()));
+		maxEditor->setText(String(outputs[selectedrow]->termManager->getMax()));
+	}
 }
 //[/MiscUserCode]
 

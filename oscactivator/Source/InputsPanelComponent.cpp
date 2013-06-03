@@ -441,6 +441,27 @@ void InputsPanelComponent::disconnectTermManagerFromMembershipGraphComponent()
 	membershipGraph->termManager = 0;
 }
 
+int InputsPanelComponent::getInputIndex(TermManager* tm)
+{
+	int result = -1;
+	for (int i=0; i<inputs.size(); i++)
+		if (inputs[i]->termManager == tm)
+			result = i;
+
+	return result;
+}
+
+void InputsPanelComponent::updateMinMax()
+{
+	int selectedrow=inputsListBox->getSelectedRow();
+
+	if (selectedrow!=-1)
+	{
+		minEditor->setText(String(inputs[selectedrow]->termManager->getMin()));
+		maxEditor->setText(String(inputs[selectedrow]->termManager->getMax()));
+	}
+}
+
 //[/MiscUserCode]
 
 
