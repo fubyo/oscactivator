@@ -467,20 +467,38 @@ void OutputsPanelComponent::sendOuputValues()
 	{
 		if (!outputs[i]->sendStateChanges)
 		{
-			osc::OutboundPacketStream p(outputs[i]->buffer, 128);
+			if (outputs[i]->newValue)
+			{
+				osc::OutboundPacketStream p(outputs[i]->buffer, 128);
 
-			p << osc::BeginMessage( outputs[i]->oscaddress.toUTF8() )
-				<< (float)*outputs[i]->pValue
-			<< osc::EndMessage;
+				p << osc::BeginMessage( outputs[i]->oscaddress.toUTF8() )
+					<< (float)*outputs[i]->pValue
+				<< osc::EndMessage;
 
-			outputs[i]->socket->Send( p.Data(), p.Size() );
+				outputs[i]->socket->Send( p.Data(), p.Size() );
+
+				outputs[i]->newValue = false;
+			}
 		}
 		else
 		{
 			int termIndex = outputs[i]->termManager->getIndex(*outputs[i]->pValue);
 			double memberShip = outputs[i]->termManager->terms[termIndex]->membership(*outputs[i]->pValue);
 
-			if (memberShip==1.0 && termIndex!=outputs[i]->lastState)
+			bool sendState = false;
+			if (outputs[i]->sendInvalidState == true)
+			{
+				termIndex = -1;
+				outputs[i]->sendInvalidState = false;
+				sendState = true;
+			}
+			else
+			{
+				if (memberShip==1.0)
+					sendState = true;
+			}
+
+			if (sendState && termIndex!=outputs[i]->lastState)
 			{
 				outputs[i]->lastState = termIndex;
 

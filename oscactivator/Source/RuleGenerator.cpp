@@ -652,7 +652,17 @@ double RuleGenerator::calculateOutput(int index)
 	double result;
 
 	if (denominator == 0)
-		result = *opc->outputs[index]->pValue;
+	{
+		if (opc->outputs[index]->sendStateChanges)
+		{
+			opc->outputs[index]->sendInvalidState = true;
+		}
+		else
+		{
+			result = *opc->outputs[index]->pValue;
+		}
+		
+	}
 	else
 		result =  numerator/denominator;
 
@@ -680,7 +690,14 @@ void RuleGenerator::updateOutputs()
 	bool timersRunning = false;
 	for (int i=0; i<opc->outputs.size(); i++)
 	{
-		*opc->outputs[i]->pValue = calculateOutput(i);
+		double value = calculateOutput(i);
+
+		if (value!=*opc->outputs[i]->pValue)
+		{
+			*opc->outputs[i]->pValue = value;
+			opc->outputs[i]->newValue = true;
+		}
+
 		if (timersAreCounting)
 			timersRunning=true;
 	}

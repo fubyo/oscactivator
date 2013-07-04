@@ -27,7 +27,7 @@ class MainWindow  : public DocumentWindow, public MenuBarModel
 		OutputsPanelComponent* opc = (OutputsPanelComponent*)Pool::Instance()->getObject("OutputsPanelComponent");
 		RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
 
-		FileChooser myChooser(String("Please select where you want to save the configuration to..."), File::getSpecialLocation (File::userHomeDirectory), String("*.xml"), true);
+		FileChooser myChooser(String("Please select where you want to save the configuration to..."), File::getSpecialLocation (File::userHomeDirectory), String("*.xml"), false);
 
 		if (myChooser.browseForFileToSave(true))
 		{
@@ -172,7 +172,7 @@ class MainWindow  : public DocumentWindow, public MenuBarModel
 
 		FileChooser myChooser ("Please select where you want to load the configuration from...",
                                File::getSpecialLocation (File::userHomeDirectory),
-                               "*.xml", true);
+                               "*.xml", false);
 
 		if (myChooser.browseForFileToOpen())
 		{

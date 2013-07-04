@@ -37,7 +37,9 @@ public:
 	double* pValue;
 	TermManager* termManager;
 
+	bool newValue;
 	bool sendStateChanges;
+	bool sendInvalidState;
 	int lastState;
 
 	char* buffer;
@@ -58,6 +60,8 @@ public:
 
 		sendStateChanges=false;
 		lastState = -1;
+		sendInvalidState = false;
+		newValue = true;
 	};
 
 	void prepareSocket()
