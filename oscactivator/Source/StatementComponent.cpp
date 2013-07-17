@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  3 May 2013 3:48:58pm
+  Creation date:  17 Jul 2013 1:07:07pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -116,6 +116,7 @@ StatementComponent::StatementComponent (int OutputIndex )
 
 	outputLabel->addMouseListener(this, true);
 	termLabel->addMouseListener(this, true);
+	secondsLabel->addMouseListener(this, true);
     //[/Constructor]
 }
 
@@ -152,11 +153,11 @@ void StatementComponent::paint (Graphics& g)
 void StatementComponent::resized()
 {
     label3->setBounds (492, 0, 56, 24);
-    label2->setBounds (399, 0, 32, 24);
+    label2->setBounds (385, 0, 32, 24);
     label->setBounds (190, 0, 24, 24);
     outputLabel->setBounds (4, 0, 184, 24);
-    termLabel->setBounds (214, 0, 182, 24);
-    secondsLabel->setBounds (431, 0, 64, 24);
+    termLabel->setBounds (214, 0, 170, 24);
+    secondsLabel->setBounds (408, 0, 87, 24);
     deleteButton->setBounds (549, 5, 24, 16);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
@@ -178,23 +179,49 @@ void StatementComponent::labelTextChanged (Label* labelThatHasChanged)
 			{
 				int statementIndex = rec->getStatementIndex((Component*)this);
 				int outputIndex = getOutputIndex(statementIndex);
-				double timeParameter = secondsLabel->getText().getDoubleValue();
 
-				if (timeParameter>0)
+				if (ruleCopy->outputTimers.contains(outputIndex))
 				{
-					if (ruleCopy->outputTimers.contains(outputIndex))
-						ruleCopy->outputTimers[outputIndex]->outputTimeParameter = timeParameter;
-					else
+					if (ruleCopy->outputTimers[outputIndex]->inputIndexForTimeParameter==-1)
 					{
-						OutputTimer* ot = new OutputTimer(timeParameter, outputIndex, ruleCopy->outputTermIndeces[outputIndex], rec->ruleIndex);
-						ruleCopy->outputTimers.set(outputIndex, ot);
+						double timeParameter = secondsLabel->getText().getDoubleValue();
+						if (timeParameter>0)
+						{
+							if (ruleCopy->outputTimers.contains(outputIndex))
+								ruleCopy->outputTimers[outputIndex]->outputTimeParameter = timeParameter;
+							else
+							{
+								OutputTimer* ot = new OutputTimer(timeParameter, outputIndex, ruleCopy->outputTermIndeces[outputIndex], rec->ruleIndex);
+								ruleCopy->outputTimers.set(outputIndex, ot);
+							}
+						}
+						else
+						{
+							OutputTimer* ot = ruleCopy->outputTimers[outputIndex];
+							delete ot;
+							ruleCopy->outputTimers.remove(outputIndex);
+						}
 					}
 				}
 				else
 				{
-					OutputTimer* ot = ruleCopy->outputTimers[outputIndex];
-					delete ot;
-					ruleCopy->outputTimers.remove(outputIndex);
+					double timeParameter = secondsLabel->getText().getDoubleValue();
+					if (timeParameter>0)
+					{
+						if (ruleCopy->outputTimers.contains(outputIndex))
+							ruleCopy->outputTimers[outputIndex]->outputTimeParameter = timeParameter;
+						else
+						{
+							OutputTimer* ot = new OutputTimer(timeParameter, outputIndex, ruleCopy->outputTermIndeces[outputIndex], rec->ruleIndex);
+							ruleCopy->outputTimers.set(outputIndex, ot);
+						}
+					}
+					else
+					{
+						OutputTimer* ot = ruleCopy->outputTimers[outputIndex];
+						delete ot;
+						ruleCopy->outputTimers.remove(outputIndex);
+					}
 				}
 			}
 		}
@@ -337,8 +364,8 @@ void StatementComponent::mouseUp(const MouseEvent& event)
 		OutputsPanelComponent* opc = (OutputsPanelComponent*)Pool::Instance()->getObject("OutputsPanelComponent");
 		InputsPanelComponent* ipc = (InputsPanelComponent*)Pool::Instance()->getObject("InputsPanelComponent");
 
-		int conditionIndex = getStatementIndex();
-		int outputIndex = getOutputIndex(conditionIndex);
+		int statementIndex = getStatementIndex();
+		int outputIndex = getOutputIndex(statementIndex);
 
 		Rule* ruleCopy = (Rule*)Pool::Instance()->getObject("ruleForEditing");
 
@@ -394,6 +421,65 @@ void StatementComponent::mouseUp(const MouseEvent& event)
 			}
 		}
 	}
+
+	if (event.eventComponent == secondsLabel)
+	{
+		if (event.mods.isRightButtonDown())
+		{
+			InputsPanelComponent* ipc = (InputsPanelComponent*)Pool::Instance()->getObject("InputsPanelComponent");
+			RuleEditorComponent* rec = (RuleEditorComponent*)Pool::Instance()->getObject("RuleEditorComponent");
+
+			int statementIndex = getStatementIndex();
+			int outputIndex = getOutputIndex(statementIndex);
+
+			Rule* ruleCopy = (Rule*)Pool::Instance()->getObject("ruleForEditing");
+
+			if (ruleCopy)
+			{
+				PopupMenu m;
+				int numberOfInputs=ipc->inputs.size();
+
+				for (int i=0; i<numberOfInputs; i++)
+				{
+					m.addItem(i+1, String(ipc->inputs[i]->name));
+				}
+
+				const int result = m.show();
+
+				if (result>0 && result<=numberOfInputs)
+				{
+					if (ruleCopy->outputTimers.contains(outputIndex))
+					{
+						ruleCopy->outputTimers[outputIndex]->inputIndexForTimeParameter = result-1;
+					}
+					else
+					{
+						OutputTimer* ot = new OutputTimer(0, outputIndex, ruleCopy->outputTermIndeces[outputIndex], rec->ruleIndex, result-1);
+						ruleCopy->outputTimers.set(outputIndex, ot);
+					}
+
+					secondsLabel->setText(ipc->inputs[result-1]->name, true);
+				}
+			}
+		}
+	}
+}
+
+void StatementComponent::mouseDoubleClick(const MouseEvent& event)
+{
+	if (event.eventComponent == secondsLabel)
+	{
+		Rule* ruleCopy = (Rule*)Pool::Instance()->getObject("ruleForEditing");
+
+		int conditionIndex = getStatementIndex();
+		int outputIndex = getOutputIndex(conditionIndex);
+
+		if (ruleCopy)
+		{
+			if (ruleCopy->outputTimers.contains(outputIndex))
+				ruleCopy->outputTimers[outputIndex]->inputIndexForTimeParameter = -1;
+		}
+	}
 }
 
 int StatementComponent::getStatementIndex()
@@ -445,7 +531,7 @@ BEGIN_JUCER_METADATA
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
   <LABEL name="new label" id="aa5fd8b0147355c" memberName="label2" virtualName=""
-         explicitFocusOrder="0" pos="399 0 32 24" edTextCol="ff000000"
+         explicitFocusOrder="0" pos="385 0 32 24" edTextCol="ff000000"
          edBkgCol="0" labelText="in" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
@@ -460,12 +546,12 @@ BEGIN_JUCER_METADATA
          editableSingleClick="0" editableDoubleClick="0" focusDiscardsChanges="0"
          fontname="Default font" fontsize="15" bold="0" italic="0" justification="33"/>
   <LABEL name="new label" id="f4522224c225ee79" memberName="termLabel"
-         virtualName="" explicitFocusOrder="0" pos="214 0 182 24" bkgCol="fff5f5dc"
+         virtualName="" explicitFocusOrder="0" pos="214 0 170 24" bkgCol="fff5f5dc"
          outlineCol="0" edTextCol="ff000000" edBkgCol="0" labelText="- - -"
          editableSingleClick="0" editableDoubleClick="0" focusDiscardsChanges="0"
          fontname="Default font" fontsize="15" bold="0" italic="0" justification="33"/>
   <LABEL name="new label" id="6ba9218289530191" memberName="secondsLabel"
-         virtualName="" explicitFocusOrder="0" pos="431 0 64 24" bkgCol="fff5f5dc"
+         virtualName="" explicitFocusOrder="0" pos="408 0 87 24" bkgCol="fff5f5dc"
          outlineCol="0" edTextCol="ff000000" edBkgCol="0" labelText="0"
          editableSingleClick="0" editableDoubleClick="1" focusDiscardsChanges="0"
          fontname="Default font" fontsize="15" bold="0" italic="0" justification="33"/>

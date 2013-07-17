@@ -147,6 +147,7 @@ class MainWindow  : public DocumentWindow, public MenuBarModel
 					if (rpc->ruleGenerator.rules[i]->outputTimers.contains(ii))
 					{
 						ruleElement->setAttribute("outputtimeparameter_" + String(ii),  rpc->ruleGenerator.rules[i]->outputTimers[ii]->outputTimeParameter);
+						ruleElement->setAttribute("inputindexfortimeparameter_" + String(ii),  rpc->ruleGenerator.rules[i]->outputTimers[ii]->inputIndexForTimeParameter);
 					}
 
 					if (rpc->ruleGenerator.rules[i]->outputFromInput.contains(ii))
@@ -333,7 +334,13 @@ class MainWindow  : public DocumentWindow, public MenuBarModel
 						
 						if (e->hasAttribute("outputtimeparameter_" + String(ii)))
 						{
-							rule.outputTimers.set(ii, new OutputTimer(e->getDoubleAttribute("outputtimeparameter_" + String(ii)), ii, e->getIntAttribute("outputtermindeces_" + String(ii)), i));
+							int inputIndexForTimeParameter = -1;
+							if (e->hasAttribute("inputindexfortimeparameter_" +String(ii)))
+							{
+								inputIndexForTimeParameter = e->getIntAttribute("inputIndexForTimeParameter_" + String(ii));
+							}
+
+							rule.outputTimers.set(ii, new OutputTimer(e->getDoubleAttribute("outputtimeparameter_" + String(ii)), ii, e->getIntAttribute("outputtermindeces_" + String(ii)), i, inputIndexForTimeParameter));
 						}
 
 						if (e->hasAttribute("outputfrominput_" + String(ii)))

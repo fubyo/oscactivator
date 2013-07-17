@@ -3,7 +3,7 @@
 
   This is an automatically generated file created by the Jucer!
 
-  Creation date:  3 May 2013 3:48:58pm
+  Creation date:  17 Jul 2013 1:07:07pm
 
   Be careful when adding custom code to these files, as only the code within
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
@@ -19,8 +19,8 @@
   ==============================================================================
 */
 
-#ifndef __JUCER_HEADER_STATEMENTCOMPONENT_STATEMENTCOMPONENT_D63701E7__
-#define __JUCER_HEADER_STATEMENTCOMPONENT_STATEMENTCOMPONENT_D63701E7__
+#ifndef __JUCER_HEADER_STATEMENTCOMPONENT_STATEMENTCOMPONENT_452EFF1F__
+#define __JUCER_HEADER_STATEMENTCOMPONENT_STATEMENTCOMPONENT_452EFF1F__
 
 //[Headers]     -- You can add your own extra header files here --
 #include "..\JuceLibraryCode\JuceHeader.h"
@@ -52,6 +52,7 @@ public:
 	void updateLabels();
 	int getOutputIndex(int StatementIndex);
 	void mouseUp(const MouseEvent& event);
+	void mouseDoubleClick(const MouseEvent& event);
     //[/UserMethods]
 
     void paint (Graphics& g);
@@ -88,4 +89,4 @@ private:
 };
 
 
-#endif   // __JUCER_HEADER_STATEMENTCOMPONENT_STATEMENTCOMPONENT_D63701E7__
+#endif   // __JUCER_HEADER_STATEMENTCOMPONENT_STATEMENTCOMPONENT_452EFF1F__

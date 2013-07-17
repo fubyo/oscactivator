@@ -370,7 +370,13 @@ String RuleGenerator::getRuleText(Rule rule)
 			if (rule.outputTimers.contains(i))
 			{
 				text+= String(" in ");
-				text+= String(rule.outputTimers[i]->outputTimeParameter);
+				
+				if (rule.outputTimers[i]->inputIndexForTimeParameter == -1)
+					text+= String(rule.outputTimers[i]->outputTimeParameter);
+				else
+					text+= String(ipc->inputs[rule.outputTimers[i]->inputIndexForTimeParameter]->name);
+
+
 				text+= String(" seconds");
 			}
 			
@@ -388,7 +394,12 @@ String RuleGenerator::getRuleText(Rule rule)
 			if (rule.outputTimers.contains(i))
 			{
 				text+= String(" in ");
-				text+= String(rule.outputTimers[i]->outputTimeParameter);
+
+				if (rule.outputTimers[i]->inputIndexForTimeParameter == -1)
+					text+= String(rule.outputTimers[i]->outputTimeParameter);
+				else
+					text+= String(ipc->inputs[rule.outputTimers[i]->inputIndexForTimeParameter]->name);
+
 				text+= String(" seconds");
 			}
 			
@@ -606,7 +617,14 @@ double RuleGenerator::calculateOutput(int index)
 					rules[i]->outputTimers[index]->updateState(true);
 				}
 
+				//Get output time parameter from input
+				if (rules[i]->outputTimers[index]->inputIndexForTimeParameter!=-1)
+				{
+					rules[i]->outputTimers[index]->outputTimeParameter = *(ipc->inputs[rules[i]->outputTimers[index]->inputIndexForTimeParameter]->pValue);
+				}
+
 				double outputTimeFactor = rules[i]->outputTimers[index]->timeFactor;
+
 				double savedValue = rules[i]->outputTimers[index]->savedValue;
 				double targetValue =rules[i]->outputTimers[index]->targetValue;
 				output = outputTimeFactor*targetValue + (1-outputTimeFactor)*savedValue;

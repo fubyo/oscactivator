@@ -7,6 +7,7 @@ OutputTimer::OutputTimer()
 	outputTimeParameter = 0;
 	outputIndex = -1;
 	ruleIndex = -1;
+	inputIndexForTimeParameter = -1;
 
 	timeFactor = 0;
 	conditionsJustFulfilled = false;
@@ -14,8 +15,9 @@ OutputTimer::OutputTimer()
 	timePassed = 0;
 }
 
-OutputTimer::OutputTimer(double InputTimeParameter, int InputIndex, int TermIndex, int RuleIndex)
+OutputTimer::OutputTimer(double InputTimeParameter, int InputIndex, int TermIndex, int RuleIndex, int InputIndexForTimeParameter)
 {
+	inputIndexForTimeParameter = InputIndexForTimeParameter;
 	outputTimeParameter = InputTimeParameter;
 	outputIndex = InputIndex;
 	termIndex = TermIndex;

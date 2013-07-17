@@ -10,6 +10,7 @@ public:
 	int outputIndex;
 	int termIndex;
 	int ruleIndex;
+	int inputIndexForTimeParameter;
 
 	double timeFactor;
 	double savedValue;
@@ -24,7 +25,7 @@ public:
 	void updateState(bool inputTimersAreChanging);
 
 	OutputTimer();
-	OutputTimer(double OutputTimeParameter, int OutputIndex, int TermIndex, int RuleIndex);
+	OutputTimer(double OutputTimeParameter, int OutputIndex, int TermIndex, int RuleIndex, int InputIndexForTimeParameter=-1);
 	~OutputTimer();
 
 	OutputTimer &operator= (const OutputTimer &other)
@@ -36,6 +37,7 @@ public:
 		termIndex = other.termIndex;
 		conditionsJustFulfilled = other.conditionsJustFulfilled;
 		timePassed = other.timePassed;
+		inputIndexForTimeParameter = other.inputIndexForTimeParameter;
 
 		return *this;
 	}
@@ -49,5 +51,6 @@ public:
 		termIndex = other.termIndex;
 		conditionsJustFulfilled = other.conditionsJustFulfilled;
 		timePassed = other.timePassed;
+		inputIndexForTimeParameter = other.inputIndexForTimeParameter;
 	}
 };

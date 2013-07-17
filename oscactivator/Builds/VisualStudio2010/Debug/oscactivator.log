@@ -1,100 +1,20 @@
-﻿Build started 04.07.2013 16:25:53.
+﻿Build started 17.07.2013 13:33:18.
      1>Project "C:\Users\marinos\Promotion\Tools\oscactivator\oscactivator\Builds\VisualStudio2010\oscactivator.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating ".\Debug\oscactivator.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I..\..\JuceLibraryCode /ZI /nologo /W4 /WX- /MP /Od /Oy- /D WIN32 /D _WINDOWS /D DEBUG /D _DEBUG /D JUCER_VS2010_78A501D=1 /D _MBCS /Gm- /EHsc /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo".\Debug\\" /Fd".\Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\Source\ConditionComponent.cpp ..\..\Source\ConditionListBoxModel.cpp ..\..\Source\InputTimer.cpp ..\..\Source\InputsPanelComponent.cpp ..\..\Source\Main.cpp ..\..\Source\MainComponent.cpp ..\..\Source\MembershipGraphComponent.cpp ..\..\Source\MultipleSelectionListBoxModel.cpp ..\..\Source\OscManager.cpp ..\..\Source\OutputComponent.cpp ..\..\Source\OutputTimer.cpp ..\..\Source\OutputsPanelComponent.cpp ..\..\Source\RuleComponent.cpp ..\..\Source\RuleEditorComponent.cpp ..\..\Source\RuleGenerator.cpp ..\..\Source\RulesListBoxModel.cpp ..\..\Source\RulesPanelComponent.cpp ..\..\Source\StatementComponent.cpp ..\..\Source\StatementListBoxModel.cpp
-         ConditionComponent.cpp
-         ConditionListBoxModel.cpp
-         InputTimer.cpp
-         InputsPanelComponent.cpp
-         Main.cpp
-         MainComponent.cpp
-         MembershipGraphComponent.cpp
-         MultipleSelectionListBoxModel.cpp
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\multipleselectionlistboxmodel.cpp(39): warning C4100: 'lastRowSelected': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\conditionlistboxmodel.cpp(39): warning C4100: 'rowIsSelected': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\conditionlistboxmodel.cpp(39): warning C4100: 'height': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\conditionlistboxmodel.cpp(39): warning C4100: 'width': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\conditionlistboxmodel.cpp(39): warning C4100: 'rowNumber': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\conditionlistboxmodel.cpp(44): warning C4100: 'lastRowSelected': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\conditionlistboxmodel.cpp(70): warning C4100: 'isRowSelected': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\main.cpp(200): warning C4244: 'Initialisierung': Konvertierung von 'double' in 'int', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\main.cpp(255): warning C4244: 'Initialisierung': Konvertierung von 'double' in 'int', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\main.cpp(340): warning C4244: 'Argument': Konvertierung von 'double' in 'int', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\main.cpp(384): warning C4100: 'menuName': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\main.cpp(442): warning C4100: 'commandLine': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\main.cpp(496): warning C4100: 'commandLine': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(83): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(83): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(83): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(84): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(84): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(85): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(85): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(85): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(100): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(100): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(101): warning C4244: 'Argument': Konvertierung von 'double' in 'int', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(101): warning C4244: 'Argument': Konvertierung von 'double' in 'int', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(158): warning C4800: 'int': Variable wird auf booleschen Wert ('True' oder 'False') gesetzt (Auswirkungen auf Leistungsverhalten möglich)
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(161): warning C4800: 'TermManager *': Variable wird auf booleschen Wert ('True' oder 'False') gesetzt (Auswirkungen auf Leistungsverhalten möglich)
-         OscManager.cpp
-         OutputComponent.cpp
-         OutputTimer.cpp
-         OutputsPanelComponent.cpp
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
-         RuleComponent.cpp
-         RuleEditorComponent.cpp
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I..\..\JuceLibraryCode /ZI /nologo /W4 /WX- /MP /Od /Oy- /D WIN32 /D _WINDOWS /D DEBUG /D _DEBUG /D JUCER_VS2010_78A501D=1 /D _MBCS /Gm- /EHsc /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo".\Debug\\" /Fd".\Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\Source\RuleGenerator.cpp
          RuleGenerator.cpp
-         RulesListBoxModel.cpp
      1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\outputcomponent.cpp(220): warning C4100: 'editor': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\ruleslistboxmodel.cpp(24): warning C4100: 'rowIsSelected': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\ruleslistboxmodel.cpp(24): warning C4100: 'height': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\ruleslistboxmodel.cpp(24): warning C4100: 'width': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\ruleslistboxmodel.cpp(24): warning C4100: 'rowNumber': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\ruleslistboxmodel.cpp(29): warning C4100: 'lastRowSelected': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\ruleslistboxmodel.cpp(34): warning C4100: 'isRowSelected': Unreferenzierter formaler Parameter
      1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulegenerator.cpp(66): warning C4244: 'Initialisierung': Konvertierung von 'double' in 'float', möglicher Datenverlust
      1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulegenerator.cpp(91): warning C4244: '=': Konvertierung von 'double' in 'float', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulegenerator.cpp(646): warning C4018: '<': Konflikt zwischen 'signed' und 'unsigned'
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulegenerator.cpp(553): warning C4189: 'timeFactorProduct': Lokale Variable ist initialisiert aber nicht referenziert
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulegenerator.cpp(803): warning C4244: 'Argument': Konvertierung von 'double' in 'const int', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulegenerator.cpp(805): warning C4244: 'Argument': Konvertierung von 'double' in 'int', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulegenerator.cpp(822): warning C4244: 'Argument': Konvertierung von 'double' in 'const int', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulegenerator.cpp(824): warning C4244: 'Argument': Konvertierung von 'double' in 'int', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\oscmanager.cpp(91): warning C4018: '<': Konflikt zwischen 'signed' und 'unsigned'
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\oscmanager.cpp(119): warning C4018: '<': Konflikt zwischen 'signed' und 'unsigned'
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
-         RulesPanelComponent.cpp
-         StatementComponent.cpp
-         StatementListBoxModel.cpp
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulegenerator.cpp(669): warning C4701: Die möglicherweise nicht initialisierte lokale Variable "result" wurde verwendet.
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulespanelcomponent.cpp(280): warning C4100: 'key': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulespanelcomponent.cpp(290): warning C4100: 'source': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\statementlistboxmodel.cpp(41): warning C4100: 'rowIsSelected': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\statementlistboxmodel.cpp(41): warning C4100: 'height': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\statementlistboxmodel.cpp(41): warning C4100: 'width': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\statementlistboxmodel.cpp(41): warning C4100: 'rowNumber': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\statementlistboxmodel.cpp(46): warning C4100: 'lastRowSelected': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\statementlistboxmodel.cpp(72): warning C4100: 'isRowSelected': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulegenerator.cpp(664): warning C4018: '<': Konflikt zwischen 'signed' und 'unsigned'
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulegenerator.cpp(564): warning C4189: 'timeFactorProduct': Lokale Variable ist initialisiert aber nicht referenziert
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulegenerator.cpp(821): warning C4244: 'Argument': Konvertierung von 'double' in 'const int', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulegenerator.cpp(823): warning C4244: 'Argument': Konvertierung von 'double' in 'int', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulegenerator.cpp(840): warning C4244: 'Argument': Konvertierung von 'double' in 'const int', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulegenerator.cpp(842): warning C4244: 'Argument': Konvertierung von 'double' in 'int', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulegenerator.cpp(687): warning C4701: Die möglicherweise nicht initialisierte lokale Variable "result" wurde verwendet.
        ResourceCompile:
          All outputs are up-to-date.
        ManifestResourceCompile:
@@ -165,4 +85,4 @@
 
 Das Erstellen war erfolgreich.
 
-Time Elapsed 00:00:25.33
+Time Elapsed 00:00:07.35
