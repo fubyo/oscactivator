@@ -295,7 +295,12 @@ void StatementComponent::updateLabels()
 
 		if (ruleCopy->outputTimers.contains(outputIndex))
 		{
-			secondsLabel->setText(String(ruleCopy->outputTimers[outputIndex]->outputTimeParameter), true);
+			if (ruleCopy->outputTimers[outputIndex]->inputIndexForTimeParameter != -1)
+			{
+				secondsLabel->setText(ipc->inputs[ruleCopy->outputTimers[outputIndex]->inputIndexForTimeParameter]->name, true);
+			}
+			else
+				secondsLabel->setText(String(ruleCopy->outputTimers[outputIndex]->outputTimeParameter), true);
 		}
 	}
 }

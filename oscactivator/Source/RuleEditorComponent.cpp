@@ -198,7 +198,7 @@ void RuleEditorComponent::buttonClicked (Button* buttonThatWasClicked)
 		int firstUnusedOutput = -1;
 		while (!firstUnusedOutputFound && iter<ruleCopy.outputTermIndeces.size())
 		{
-			if (ruleCopy.outputTermIndeces[iter]==-1)
+			if (ruleCopy.outputTermIndeces[iter]==-1 && !ruleCopy.outputFromInput.contains(iter))
 			{
 				firstUnusedOutput = iter;
 				firstUnusedOutputFound = true;

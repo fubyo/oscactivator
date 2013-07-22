@@ -419,6 +419,9 @@ void OutputsPanelComponent::changeListenerCallback (ChangeBroadcaster* source)
 
 			outputsListBox->updateContent();
 			outputsListBox->repaintRow(selectedRow);
+
+			RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
+			rpc->updateRuleList();
 		}
 	}
 	else if (source == membershipGraph)
@@ -444,17 +447,12 @@ void OutputsPanelComponent::textEditorReturnKeyPressed (TextEditor &editor)
 
 	if (selectedRow!=-1)
 	{
-		if (&editor == minEditor)
+		if (&editor == minEditor || &editor == maxEditor)
 		{
+			outputs[selectedRow]->termManager->setMin(minEditor->getText().getDoubleValue());
+			outputs[selectedRow]->termManager->setMax(maxEditor->getText().getDoubleValue());
+
 			valueSlider->setRange(minEditor->getText().getDoubleValue(), maxEditor->getText().getDoubleValue());
-			outputs[selectedRow]->termManager->setMin(editor.getText().getDoubleValue());
-			membershipGraph->repaint();
-			valueSlider->repaint();
-		}
-		else if (&editor == maxEditor)
-		{
-			valueSlider->setRange(minEditor->getText().getDoubleValue(), maxEditor->getText().getDoubleValue());
-			outputs[selectedRow]->termManager->setMax(editor.getText().getDoubleValue());
 			membershipGraph->repaint();
 			valueSlider->repaint();
 		}

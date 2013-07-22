@@ -130,6 +130,7 @@ InputsPanelComponent::InputsPanelComponent ()
 
 	minEditor->addListener(this);
 	maxEditor->addListener(this);
+	currentValueEditor->addListener(this);
 
 	membershipGraph->addChangeListener(this);
     //[/UserPreSize]
@@ -402,6 +403,10 @@ void InputsPanelComponent::textEditorReturnKeyPressed (TextEditor &editor)
 		{
 			inputs[selectedRow]->termManager->setMax(editor.getText().getDoubleValue());
 			membershipGraph->repaint();
+		}
+		else if (&editor == currentValueEditor)
+		{
+			*inputs[selectedRow]->pValue = currentValueEditor->getText().getDoubleValue();
 		}
 	}
 }

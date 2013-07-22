@@ -141,10 +141,23 @@ bool OSCListener::handleOSCMessage (OpenSoundController* controller, OpenSoundMe
 	String mesAddress = message->getAddress();
 
 	vector<float> arguments;
+	
+	String typeTag = message->getTypeTag();
+	int integerCounter = 0;
+	int floatCounter = 0;
 
-	for (int i=0; i<message->getNumFloats(); i++)
+	for (int i=0; i<typeTag.length(); i++)
 	{
-		arguments.push_back(message->getFloat(i));
+		if (typeTag[i] == 'f')
+		{
+			arguments.push_back(message->getFloat(floatCounter));
+			floatCounter++;
+		}
+		else if (typeTag[i] == 'i')
+		{
+			arguments.push_back((float)message->getInt(integerCounter));
+			integerCounter++;
+		}
 	}
 
 	if (mesAddress.matchesWildcard("/setExample", false))

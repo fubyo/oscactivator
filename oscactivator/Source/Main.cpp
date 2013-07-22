@@ -19,6 +19,8 @@
 
 class MainWindow  : public DocumentWindow, public MenuBarModel
 {
+	String currentFileName;
+
 	void save()
 	{
 		const MessageManagerLock mmLock;
@@ -32,6 +34,7 @@ class MainWindow  : public DocumentWindow, public MenuBarModel
 		if (myChooser.browseForFileToSave(true))
 		{
 			File configurationFile(myChooser.getResult());
+			currentFileName = configurationFile.getFileName();
 
 			XmlElement configurationElement("Configuration");
 
@@ -159,7 +162,9 @@ class MainWindow  : public DocumentWindow, public MenuBarModel
 				configurationElement.addChildElement(ruleElement);
 			}
 
-			configurationFile.replaceWithText(configurationElement.createDocument("OscActivator Configuration File")); 
+			configurationFile.replaceWithText(configurationElement.createDocument("OscActivator Configuration File"));
+
+			updateWindowTitle();
 		}
 	}
 	
@@ -178,6 +183,7 @@ class MainWindow  : public DocumentWindow, public MenuBarModel
 		if (myChooser.browseForFileToOpen())
 		{
 			File configurationFile (myChooser.getResult());
+			currentFileName = configurationFile.getFileName();
 
 			XmlDocument configurationDocument(configurationFile);
 			ScopedPointer<XmlElement> configurationElement = configurationDocument.getDocumentElement();
@@ -354,7 +360,14 @@ class MainWindow  : public DocumentWindow, public MenuBarModel
 				ipc->disconnectTermManagerFromMembershipGraphComponent();
 				opc->disconnectTermManagerFromMembershipGraphComponent();
 			}
+
+			updateWindowTitle();
 		}
+	}
+
+	void updateWindowTitle()
+	{
+		this->setName(currentFileName);
 	}
 
 public:
