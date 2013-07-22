@@ -302,7 +302,8 @@ void RulesPanelComponent::addExample()
 		Example example;
 
 		Array<ValueRelevance> inputs;
-		for (int i=0; i<inputsListBox->getModel()->getNumRows(); i++)
+		
+		for (int i=0; i<ipc->inputs.size(); i++)
 		{
 			ValueRelevance vr;
 			vr.value = *ipc->inputs[i]->pValue;

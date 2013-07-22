@@ -1,17 +1,20 @@
-﻿Build started 22.07.2013 13:04:02.
+﻿Build started 22.07.2013 18:10:30.
      1>Project "C:\Users\marinos\Promotion\Tools\oscactivator\oscactivator\Builds\VisualStudio2010\oscactivator.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating ".\Debug\oscactivator.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I..\..\JuceLibraryCode /ZI /nologo /W4 /WX- /MP /Od /Oy- /D WIN32 /D _WINDOWS /D DEBUG /D _DEBUG /D JUCER_VS2010_78A501D=1 /D _MBCS /Gm- /EHsc /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo".\Debug\\" /Fd".\Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\Source\Main.cpp
-         Main.cpp
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I..\..\JuceLibraryCode /ZI /nologo /W4 /WX- /MP /Od /Oy- /D WIN32 /D _WINDOWS /D DEBUG /D _DEBUG /D JUCER_VS2010_78A501D=1 /D _MBCS /Gm- /EHsc /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo".\Debug\\" /Fd".\Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\Source\RuleGenerator.cpp
+         RuleGenerator.cpp
      1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\main.cpp(207): warning C4244: 'Initialisierung': Konvertierung von 'double' in 'int', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\main.cpp(262): warning C4244: 'Initialisierung': Konvertierung von 'double' in 'int', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\main.cpp(353): warning C4244: 'Argument': Konvertierung von 'double' in 'int', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\main.cpp(404): warning C4100: 'menuName': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\main.cpp(462): warning C4100: 'commandLine': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\main.cpp(516): warning C4100: 'commandLine': Unreferenzierter formaler Parameter
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulegenerator.cpp(67): warning C4244: 'Initialisierung': Konvertierung von 'double' in 'float', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulegenerator.cpp(92): warning C4244: '=': Konvertierung von 'double' in 'float', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulegenerator.cpp(665): warning C4018: '<': Konflikt zwischen 'signed' und 'unsigned'
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulegenerator.cpp(565): warning C4189: 'timeFactorProduct': Lokale Variable ist initialisiert aber nicht referenziert
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulegenerator.cpp(831): warning C4244: 'Argument': Konvertierung von 'double' in 'const int', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulegenerator.cpp(833): warning C4244: 'Argument': Konvertierung von 'double' in 'int', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulegenerator.cpp(850): warning C4244: 'Argument': Konvertierung von 'double' in 'const int', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulegenerator.cpp(852): warning C4244: 'Argument': Konvertierung von 'double' in 'int', möglicher Datenverlust
+     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\rulegenerator.cpp(688): warning C4701: Die möglicherweise nicht initialisierte lokale Variable "result" wurde verwendet.
        ResourceCompile:
          All outputs are up-to-date.
        ManifestResourceCompile:
@@ -82,4 +85,4 @@
 
 Das Erstellen war erfolgreich.
 
-Time Elapsed 00:00:09.13
+Time Elapsed 00:00:08.75

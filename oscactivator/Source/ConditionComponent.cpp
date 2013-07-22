@@ -252,7 +252,9 @@ void ConditionComponent::updateLabels()
 		if (termIndex!=-1)
 		{
 			if (ipc->inputs[inputIndex]->termManager->terms.size())
+			{
 				termName = String(ipc->inputs[inputIndex]->termManager->terms[termIndex]->name());
+			}
 		}
 
 		termLabel->setText(termName, true);

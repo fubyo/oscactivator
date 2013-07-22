@@ -91,7 +91,7 @@ public:
 		inputTermIndeces = other.inputTermIndeces;
 		inputMembership = other.inputMembership;
 		outputTermIndeces = other.outputTermIndeces;
-		
+	
 		outputFromInput.clear();
 		outputFromInput.remapTable(1024);
 		for (int i=0; i<outputTermIndeces.size(); i++)
@@ -194,4 +194,5 @@ public:
 	void deleteAllTimers();
 
 	bool timersAreCounting;
+	bool valuesAreChanging;
 };

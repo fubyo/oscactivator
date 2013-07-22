@@ -37,7 +37,9 @@ public:
 	double* pValue;
 	TermManager* termManager;
 
-	Input()
+	bool isFeedbackInput;
+
+	Input(bool IsFeedbackInput)
 	{
 		name = String("New input");
 		oscaddress = String("/address");
@@ -45,18 +47,26 @@ public:
 		parameterindex = 0;
 		pValue = new double[1];
 		*pValue = 0;
-		termManager = new TermManager();
+
+		if (!IsFeedbackInput)
+			termManager = new TermManager();
+
+		isFeedbackInput = IsFeedbackInput;
 	};
 
 	~Input()
 	{
-		OscManager::getInstance()->unregisterReceiver(pValue);
 		delete [] pValue;
+		
+		if (!isFeedbackInput)
+		{
+			OscManager::getInstance()->unregisterReceiver(pValue);
+	
+			if (termManager == (TermManager*)Pool::Instance()->getObject("CopyTermManager"))
+				Pool::Instance()->unreg("CopyTermManager");
 
-		if (termManager == (TermManager*)Pool::Instance()->getObject("CopyTermManager"))
-			Pool::Instance()->unreg("CopyTermManager");
-
-		delete termManager;
+			delete termManager;
+		}
 	};
 };
 

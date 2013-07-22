@@ -125,11 +125,12 @@ OutputsPanelComponent::OutputsPanelComponent ()
 
 	Pool::Instance()->reg("OutputsPanelComponent", this);
 
-
 	minEditor->addListener(this);
 	maxEditor->addListener(this);
 
 	membershipGraph->addChangeListener(this);
+
+	ipc = (InputsPanelComponent*)Pool::Instance()->getObject("InputsPanelComponent");
     //[/UserPreSize]
 
     setSize (609, 600);
@@ -221,6 +222,7 @@ void OutputsPanelComponent::buttonClicked (Button* buttonThatWasClicked)
 		newOutput->prepareSocket();
 
 		outputs.add(newOutput);
+		ipc->addFeedbackInput(newOutput);
 
 		outputsListBox->updateContent();
 
@@ -248,6 +250,7 @@ void OutputsPanelComponent::buttonClicked (Button* buttonThatWasClicked)
 			membershipGraph->setTermManager(0);
 
 			outputs.remove(selectedrow);
+			ipc->removeFeedbackInput(selectedrow);
 
 			if (selectedrow<outputs.size())
 			{
@@ -419,6 +422,8 @@ void OutputsPanelComponent::changeListenerCallback (ChangeBroadcaster* source)
 
 			outputsListBox->updateContent();
 			outputsListBox->repaintRow(selectedRow);
+
+			ipc->changeFeedbackInputName(selectedRow, output.name);
 
 			RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
 			rpc->updateRuleList();

@@ -29,6 +29,7 @@ using namespace std;
 
 #include "Pool.h"
 #include "OscManager.h"
+#include "OutputComponent.h"
 //[/Headers]
 
 #include "C:/Users/marinos/Promotion/Tools/oscactivator/oscactivator/Source/InputComponent.h"
@@ -56,7 +57,7 @@ public:
 
     //==============================================================================
     //[UserMethods]     -- You can add your own custom methods in this section.
-	int getNumRows() {return (int)inputs.size();};
+	int getNumRows() {return getNumberOfNonFeedbackInputs();};
 	void paintListBoxItem (int rowNumber, Graphics& g, int width, int height, bool rowIsSelected);
 	void selectedRowsChanged (int lastRowSelected);
 
@@ -80,6 +81,11 @@ public:
 	int getInputIndex(TermManager* tm);
 
 	void updateMinMax();
+
+	int getNumberOfNonFeedbackInputs();
+	void addFeedbackInput(Output* output);
+	void removeFeedbackInput(int outputIndex);
+	void changeFeedbackInputName(int outputIndex, String name);
     //[/UserMethods]
 
     void paint (Graphics& g);

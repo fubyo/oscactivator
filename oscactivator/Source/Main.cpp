@@ -52,6 +52,8 @@ class MainWindow  : public DocumentWindow, public MenuBarModel
 				inputElement->setAttribute("port", ipc->inputs[i]->port);
 				inputElement->setAttribute("value" , *ipc->inputs[i]->pValue);
 
+				inputElement->setAttribute("isFeedbackInput", ipc->inputs[i]->isFeedbackInput);
+
 				int termNumber = ipc->inputs[i]->termManager->terms.size();
 				inputElement->setAttribute("TermNumber", termNumber);
 				inputElement->setAttribute("min" , ipc->inputs[i]->termManager->getMin() );
@@ -205,40 +207,45 @@ class MainWindow  : public DocumentWindow, public MenuBarModel
 					int parameterindex = e->getIntAttribute("parameterindex");
 					int port = e->getIntAttribute("port");
 					int value = e->getDoubleAttribute("value");
+					bool isFeedbackInput = e->getBoolAttribute("isFeedbackInput");
 
 					int TermNumber = e->getIntAttribute("TermNumber");
 					double min = e->getDoubleAttribute("min");
 					double max = e->getDoubleAttribute("max");
 
-					Input* input = new Input();
+					Input* input = new Input(isFeedbackInput);
 					input->name = name;
 					input->oscaddress = oscaddress;
 					input->parameterindex = parameterindex;
 					input->port = port;
 					*input->pValue=value;
-					input->termManager->setMin(min);
-					input->termManager->setMax(max);
 
-					for (int ii=0; ii<TermNumber; ii++)
+					if (!isFeedbackInput)
 					{
-						String termIdentifier = "term_" + String(ii);
-						XmlElement* termElement = e->getChildByName(termIdentifier);
+						input->termManager->setMin(min);
+						input->termManager->setMax(max);
 
-						double a = termElement->getDoubleAttribute("a");
-						double b = termElement->getDoubleAttribute("b");
-						double c = termElement->getDoubleAttribute("c");
-						double d = termElement->getDoubleAttribute("d");
+						for (int ii=0; ii<TermNumber; ii++)
+						{
+							String termIdentifier = "term_" + String(ii);
+							XmlElement* termElement = e->getChildByName(termIdentifier);
 
-						String termName = termElement->getStringAttribute("name");
+							double a = termElement->getDoubleAttribute("a");
+							double b = termElement->getDoubleAttribute("b");
+							double c = termElement->getDoubleAttribute("c");
+							double d = termElement->getDoubleAttribute("d");
 
-						TrapezTerm* term = new TrapezTerm(termName);
+							String termName = termElement->getStringAttribute("name");
 
-						term->setA(a);
-						term->setB(b);
-						term->setC(c);
-						term->setD(d);
+							TrapezTerm* term = new TrapezTerm(termName);
 
-						input->termManager->terms.add(term);
+							term->setA(a);
+							term->setB(b);
+							term->setC(c);
+							term->setD(d);
+
+							input->termManager->terms.add(term);
+						}
 					}
 
 					ipc->inputs.add(input);
@@ -302,6 +309,17 @@ class MainWindow  : public DocumentWindow, public MenuBarModel
 					opc->outputs.add(output);
 				}
 				opc->updateContent();
+
+
+				//Set up term managers for the feedback inputs.
+				int index = ipc->getNumberOfNonFeedbackInputs();
+				int outputIndex = 0;
+				for (int i=index; i<ipc->inputs.size(); i++)
+				{
+					ipc->inputs[i]->termManager = opc->outputs[outputIndex]->termManager;
+					outputIndex++;
+				}
+
 
 				int ruleNumber = configurationElement->getIntAttribute("RuleNumber");
 				rpc->ruleGenerator.deleteAllTimers();

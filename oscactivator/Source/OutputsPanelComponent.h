@@ -25,6 +25,7 @@
 //[Headers]     -- You can add your own extra header files here --
 #include "..\JuceLibraryCode\JuceHeader.h"
 #include "Pool.h"
+#include "InputsPanelComponent.h"
 //[/Headers]
 
 #include "MembershipGraphComponent.h"
@@ -95,6 +96,7 @@ public:
 
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
+	InputsPanelComponent* ipc;
     //[/UserVariables]
 
     //==============================================================================

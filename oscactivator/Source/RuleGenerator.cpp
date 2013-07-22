@@ -13,6 +13,7 @@ RuleGenerator::RuleGenerator(void) : Thread("RuleGenerator")
 
 	savedOutputValue.remapTable(1024);
 	timersAreCounting = false;
+	valuesAreChanging = false;
 	
 	startThread();
 }
@@ -706,6 +707,7 @@ void RuleGenerator::updateOutputs()
 
 	//calculate each output
 	bool timersRunning = false;
+	valuesAreChanging = false;
 	for (int i=0; i<opc->outputs.size(); i++)
 	{
 		double value = calculateOutput(i);
@@ -714,13 +716,23 @@ void RuleGenerator::updateOutputs()
 		{
 			*opc->outputs[i]->pValue = value;
 			opc->outputs[i]->newValue = true;
+
+			valuesAreChanging = true;
 		}
 
 		if (timersAreCounting)
 			timersRunning=true;
 	}
 
-	timersAreCounting = timersRunning; 
+	timersAreCounting = timersRunning;
+
+	//set values for feedback inputs
+	int feedbackInputIndex = ipc->getNumberOfNonFeedbackInputs();
+	for (int i = 0; i<opc->outputs.size(); i++)
+	{
+		if (feedbackInputIndex+i<ipc->inputs.size())
+			*ipc->inputs[feedbackInputIndex+i]->pValue = *opc->outputs[i]->pValue;
+	}
 
 	opc->sendOuputValues();
 }
@@ -756,16 +768,14 @@ void RuleGenerator::run()
 {
 	while (!threadShouldExit())
 	{
-		
 		if (outputsHaveToGetUpdated)
 		{
 			updateOutputs();
 
-			if (!timersAreCounting)
+			if (!timersAreCounting && !valuesAreChanging)
 				outputsHaveToGetUpdated = false;
 		}
 		
-
 		sleep(10);
 	}
 }
@@ -824,7 +834,7 @@ void RuleGenerator::updateRulesBecauseOfTermChangesOnInput(int index)
 			rules[i]->inputMembership.set(index, membership);
 			
 			recalculateDegrees(i);
-		}		
+		}
 	}
 }
 

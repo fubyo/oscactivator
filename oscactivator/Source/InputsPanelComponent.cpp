@@ -218,7 +218,10 @@ void InputsPanelComponent::buttonClicked (Button* buttonThatWasClicked)
     if (buttonThatWasClicked == addButton)
     {
         //[UserButtonCode_addButton] -- add your button handler code here..
-		inputs.add(new Input());
+		
+		int index = getNumberOfNonFeedbackInputs();
+		inputs.insert(index, new Input(false));
+		//inputs.add(new Input());
 
 		inputsListBox->updateContent();
 
@@ -465,6 +468,40 @@ void InputsPanelComponent::updateMinMax()
 		minEditor->setText(String(inputs[selectedrow]->termManager->getMin()));
 		maxEditor->setText(String(inputs[selectedrow]->termManager->getMax()));
 	}
+}
+
+int InputsPanelComponent::getNumberOfNonFeedbackInputs()
+{
+	int counter = 0;
+	for (int i=0; i<inputs.size(); i++)
+		if (!inputs[i]->isFeedbackInput)
+			counter++;
+
+	return counter;
+}
+
+void InputsPanelComponent::addFeedbackInput(Output* output)
+{
+	Input* newInput = new Input(true);
+
+	newInput->name = output->name;
+	newInput->termManager = output->termManager;
+
+	inputs.add(newInput);
+}
+
+void InputsPanelComponent::removeFeedbackInput(int outputIndex)
+{
+	int startIndex = getNumberOfNonFeedbackInputs();
+	inputs.remove(startIndex+outputIndex);
+}
+
+void InputsPanelComponent::changeFeedbackInputName(int outputIndex, String name)
+{
+	int startIndex = getNumberOfNonFeedbackInputs();
+
+	if (startIndex+outputIndex<inputs.size())
+		inputs[startIndex+outputIndex]->name = name;
 }
 
 //[/MiscUserCode]

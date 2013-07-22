@@ -18,7 +18,7 @@ int MultipleSelectionListBoxModel::getNumRows()
 	if (outputList)
 		return opc->outputs.size();
 	else
-		return ipc->inputs.size();
+		return ipc->getNumberOfNonFeedbackInputs();
 }
 
 void MultipleSelectionListBoxModel::paintListBoxItem (int rowNumber, Graphics& g, int width, int height, bool rowIsSelected)
