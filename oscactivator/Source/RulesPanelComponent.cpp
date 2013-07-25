@@ -230,7 +230,9 @@ void RulesPanelComponent::buttonClicked (Button* buttonThatWasClicked)
 		if (applyToggleButton->getToggleState())
 		{
 			interactionOn = true;
+			ruleGenerator.interactionIsOn = true;
 			ruleGenerator.requestOutputUpdate();
+
 			
 			//OutputsPanelComponent* opc = (OutputsPanelComponent*)Pool::Instance()->getObject("OutputsPanelComponent");
 			//opc->sliderSetEnabled(false);
@@ -239,6 +241,7 @@ void RulesPanelComponent::buttonClicked (Button* buttonThatWasClicked)
 		{
 			interactionOn = false;
 			ruleGenerator.timersAreCounting = false;
+			ruleGenerator.interactionIsOn = false;
 			//OutputsPanelComponent* opc = (OutputsPanelComponent*)Pool::Instance()->getObject("OutputsPanelComponent");
 			//opc->sliderSetEnabled(true);
 		}

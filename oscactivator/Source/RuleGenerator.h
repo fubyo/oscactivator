@@ -195,4 +195,5 @@ public:
 
 	bool timersAreCounting;
 	bool valuesAreChanging;
+	bool interactionIsOn;
 };

@@ -333,20 +333,23 @@ void OutputsPanelComponent::sliderValueChanged (Slider* sliderThatWasMoved)
 				}
 				else
 				{
-					int termIndex = outputs[selectedRow]->termManager->getIndex(*outputs[selectedRow]->pValue);
-					double memberShip = outputs[selectedRow]->termManager->terms[termIndex]->membership(*outputs[selectedRow]->pValue);
+					if (outputs[selectedRow]->termManager->terms.size())
+					{	
+						int termIndex = outputs[selectedRow]->termManager->getIndex(*outputs[selectedRow]->pValue);
+						double memberShip = outputs[selectedRow]->termManager->terms[termIndex]->membership(*outputs[selectedRow]->pValue);
 
-					if (memberShip==1.0 && termIndex!=outputs[selectedRow]->lastState)
-					{
-						outputs[selectedRow]->lastState = termIndex;
+						if (memberShip==1.0 && termIndex!=outputs[selectedRow]->lastState)
+						{
+							outputs[selectedRow]->lastState = termIndex;
 
-						osc::OutboundPacketStream p(outputs[selectedRow]->buffer, 128);
+							osc::OutboundPacketStream p(outputs[selectedRow]->buffer, 128);
 
-						p << osc::BeginMessage( outputs[selectedRow]->oscaddress.toUTF8() )
-							<< (float)termIndex
-						<< osc::EndMessage;
+							p << osc::BeginMessage( outputs[selectedRow]->oscaddress.toUTF8() )
+								<< (float)termIndex
+							<< osc::EndMessage;
 
-						outputs[selectedRow]->socket->Send( p.Data(), p.Size() );
+							outputs[selectedRow]->socket->Send( p.Data(), p.Size() );
+						}
 					}
 				}
 			}
@@ -493,7 +496,9 @@ void OutputsPanelComponent::sendOuputValues()
 			{
 				termIndex = -1;
 				outputs[i]->sendInvalidState = false;
-				sendState = true;
+
+				outputs[i]->lastState = termIndex;
+				//sendState = true;   commented out because sending "-1" as state is not desirable...
 			}
 			else
 			{

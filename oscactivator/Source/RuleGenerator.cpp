@@ -14,6 +14,7 @@ RuleGenerator::RuleGenerator(void) : Thread("RuleGenerator")
 	savedOutputValue.remapTable(1024);
 	timersAreCounting = false;
 	valuesAreChanging = false;
+	interactionIsOn = false;
 	
 	startThread();
 }
@@ -726,15 +727,23 @@ void RuleGenerator::updateOutputs()
 
 	timersAreCounting = timersRunning;
 
+	opc->sendOuputValues();
+	
 	//set values for feedback inputs
 	int feedbackInputIndex = ipc->getNumberOfNonFeedbackInputs();
 	for (int i = 0; i<opc->outputs.size(); i++)
 	{
 		if (feedbackInputIndex+i<ipc->inputs.size())
-			*ipc->inputs[feedbackInputIndex+i]->pValue = *opc->outputs[i]->pValue;
+		{
+			if (!opc->outputs[i]->sendStateChanges)
+				*ipc->inputs[feedbackInputIndex+i]->pValue = *opc->outputs[i]->pValue;
+			else if (opc->outputs[i]->lastState!=-1)
+			{
+				double value = (opc->outputs[i]->termManager->terms[opc->outputs[i]->lastState]->b()+opc->outputs[i]->termManager->terms[opc->outputs[i]->lastState]->c())/2;
+				*ipc->inputs[feedbackInputIndex+i]->pValue = value;
+			}
+		}
 	}
-
-	opc->sendOuputValues();
 }
 
 void RuleGenerator::updateRulesDueToAddingNewIO()
@@ -772,7 +781,9 @@ void RuleGenerator::run()
 		{
 			updateOutputs();
 
-			if (!timersAreCounting && !valuesAreChanging)
+			if (!interactionIsOn)
+				outputsHaveToGetUpdated = false;
+			else if (!timersAreCounting && !valuesAreChanging)
 				outputsHaveToGetUpdated = false;
 		}
 		
