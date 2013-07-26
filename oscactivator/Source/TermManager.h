@@ -2,6 +2,7 @@
 
 #include "..\JuceLibraryCode\JuceHeader.h"
 #include "TrapezTerm.h"
+#include "Pool.h"
 #include <assert.h>
 
 class TermManager

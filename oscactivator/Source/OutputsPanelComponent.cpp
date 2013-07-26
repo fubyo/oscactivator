@@ -247,6 +247,9 @@ void OutputsPanelComponent::buttonClicked (Button* buttonThatWasClicked)
 			//delete[] outputs[selectedrow]->buffer;
 			//delete outputs[selectedrow]->socket;
 
+			RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
+			const ScopedLock myScopedLock (rpc->ruleGenerator.cs);
+
 			membershipGraph->setTermManager(0);
 
 			outputs.remove(selectedrow);
@@ -273,7 +276,7 @@ void OutputsPanelComponent::buttonClicked (Button* buttonThatWasClicked)
 			if (outputsRelevanceListBox)
 				outputsRelevanceListBox->updateContent();
 
-			RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
+			
 			if (rpc)
 				rpc->outputRemoved(selectedrow);
 		}
@@ -489,8 +492,7 @@ void OutputsPanelComponent::sendOuputValues()
 		else
 		{
 			int termIndex = outputs[i]->termManager->getIndex(*outputs[i]->pValue);
-			double memberShip = outputs[i]->termManager->terms[termIndex]->membership(*outputs[i]->pValue);
-
+			
 			bool sendState = false;
 			if (outputs[i]->sendInvalidState == true)
 			{
@@ -502,6 +504,7 @@ void OutputsPanelComponent::sendOuputValues()
 			}
 			else
 			{
+				double memberShip = outputs[i]->termManager->terms[termIndex]->membership(*outputs[i]->pValue);
 				if (memberShip==1.0)
 					sendState = true;
 			}
@@ -517,6 +520,31 @@ void OutputsPanelComponent::sendOuputValues()
 				<< osc::EndMessage;
 
 				outputs[i]->socket->Send( p.Data(), p.Size() );
+			}
+		}
+	}
+
+	//update selected slider
+	{
+		int selected = outputsListBox->getSelectedRow();
+		if (selected!=-1)
+		{
+			bool sendStateChanges = outputs[selected]->sendStateChanges;
+			int termIndex = outputs[selected]->lastState;
+
+			if (!sendStateChanges)
+			{
+				double value = *outputs[selected]->pValue;
+
+				const MessageManagerLock mmLock;
+				valueSlider->setValue(value);
+			}
+			else if (termIndex!=-1)
+			{
+				double value = (outputs[selected]->termManager->terms[termIndex]->b() + outputs[selected]->termManager->terms[termIndex]->c())/2;
+
+				const MessageManagerLock mmLock;
+				valueSlider->setValue(value);
 			}
 		}
 	}

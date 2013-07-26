@@ -1,5 +1,5 @@
 #include "TermManager.h"
-
+#include "RulesPanelComponent.h"
 
 TermManager::TermManager(void)
 {
@@ -165,6 +165,12 @@ void TermManager::addTerm(String termName, double value)
 					}
 				}
 			}
+			else if (value>terms[index]->b() && value<terms[index]->c())
+			{
+				terms[index]->setC(value);
+				if (terms.size()>1)
+					terms[index+1]->setA(value);
+			}
 			else if (value>terms[index]->d()) //outside of membership
 			{
 				if (terms.size()>1)
@@ -257,6 +263,12 @@ void TermManager::addTerm(String termName, double value)
 				}
 				terms[index]->setB(value);
 			}
+			else if (value>terms[index]->b() && value<=terms[index]->c())
+			{
+				terms[index]->setB(value);
+				if (index-1>=0)
+					terms[index-1]->setD(value);
+			}
 			else if (value<terms[index]->a()) //outside of membership
 			{
 				if (terms.size()>1)
@@ -344,6 +356,21 @@ void TermManager::addTerm(String termName, double value)
 				{
 					terms[index]->setC(value);
 					terms[index+1]->setA(value);
+				}
+				else if (value>terms[index]->b() && value<terms[index]->c())
+				{
+					double middleValue = (terms[index]->b()+terms[index]->c())/2;
+
+					if (value>terms[index]->b() && value<middleValue)
+					{
+						terms[index]->setB(value);
+						terms[index-1]->setD(value);
+					}
+					else if (value<terms[index]->c() && value>middleValue)
+					{
+						terms[index]->setC(value);
+						terms[index+1]->setA(value);
+					}
 				}
 			}
 			else
@@ -492,6 +519,7 @@ void TermManager::addTerm(String termName, double value)
 	}
 	else if (index==-1) //Term not there
 	{
+		TrapezTerm* termAdded = 0;
 		int indexOfNearestTerm = getIndex(value);
 
 		if (indexOfNearestTerm==-1)  //No other term in array!
@@ -509,6 +537,7 @@ void TermManager::addTerm(String termName, double value)
 				newTerm->setName(termName);
 
 				terms.add(newTerm);
+				termAdded = newTerm;
 			}
 			else if (value>min && value<max)
 			{
@@ -523,6 +552,7 @@ void TermManager::addTerm(String termName, double value)
 					newTerm->setName(termName);
 
 					terms.add(newTerm);
+					termAdded = newTerm;
 				}
 				else
 				{
@@ -535,6 +565,7 @@ void TermManager::addTerm(String termName, double value)
 					newTerm->setName(termName);
 
 					terms.add(newTerm);
+					termAdded = newTerm;
 				}
 			}
 			else 
@@ -550,6 +581,7 @@ void TermManager::addTerm(String termName, double value)
 				newTerm->setName(termName);
 
 				terms.add(newTerm);
+				termAdded = newTerm;
 			}
 		}
 		else if ((value>=terms[indexOfNearestTerm]->a() && value<= terms[indexOfNearestTerm]->b()) || value<min)
@@ -574,6 +606,7 @@ void TermManager::addTerm(String termName, double value)
 					newTerm->setName(termName);
 
 					terms.add(newTerm);
+					termAdded = newTerm;
 				}
 				else if ( (float)value>=terms[indexOfNearestTerm]->b() && (float)value<(terms[indexOfNearestTerm]->b()+terms[indexOfNearestTerm]->c())/2  )
 				{
@@ -591,6 +624,7 @@ void TermManager::addTerm(String termName, double value)
 					newTerm->setName(termName);
 
 					terms.add(newTerm);
+					termAdded = newTerm;
 				}
 				else
 				{
@@ -606,6 +640,7 @@ void TermManager::addTerm(String termName, double value)
 					newTerm->setName(termName);
 
 					terms.add(newTerm);
+					termAdded = newTerm;
 				}
 			}
 			else // nearest term is the first term
@@ -628,6 +663,7 @@ void TermManager::addTerm(String termName, double value)
 					newTerm->setName(termName);
 
 					terms.add(newTerm);
+					termAdded = newTerm;
 				}
 				else if ((float)value==terms[indexOfNearestTerm]->b())
 				{
@@ -643,6 +679,7 @@ void TermManager::addTerm(String termName, double value)
 					newTerm->setName(termName);
 
 					terms.add(newTerm);
+					termAdded = newTerm;
 				}
 				else if (value>=terms[indexOfNearestTerm]->a())
 				{
@@ -657,6 +694,7 @@ void TermManager::addTerm(String termName, double value)
 					newTerm->setName(termName);
 
 					terms.add(newTerm);
+					termAdded = newTerm;
 				}
 				else
 				{
@@ -674,7 +712,7 @@ void TermManager::addTerm(String termName, double value)
 					newTerm->setName(termName);
 
 					terms.add(newTerm);
-
+					termAdded = newTerm;
 				}
 			}
 		}
@@ -697,7 +735,7 @@ void TermManager::addTerm(String termName, double value)
 				newTerm->setName(termName);
 
 				terms.add(newTerm);
-
+				termAdded = newTerm;
 			}
 			else if (indexOfNearestTerm==0)
 			{
@@ -732,6 +770,7 @@ void TermManager::addTerm(String termName, double value)
 					newTerm->setName(termName);
 
 					terms.add(newTerm);
+					termAdded = newTerm;
 				}
 				else
 				{
@@ -750,6 +789,7 @@ void TermManager::addTerm(String termName, double value)
 					newTerm->setName(termName);
 
 					terms.add(newTerm);
+					termAdded = newTerm;
 				}
 			}
 			else if(value>(terms[indexOfNearestTerm]->b()+terms[indexOfNearestTerm]->c())/2 && value<=terms[indexOfNearestTerm]->c())
@@ -770,6 +810,7 @@ void TermManager::addTerm(String termName, double value)
 				newTerm->setName(termName);
 
 				terms.add(newTerm);
+				termAdded = newTerm;
 			}
 			else
 			{
@@ -786,6 +827,7 @@ void TermManager::addTerm(String termName, double value)
 				newTerm->setName(termName);
 
 				terms.add(newTerm);
+				termAdded = newTerm;
 			}
 		}
 		else if ((value>terms[indexOfNearestTerm]->c() && value<= terms[indexOfNearestTerm]->d()) || value>max)
@@ -805,6 +847,7 @@ void TermManager::addTerm(String termName, double value)
 				newTerm->setName(termName);
 
 				terms.add(newTerm);
+				termAdded = newTerm;
 			}
 			else
 			{
@@ -822,6 +865,7 @@ void TermManager::addTerm(String termName, double value)
 					newTerm->setName(termName);
 
 					terms.add(newTerm);
+					termAdded = newTerm;
 				}
 			/*	else
 				{
@@ -840,6 +884,19 @@ void TermManager::addTerm(String termName, double value)
 
 		sortTerms();
 
+		if (termAdded)
+		{
+			int termIndex = -1;
+			for (int i=0; i<terms.size(); i++)
+				if (terms[i] == termAdded)
+					termIndex = i;
+
+			if (termIndex!=-1)
+			{
+				RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
+				rpc->ruleGenerator.updateRulesBecauseOfNewTerm(this, termIndex);
+			}
+		}
 	}
 }
 
@@ -861,7 +918,6 @@ int TermManager::getIndex(double value)
 		else
 			for (int i=0; i<terms.size(); i++)
 			{
-				double debug = terms[i]->membership(value);
 				if (terms[i]->membership(value)>=maxMembership)
 				{
 					maxMembership = terms[i]->membership(value);

@@ -779,7 +779,10 @@ void RuleGenerator::run()
 	{
 		if (outputsHaveToGetUpdated)
 		{
-			updateOutputs();
+			{
+				const ScopedLock myScopedLock (cs);
+				updateOutputs();
+			}
 
 			if (!interactionIsOn)
 				outputsHaveToGetUpdated = false;
@@ -839,12 +842,54 @@ void RuleGenerator::updateRulesBecauseOfTermChangesOnInput(int index)
 			double value = rules[i]->inputValues[index];
 
 			double termIndex = ipc->inputs[index]->termManager->getIndex(value);
-			double membership = ipc->inputs[index]->termManager->terms[termIndex]->membership(value);
 
-			rules[i]->inputTermIndeces.set(index, termIndex);
-			rules[i]->inputMembership.set(index, membership);
+			if (termIndex!=-1)
+			{
+				double membership = ipc->inputs[index]->termManager->terms[termIndex]->membership(value);
+
+				rules[i]->inputTermIndeces.set(index, termIndex);
+				rules[i]->inputMembership.set(index, membership);
 			
-			recalculateDegrees(i);
+				recalculateDegrees(i);
+			}
+			else
+			{
+				rules[i]->inputTermIndeces.set(index, termIndex);
+				rules[i]->inputMembership.set(index, 0);
+			
+				recalculateDegrees(i);
+			}
+		}
+	}
+
+	//Clean up rules that have no input
+	int ruleIndex = 0;
+	while (ruleIndex<rules.size())
+	{
+		bool hasInputs = false;
+		for (int i=0; i<rules[ruleIndex]->inputTermIndeces.size(); i++)
+		{
+			if (rules[ruleIndex]->inputTermIndeces[i]!=-1)
+				hasInputs=true;
+		}
+
+		if (hasInputs)
+			ruleIndex++;
+		else
+		{
+			HashMap<int, InputTimer*>::Iterator ii(rules[ruleIndex]->inputTimers);
+			while (ii.next())
+			{
+				delete ii.getValue();
+			}
+
+			HashMap<int, OutputTimer*>::Iterator jj(rules[ruleIndex]->outputTimers);
+			while (jj.next())
+			{
+				delete jj.getValue();
+			}
+
+			rules.remove(ruleIndex);
 		}
 	}
 }
@@ -858,12 +903,88 @@ void RuleGenerator::updateRulesBecauseOfTermChangesOnOutput(int index)
 			double value = rules[i]->outputValues[index];
 
 			double termIndex = opc->outputs[index]->termManager->getIndex(value);
-			double membership = opc->outputs[index]->termManager->terms[termIndex]->membership(value);
 
-			rules[i]->outputTermIndeces.set(index, termIndex);
-			rules[i]->outputMembership.set(index, membership);
+			if (termIndex!=-1)
+			{
+				double membership = opc->outputs[index]->termManager->terms[termIndex]->membership(value);
+
+				rules[i]->outputTermIndeces.set(index, termIndex);
+				rules[i]->outputMembership.set(index, membership);
 			
-			recalculateDegrees(i);
+				recalculateDegrees(i);
+			}
+			else
+			{
+				rules[i]->outputTermIndeces.set(index, termIndex);
+				rules[i]->outputMembership.set(index, 0);
+			
+				recalculateDegrees(i);
+			}
 		}		
+	}
+
+	//Clean up rules that contribute to no output
+	int ruleIndex = 0;
+	while (ruleIndex<rules.size())
+	{
+		bool outputContribution = false;
+		for (int i=0; i<rules[ruleIndex]->outputTermIndeces.size(); i++)
+		{
+			if (rules[ruleIndex]->outputTermIndeces[i]!=-1)
+				outputContribution=true;
+		}
+
+		if (rules[ruleIndex]->outputFromInput.size())
+			outputContribution = true;
+
+		if (outputContribution)
+			ruleIndex++;
+		else
+		{
+			HashMap<int, InputTimer*>::Iterator ii(rules[ruleIndex]->inputTimers);
+			while (ii.next())
+			{
+				delete ii.getValue();
+			}
+
+			HashMap<int, OutputTimer*>::Iterator jj(rules[ruleIndex]->outputTimers);
+			while (jj.next())
+			{
+				delete jj.getValue();
+			}
+
+			rules.remove(ruleIndex);
+		}
+	}
+}
+
+void RuleGenerator::updateRulesBecauseOfNewTerm(TermManager* termManager, int newTermIndex)
+{
+	int belongsToInput = ipc->getInputIndex(termManager);
+	int belongsToOutput = opc->getOutputIndex(termManager);
+				
+	if (belongsToInput!=-1)
+	{
+		for (int i=0; i<rules.size(); i++)
+		{
+			int termIndex = rules[i]->inputTermIndeces[belongsToInput];
+			if (rules[i]->inputTermIndeces[belongsToInput]>=newTermIndex)
+			{
+				rules[i]->inputTermIndeces.set(belongsToInput, termIndex + 1);
+				recalculateDegrees(i);
+			}
+		}
+	}
+	else if (belongsToOutput!=-1)		
+	{
+		for (int i=0; i<rules.size(); i++)
+		{
+			int termIndex = rules[i]->outputTermIndeces[belongsToOutput];
+			if (rules[i]->outputTermIndeces[belongsToOutput]>=newTermIndex)
+			{
+				rules[i]->outputTermIndeces.set(belongsToOutput, termIndex + 1);
+				recalculateDegrees(i);
+			}
+		}
 	}
 }

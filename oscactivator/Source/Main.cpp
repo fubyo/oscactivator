@@ -17,23 +17,181 @@
 #include "OutputsPanelComponent.h"
 #include "MyMenuBarModel.h"
 
-class MainWindow  : public DocumentWindow, public MenuBarModel
+class MainWindow  : public DocumentWindow, public MenuBarModel, public KeyListener
 {
 	String currentFileName;
+	String pathToFile;
+
+	void saveCurrent()
+	{
+		const MessageManagerLock mmLock;
+
+		if (pathToFile.length())
+		{
+			File configurationFile(pathToFile);
+			saveRoutine(configurationFile);
+		}
+		else
+		{
+			save();
+		}
+	}
+
+	void saveRoutine(File& configurationFile)
+	{
+		InputsPanelComponent* ipc = (InputsPanelComponent*)Pool::Instance()->getObject("InputsPanelComponent");
+		OutputsPanelComponent* opc = (OutputsPanelComponent*)Pool::Instance()->getObject("OutputsPanelComponent");
+		RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
+
+		currentFileName = configurationFile.getFileName();
+		pathToFile = configurationFile.getFullPathName();
+
+		XmlElement configurationElement("Configuration");
+
+		int inputNumber = ipc->inputs.size();
+		configurationElement.setAttribute("InputNumber", inputNumber);
+
+		for (int i=0; i<inputNumber; i++)
+		{
+			String inputIdentifier = "input_" + String(i);
+			XmlElement* inputElement = new XmlElement(inputIdentifier);
+
+			inputElement->setAttribute("name", ipc->inputs[i]->name);
+			inputElement->setAttribute("oscaddress", ipc->inputs[i]->oscaddress);
+			inputElement->setAttribute("parameterindex", ipc->inputs[i]->parameterindex);
+			inputElement->setAttribute("port", ipc->inputs[i]->port);
+			inputElement->setAttribute("value" , *ipc->inputs[i]->pValue);
+
+			inputElement->setAttribute("isFeedbackInput", ipc->inputs[i]->isFeedbackInput);
+
+			int termNumber = ipc->inputs[i]->termManager->terms.size();
+			inputElement->setAttribute("TermNumber", termNumber);
+			inputElement->setAttribute("min" , ipc->inputs[i]->termManager->getMin() );
+			inputElement->setAttribute("max" , ipc->inputs[i]->termManager->getMax() );
+				
+			for (int ii=0; ii<termNumber; ii++)
+			{
+				String termIdentifier = "term_" + String(ii);
+				XmlElement* termElement = new XmlElement(termIdentifier);
+
+				termElement->setAttribute("a" , ipc->inputs[i]->termManager->terms[ii]->a() );
+				termElement->setAttribute("b" , ipc->inputs[i]->termManager->terms[ii]->b() );
+				termElement->setAttribute("c" , ipc->inputs[i]->termManager->terms[ii]->c() );
+				termElement->setAttribute("d" , ipc->inputs[i]->termManager->terms[ii]->d() );
+
+				termElement->setAttribute("name", ipc->inputs[i]->termManager->terms[ii]->name());
+
+				inputElement->addChildElement(termElement);
+			}
+
+			configurationElement.addChildElement(inputElement);
+		}
+
+		int outputNumber = opc->outputs.size();
+		configurationElement.setAttribute("OutputNumber", outputNumber);
+
+		for (int i=0; i<outputNumber; i++)
+		{
+			String outputIdentifier = "output_" + String(i);
+			XmlElement* outputElement = new XmlElement(outputIdentifier);
+
+			outputElement->setAttribute("name", opc->outputs[i]->name);
+			outputElement->setAttribute("oscaddress", opc->outputs[i]->oscaddress);
+			outputElement->setAttribute("host", opc->outputs[i]->host);
+			outputElement->setAttribute("port",  opc->outputs[i]->port);
+			outputElement->setAttribute("value",  *opc->outputs[i]->pValue);
+			outputElement->setAttribute("sendstatechanges", opc->outputs[i]->sendStateChanges);
+
+			int termNumber = opc->outputs[i]->termManager->terms.size();
+			outputElement->setAttribute("TermNumber", termNumber);
+			outputElement->setAttribute("min" , opc->outputs[i]->termManager->getMin() );
+			outputElement->setAttribute("max" , opc->outputs[i]->termManager->getMax() );
+
+			for (int ii=0; ii<termNumber; ii++)
+			{
+				String termIdentifier = "term_" + String(ii);
+				XmlElement* termElement = new XmlElement(termIdentifier);
+
+				termElement->setAttribute("a" , opc->outputs[i]->termManager->terms[ii]->a() );
+				termElement->setAttribute("b" , opc->outputs[i]->termManager->terms[ii]->b() );
+				termElement->setAttribute("c" , opc->outputs[i]->termManager->terms[ii]->c() );
+				termElement->setAttribute("d" , opc->outputs[i]->termManager->terms[ii]->d() );
+
+				termElement->setAttribute("name",  opc->outputs[i]->termManager->terms[ii]->name());
+
+				outputElement->addChildElement(termElement);
+			}
+
+			configurationElement.addChildElement(outputElement);
+		}
+
+		int ruleNumber = rpc->ruleGenerator.rules.size();
+		configurationElement.setAttribute("RuleNumber", ruleNumber);
+
+		for (int i=0; i<ruleNumber; i++)
+		{
+			String ruleIdentifier = "rule_" + String(i);
+			XmlElement* ruleElement = new XmlElement(ruleIdentifier);
+
+			ruleElement->setAttribute("importance" ,rpc->ruleGenerator.rules[i]->importance);
+			ruleElement->setAttribute("inputdegree" ,rpc->ruleGenerator.rules[i]->inputDegree);
+			ruleElement->setAttribute("locked" ,rpc->ruleGenerator.rules[i]->locked);
+			ruleElement->setAttribute("weightinputconnection" ,rpc->ruleGenerator.rules[i]->weightInputConnection);
+
+			int numberOfInputs = rpc->ruleGenerator.rules[i]->inputMembership.size();
+			for (int ii=0; ii<numberOfInputs; ii++)
+			{
+				ruleElement->setAttribute("inputmembership_" + String(ii), rpc->ruleGenerator.rules[i]->inputMembership[ii]);
+				ruleElement->setAttribute("inputtermindeces_" + String(ii), rpc->ruleGenerator.rules[i]->inputTermIndeces[ii]);
+				ruleElement->setAttribute("inputvalues_" + String(ii),  rpc->ruleGenerator.rules[i]->inputValues[ii]);
+
+				if (rpc->ruleGenerator.rules[i]->inputTimers.contains(ii))
+				{
+					ruleElement->setAttribute("inputtimeparameter_" + String(ii),  rpc->ruleGenerator.rules[i]->inputTimers[ii]->inputTimeParameter);
+				}
+			}
+
+			int numberOfOutputs = rpc->ruleGenerator.rules[i]->outputMembership.size();
+			for (int ii=0; ii<numberOfOutputs; ii++)
+			{
+				ruleElement->setAttribute("outputmembership_" + String(ii), rpc->ruleGenerator.rules[i]->outputMembership[ii]);
+				ruleElement->setAttribute("outputtermindeces_" + String(ii), rpc->ruleGenerator.rules[i]->outputTermIndeces[ii]);
+				ruleElement->setAttribute("outputvalues_" + String(ii),  rpc->ruleGenerator.rules[i]->outputValues[ii]);
+				ruleElement->setAttribute("outputdegrees_" + String(ii), rpc->ruleGenerator.rules[i]->outputDegrees[ii]);
+
+				if (rpc->ruleGenerator.rules[i]->outputTimers.contains(ii))
+				{
+					ruleElement->setAttribute("outputtimeparameter_" + String(ii),  rpc->ruleGenerator.rules[i]->outputTimers[ii]->outputTimeParameter);
+					ruleElement->setAttribute("inputindexfortimeparameter_" + String(ii),  rpc->ruleGenerator.rules[i]->outputTimers[ii]->inputIndexForTimeParameter);
+				}
+
+				if (rpc->ruleGenerator.rules[i]->outputFromInput.contains(ii))
+				{
+					ruleElement->setAttribute("outputfrominput_" + String(ii),  rpc->ruleGenerator.rules[i]->outputFromInput[ii]);
+				}
+			}
+
+			configurationElement.addChildElement(ruleElement);
+		}
+
+		configurationFile.replaceWithText(configurationElement.createDocument("OscActivator Configuration File"));
+
+		updateWindowTitle();
+	}
 
 	void save()
 	{
 		const MessageManagerLock mmLock;
-
-		InputsPanelComponent* ipc = (InputsPanelComponent*)Pool::Instance()->getObject("InputsPanelComponent");
-		OutputsPanelComponent* opc = (OutputsPanelComponent*)Pool::Instance()->getObject("OutputsPanelComponent");
-		RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
 
 		FileChooser myChooser(String("Please select where you want to save the configuration to..."), File::getSpecialLocation (File::userHomeDirectory), String("*.xml"), false);
 
 		if (myChooser.browseForFileToSave(true))
 		{
 			File configurationFile(myChooser.getResult());
+			this->saveRoutine(configurationFile);
+
+			/*
+
 			currentFileName = configurationFile.getFileName();
 
 			XmlElement configurationElement("Configuration");
@@ -167,6 +325,7 @@ class MainWindow  : public DocumentWindow, public MenuBarModel
 			configurationFile.replaceWithText(configurationElement.createDocument("OscActivator Configuration File"));
 
 			updateWindowTitle();
+			*/
 		}
 	}
 	
@@ -186,6 +345,7 @@ class MainWindow  : public DocumentWindow, public MenuBarModel
 		{
 			File configurationFile (myChooser.getResult());
 			currentFileName = configurationFile.getFileName();
+			pathToFile = configurationFile.getFullPathName();
 
 			XmlDocument configurationDocument(configurationFile);
 			ScopedPointer<XmlElement> configurationElement = configurationDocument.getDocumentElement();
@@ -402,6 +562,8 @@ public:
 
 		setResizable(false, false);
         setVisible (true);
+
+		addKeyListener(this);
     }
 
     ~MainWindow()
@@ -453,6 +615,18 @@ public:
 		{
 			save();
 		}
+	}
+
+	bool keyPressed (const KeyPress &key, Component *originatingComponent)
+	{
+		bool ctrl = key.getModifiers().isCtrlDown();
+		if (key.getKeyCode() == 83 && ctrl)  //Ctrl + s
+		{
+			saveCurrent();
+			return true;
+		}
+
+		return false;
 	}
 
     //==============================================================================

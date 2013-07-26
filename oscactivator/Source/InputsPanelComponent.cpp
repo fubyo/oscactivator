@@ -241,6 +241,10 @@ void InputsPanelComponent::buttonClicked (Button* buttonThatWasClicked)
 
 		if (selectedrow!=-1 && selectedrow < (int)inputs.size())
 		{
+			
+			RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
+			const ScopedLock myScopedLock (rpc->ruleGenerator.cs);
+
 			OscManager::getInstance()->unregisterReceiver(inputs[selectedrow]->pValue);
 			//delete[] inputs[selectedrow]->pValue;
 			//delete inputs[selectedrow]->termManager;
@@ -270,7 +274,6 @@ void InputsPanelComponent::buttonClicked (Button* buttonThatWasClicked)
 				inputsRelevanceListBox->updateContent();
 
 
-			RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
 			if (rpc)
 				rpc->inputRemoved(selectedrow);
 		}
@@ -453,7 +456,7 @@ int InputsPanelComponent::getInputIndex(TermManager* tm)
 {
 	int result = -1;
 	for (int i=0; i<inputs.size(); i++)
-		if (inputs[i]->termManager == tm)
+		if (inputs[i]->termManager == tm && !inputs[i]->isFeedbackInput)
 			result = i;
 
 	return result;

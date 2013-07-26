@@ -178,6 +178,8 @@ public:
 	void updateRulesBecauseOfTermChangesOnInput(int index);
 	void updateRulesBecauseOfTermChangesOnOutput(int index);
 
+	void updateRulesBecauseOfNewTerm(TermManager* termManager, int newTermIndex); 
+
 	void updateRulesDueToAddingNewIO();
 
 	double calculateOutput(int index);
@@ -196,4 +198,6 @@ public:
 	bool timersAreCounting;
 	bool valuesAreChanging;
 	bool interactionIsOn;
+
+	CriticalSection cs;
 };
