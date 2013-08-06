@@ -746,7 +746,7 @@ void RuleGenerator::updateOutputs()
 	}
 }
 
-void RuleGenerator::updateRulesDueToAddingNewIO()
+void RuleGenerator::updateRulesDueToAddingNewOutput()
 {
 	int numOfInputs = ipc->inputs.size();
 	int numOfOutputs = opc->outputs.size();
@@ -769,6 +769,23 @@ void RuleGenerator::updateRulesDueToAddingNewIO()
 			rules[i]->outputMembership.add(0);
 			rules[i]->outputValues.add(0);
 			rules[i]->outputDegrees.add(0);
+		}
+	}
+}
+
+void RuleGenerator::updateRulesDueToAddingNewInput()
+{
+	int numOfInputs = ipc->inputs.size();
+	int numberOfTrueInputs = ipc->getNumberOfNonFeedbackInputs();
+	int numOfOutputs = opc->outputs.size();
+
+	for (int i=0; i<rules.size(); i++)
+	{
+		if (rules[i]->inputTermIndeces.size()<numOfInputs)
+		{
+			rules[i]->inputTermIndeces.insert(numberOfTrueInputs-1,-1);
+			rules[i]->inputMembership.insert(numberOfTrueInputs-1,0);
+			rules[i]->inputValues.insert(numberOfTrueInputs-1,0);
 		}
 	}
 }

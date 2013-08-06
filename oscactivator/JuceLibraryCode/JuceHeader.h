@@ -37,7 +37,7 @@
 namespace ProjectInfo
 {
     const char* const  projectName    = "oscactivator";
-    const char* const  versionString  = "0.01";
+    const char* const  versionString  = "0.03";
     const int          versionNumber  = 0x100;
 }
 

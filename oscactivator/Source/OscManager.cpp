@@ -190,14 +190,12 @@ bool OSCListener::handleOSCMessage (OpenSoundController* controller, OpenSoundMe
 
 						const MessageManagerLock mmLock;
 						((OpenSoundSocketThread*)controller)->ipc->updateCurrentValue();
-
-						return true;
 					} 
 				}
 			}
 		}	
 
-	return false;
+	return true;
 }
 
 OpenSoundSocketThread::OpenSoundSocketThread(Array<ReceiverRegistration, CriticalSection>* Receivers)

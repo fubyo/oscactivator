@@ -232,7 +232,7 @@ void OutputsPanelComponent::buttonClicked (Button* buttonThatWasClicked)
 
 		RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
 		if (rpc)
-			rpc->ruleGenerator.updateRulesDueToAddingNewIO();
+			rpc->ruleGenerator.updateRulesDueToAddingNewOutput();
         //[/UserButtonCode_addButton]
     }
     else if (buttonThatWasClicked == removeButton)
@@ -397,11 +397,8 @@ void OutputsPanelComponent::selectedRowsChanged (int lastRowSelected)
 		maxEditor->setText(String(outputs[lastRowSelected]->termManager->getMax()));
 
 		RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
-		if (!rpc->interactionOn)
-		{
-			valueSlider->setRange(minEditor->getText().getDoubleValue(), maxEditor->getText().getDoubleValue());
-			valueSlider->setValue(*outputs[lastRowSelected]->pValue);
-		}
+		valueSlider->setRange(minEditor->getText().getDoubleValue(), maxEditor->getText().getDoubleValue());
+		valueSlider->setValue(*outputs[lastRowSelected]->pValue);
 
 		membershipGraph->setTermManager(outputs[lastRowSelected]->termManager);
 	}

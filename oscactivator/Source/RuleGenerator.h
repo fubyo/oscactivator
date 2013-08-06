@@ -180,7 +180,8 @@ public:
 
 	void updateRulesBecauseOfNewTerm(TermManager* termManager, int newTermIndex); 
 
-	void updateRulesDueToAddingNewIO();
+	void updateRulesDueToAddingNewOutput();
+	void updateRulesDueToAddingNewInput();
 
 	double calculateOutput(int index);
 	void requestOutputUpdate();

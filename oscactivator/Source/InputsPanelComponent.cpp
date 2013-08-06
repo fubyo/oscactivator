@@ -231,7 +231,7 @@ void InputsPanelComponent::buttonClicked (Button* buttonThatWasClicked)
 
 		RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
 		if (rpc)
-			rpc->ruleGenerator.updateRulesDueToAddingNewIO();
+			rpc->ruleGenerator.updateRulesDueToAddingNewInput();
         //[/UserButtonCode_addButton]
     }
     else if (buttonThatWasClicked == removeButton)

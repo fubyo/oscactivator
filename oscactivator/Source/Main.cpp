@@ -333,213 +333,13 @@ class MainWindow  : public DocumentWindow, public MenuBarModel, public KeyListen
 	{
 		const MessageManagerLock mmLock;
 
-		InputsPanelComponent* ipc = (InputsPanelComponent*)Pool::Instance()->getObject("InputsPanelComponent");
-		OutputsPanelComponent* opc = (OutputsPanelComponent*)Pool::Instance()->getObject("OutputsPanelComponent");
-		RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
-
 		FileChooser myChooser ("Please select where you want to load the configuration from...",
                                File::getSpecialLocation (File::userHomeDirectory),
                                "*.xml", false);
 
 		if (myChooser.browseForFileToOpen())
 		{
-			File configurationFile (myChooser.getResult());
-			currentFileName = configurationFile.getFileName();
-			pathToFile = configurationFile.getFullPathName();
-
-			XmlDocument configurationDocument(configurationFile);
-			ScopedPointer<XmlElement> configurationElement = configurationDocument.getDocumentElement();
-
-			if (configurationElement->hasTagName ("Configuration"))
-			{
-				int inputNumber = configurationElement->getIntAttribute("InputNumber");
-
-				ipc->clearInputs();
-				ipc->numberOfInputs = inputNumber;
-
-				for (int i=0; i<inputNumber; i++)
-				{
-					String inputIdentifier = "input_" + String(i);
-					XmlElement* e = configurationElement->getChildByName(inputIdentifier);
-
-					String name = e->getStringAttribute("name");
-					String oscaddress = e->getStringAttribute("oscaddress");
-					int parameterindex = e->getIntAttribute("parameterindex");
-					int port = e->getIntAttribute("port");
-					int value = e->getDoubleAttribute("value");
-					bool isFeedbackInput = e->getBoolAttribute("isFeedbackInput");
-
-					int TermNumber = e->getIntAttribute("TermNumber");
-					double min = e->getDoubleAttribute("min");
-					double max = e->getDoubleAttribute("max");
-
-					Input* input = new Input(isFeedbackInput);
-					input->name = name;
-					input->oscaddress = oscaddress;
-					input->parameterindex = parameterindex;
-					input->port = port;
-					*input->pValue=value;
-
-					if (!isFeedbackInput)
-					{
-						input->termManager->setMin(min);
-						input->termManager->setMax(max);
-
-						for (int ii=0; ii<TermNumber; ii++)
-						{
-							String termIdentifier = "term_" + String(ii);
-							XmlElement* termElement = e->getChildByName(termIdentifier);
-
-							double a = termElement->getDoubleAttribute("a");
-							double b = termElement->getDoubleAttribute("b");
-							double c = termElement->getDoubleAttribute("c");
-							double d = termElement->getDoubleAttribute("d");
-
-							String termName = termElement->getStringAttribute("name");
-
-							TrapezTerm* term = new TrapezTerm(termName);
-
-							term->setA(a);
-							term->setB(b);
-							term->setC(c);
-							term->setD(d);
-
-							input->termManager->terms.add(term);
-						}
-					}
-
-					ipc->inputs.add(input);
-				}
-				ipc->updateContent();
-
-				int outputNumber = configurationElement->getIntAttribute("OutputNumber");
-
-				opc->clearOutputs();
-				opc->numberOfOutputs = outputNumber;
-
-				for (int i=0; i<outputNumber; i++)
-				{
-					String outputIdentifier = "output_" + String(i);
-					XmlElement* e = configurationElement->getChildByName(outputIdentifier);
-
-					String name = e->getStringAttribute("name");
-					String oscaddress = e->getStringAttribute("oscaddress");
-					String host = e->getStringAttribute("host");
-					int port = e->getIntAttribute("port");
-					int value = e->getDoubleAttribute("value");
-					bool sendstatechanges = e->getBoolAttribute("sendstatechanges");
-					
-					int TermNumber = e->getIntAttribute("TermNumber");
-					double min = e->getDoubleAttribute("min");
-					double max = e->getDoubleAttribute("max");
-
-					Output* output = new Output();
-					output->name = name;
-					output->oscaddress = oscaddress;
-					output->host = host;
-					output->port = port;
-					*output->pValue=value;
-					output->sendStateChanges = sendstatechanges;
-					output->termManager->setMin(min);
-					output->termManager->setMax(max);
-
-					for (int ii=0; ii<TermNumber; ii++)
-					{
-						String termIdentifier = "term_" + String(ii);
-						XmlElement* termElement = e->getChildByName(termIdentifier);
-
-						double a = termElement->getDoubleAttribute("a");
-						double b = termElement->getDoubleAttribute("b");
-						double c = termElement->getDoubleAttribute("c");
-						double d = termElement->getDoubleAttribute("d");
-
-						String termName = termElement->getStringAttribute("name");
-
-						TrapezTerm* term = new TrapezTerm(termName);
-
-						term->setA(a);
-						term->setB(b);
-						term->setC(c);
-						term->setD(d);
-
-						output->termManager->terms.add(term);
-					}
-
-					output->prepareSocket();
-					opc->outputs.add(output);
-				}
-				opc->updateContent();
-
-
-				//Set up term managers for the feedback inputs.
-				int index = ipc->getNumberOfNonFeedbackInputs();
-				int outputIndex = 0;
-				for (int i=index; i<ipc->inputs.size(); i++)
-				{
-					ipc->inputs[i]->termManager = opc->outputs[outputIndex]->termManager;
-					outputIndex++;
-				}
-
-
-				int ruleNumber = configurationElement->getIntAttribute("RuleNumber");
-				rpc->ruleGenerator.deleteAllTimers();
-				rpc->ruleGenerator.rules.clear();
-
-				for (int i=0; i<ruleNumber; i++)
-				{
-					Rule rule;
-				
-					String ruleIdentifier = "rule_" + String(i);
-					XmlElement* e = configurationElement->getChildByName(ruleIdentifier);
-
-					rule.importance = e->getDoubleAttribute("importance");
-					rule.inputDegree = e->getDoubleAttribute("inputdegree");
-					rule.locked = e->getBoolAttribute("locked");
-					rule.weightInputConnection = e->getIntAttribute("weightinputconnection");
-				
-					for (int ii=0; ii<inputNumber; ii++)
-					{
-						rule.inputMembership.add(e->getDoubleAttribute("inputmembership_" + String(ii)));
-						rule.inputTermIndeces.add(e->getIntAttribute("inputtermindeces_" + String(ii)));
-						rule.inputValues.add(e->getDoubleAttribute("inputvalues_" + String(ii)));
-						
-						if (e->hasAttribute("inputtimeparameter_" + String(ii)))
-						{
-							rule.inputTimers.set(ii, new InputTimer(e->getDoubleAttribute("inputtimeparameter_" + String(ii)), ii, e->getIntAttribute("inputtermindeces_" + String(ii))));
-						}
-					}
-
-					for (int ii=0; ii<outputNumber; ii++)
-					{
-						rule.outputMembership.add(e->getDoubleAttribute("outputmembership_" + String(ii)));
-						rule.outputTermIndeces.add(e->getIntAttribute("outputtermindeces_" + String(ii)));
-						rule.outputValues.add(e->getDoubleAttribute("outputvalues_" + String(ii)));
-						rule.outputDegrees.add(e->getDoubleAttribute("outputdegrees_" + String(ii)));
-						
-						if (e->hasAttribute("outputtimeparameter_" + String(ii)))
-						{
-							int inputIndexForTimeParameter = -1;
-							if (e->hasAttribute("inputindexfortimeparameter_" +String(ii)))
-							{
-								inputIndexForTimeParameter = e->getIntAttribute("inputIndexForTimeParameter_" + String(ii));
-							}
-
-							rule.outputTimers.set(ii, new OutputTimer(e->getDoubleAttribute("outputtimeparameter_" + String(ii)), ii, e->getIntAttribute("outputtermindeces_" + String(ii)), i, inputIndexForTimeParameter));
-						}
-
-						if (e->hasAttribute("outputfrominput_" + String(ii)))
-							rule.outputFromInput.set(ii, e->getDoubleAttribute("outputfrominput_" + String(ii)));
-					}
-
-					rpc->ruleGenerator.rules.add(new Rule(rule));
-				}
-				rpc->updateContent();
-
-				ipc->disconnectTermManagerFromMembershipGraphComponent();
-				opc->disconnectTermManagerFromMembershipGraphComponent();
-			}
-
-			updateWindowTitle();
+			loadRoutine(myChooser.getResult().getFullPathName());
 		}
 	}
 
@@ -550,7 +350,7 @@ class MainWindow  : public DocumentWindow, public MenuBarModel, public KeyListen
 
 public:
     //==============================================================================
-    MainWindow() : DocumentWindow ("OscActivator v0.01", Colours::lightgrey, DocumentWindow::allButtons, true)
+    MainWindow() : DocumentWindow ("OscActivator v0.03", Colours::lightgrey, DocumentWindow::allButtons, true)
     {
         MainComponent* const mainComponent = new MainComponent();
 
@@ -629,6 +429,218 @@ public:
 		return false;
 	}
 
+	void loadRoutine(String filePath)
+	{
+		InputsPanelComponent* ipc = (InputsPanelComponent*)Pool::Instance()->getObject("InputsPanelComponent");
+		OutputsPanelComponent* opc = (OutputsPanelComponent*)Pool::Instance()->getObject("OutputsPanelComponent");
+		RulesPanelComponent* rpc = (RulesPanelComponent*)Pool::Instance()->getObject("RulesPanelComponent");
+		
+		if (!filePath.isEmpty())
+		{
+			File configurationFile (filePath);
+
+			if (configurationFile.exists())
+			{
+				currentFileName = configurationFile.getFileName();
+				pathToFile = configurationFile.getFullPathName();
+
+				XmlDocument configurationDocument(configurationFile);
+				ScopedPointer<XmlElement> configurationElement = configurationDocument.getDocumentElement();
+
+				if (configurationElement->hasTagName ("Configuration"))
+				{
+					int inputNumber = configurationElement->getIntAttribute("InputNumber");
+
+					ipc->clearInputs();
+					ipc->numberOfInputs = inputNumber;
+
+					for (int i=0; i<inputNumber; i++)
+					{
+						String inputIdentifier = "input_" + String(i);
+						XmlElement* e = configurationElement->getChildByName(inputIdentifier);
+
+						String name = e->getStringAttribute("name");
+						String oscaddress = e->getStringAttribute("oscaddress");
+						int parameterindex = e->getIntAttribute("parameterindex");
+						int port = e->getIntAttribute("port");
+						int value = e->getDoubleAttribute("value");
+						bool isFeedbackInput = e->getBoolAttribute("isFeedbackInput");
+
+						int TermNumber = e->getIntAttribute("TermNumber");
+						double min = e->getDoubleAttribute("min");
+						double max = e->getDoubleAttribute("max");
+
+						Input* input = new Input(isFeedbackInput);
+						input->name = name;
+						input->oscaddress = oscaddress;
+						input->parameterindex = parameterindex;
+						input->port = port;
+						*input->pValue=value;
+
+						if (!isFeedbackInput)
+						{
+							input->termManager->setMin(min);
+							input->termManager->setMax(max);
+
+							for (int ii=0; ii<TermNumber; ii++)
+							{
+								String termIdentifier = "term_" + String(ii);
+								XmlElement* termElement = e->getChildByName(termIdentifier);
+
+								double a = termElement->getDoubleAttribute("a");
+								double b = termElement->getDoubleAttribute("b");
+								double c = termElement->getDoubleAttribute("c");
+								double d = termElement->getDoubleAttribute("d");
+
+								String termName = termElement->getStringAttribute("name");
+
+								TrapezTerm* term = new TrapezTerm(termName);
+
+								term->setA(a);
+								term->setB(b);
+								term->setC(c);
+								term->setD(d);
+
+								input->termManager->terms.add(term);
+							}
+						}
+
+						ipc->inputs.add(input);
+					}
+					ipc->updateContent();
+
+					int outputNumber = configurationElement->getIntAttribute("OutputNumber");
+
+					opc->clearOutputs();
+					opc->numberOfOutputs = outputNumber;
+
+					for (int i=0; i<outputNumber; i++)
+					{
+						String outputIdentifier = "output_" + String(i);
+						XmlElement* e = configurationElement->getChildByName(outputIdentifier);
+
+						String name = e->getStringAttribute("name");
+						String oscaddress = e->getStringAttribute("oscaddress");
+						String host = e->getStringAttribute("host");
+						int port = e->getIntAttribute("port");
+						int value = e->getDoubleAttribute("value");
+						bool sendstatechanges = e->getBoolAttribute("sendstatechanges");
+					
+						int TermNumber = e->getIntAttribute("TermNumber");
+						double min = e->getDoubleAttribute("min");
+						double max = e->getDoubleAttribute("max");
+
+						Output* output = new Output();
+						output->name = name;
+						output->oscaddress = oscaddress;
+						output->host = host;
+						output->port = port;
+						*output->pValue=value;
+						output->sendStateChanges = sendstatechanges;
+						output->termManager->setMin(min);
+						output->termManager->setMax(max);
+
+						for (int ii=0; ii<TermNumber; ii++)
+						{
+							String termIdentifier = "term_" + String(ii);
+							XmlElement* termElement = e->getChildByName(termIdentifier);
+
+							double a = termElement->getDoubleAttribute("a");
+							double b = termElement->getDoubleAttribute("b");
+							double c = termElement->getDoubleAttribute("c");
+							double d = termElement->getDoubleAttribute("d");
+
+							String termName = termElement->getStringAttribute("name");
+
+							TrapezTerm* term = new TrapezTerm(termName);
+
+							term->setA(a);
+							term->setB(b);
+							term->setC(c);
+							term->setD(d);
+
+							output->termManager->terms.add(term);
+						}
+
+						output->prepareSocket();
+						opc->outputs.add(output);
+					}
+					opc->updateContent();
+
+
+					//Set up term managers for the feedback inputs.
+					int index = ipc->getNumberOfNonFeedbackInputs();
+					int outputIndex = 0;
+					for (int i=index; i<ipc->inputs.size(); i++)
+					{
+						ipc->inputs[i]->termManager = opc->outputs[outputIndex]->termManager;
+						outputIndex++;
+					}
+
+
+					int ruleNumber = configurationElement->getIntAttribute("RuleNumber");
+					rpc->ruleGenerator.deleteAllTimers();
+					rpc->ruleGenerator.rules.clear();
+
+					for (int i=0; i<ruleNumber; i++)
+					{
+						Rule rule;
+				
+						String ruleIdentifier = "rule_" + String(i);
+						XmlElement* e = configurationElement->getChildByName(ruleIdentifier);
+
+						rule.importance = e->getDoubleAttribute("importance");
+						rule.inputDegree = e->getDoubleAttribute("inputdegree");
+						rule.locked = e->getBoolAttribute("locked");
+						rule.weightInputConnection = e->getIntAttribute("weightinputconnection");
+				
+						for (int ii=0; ii<inputNumber; ii++)
+						{
+							rule.inputMembership.add(e->getDoubleAttribute("inputmembership_" + String(ii)));
+							rule.inputTermIndeces.add(e->getIntAttribute("inputtermindeces_" + String(ii)));
+							rule.inputValues.add(e->getDoubleAttribute("inputvalues_" + String(ii)));
+						
+							if (e->hasAttribute("inputtimeparameter_" + String(ii)))
+							{
+								rule.inputTimers.set(ii, new InputTimer(e->getDoubleAttribute("inputtimeparameter_" + String(ii)), ii, e->getIntAttribute("inputtermindeces_" + String(ii))));
+							}
+						}
+
+						for (int ii=0; ii<outputNumber; ii++)
+						{
+							rule.outputMembership.add(e->getDoubleAttribute("outputmembership_" + String(ii)));
+							rule.outputTermIndeces.add(e->getIntAttribute("outputtermindeces_" + String(ii)));
+							rule.outputValues.add(e->getDoubleAttribute("outputvalues_" + String(ii)));
+							rule.outputDegrees.add(e->getDoubleAttribute("outputdegrees_" + String(ii)));
+						
+							if (e->hasAttribute("outputtimeparameter_" + String(ii)))
+							{
+								int inputIndexForTimeParameter = -1;
+								if (e->hasAttribute("inputindexfortimeparameter_" +String(ii)))
+								{
+									inputIndexForTimeParameter = e->getIntAttribute("inputIndexForTimeParameter_" + String(ii));
+								}
+
+								rule.outputTimers.set(ii, new OutputTimer(e->getDoubleAttribute("outputtimeparameter_" + String(ii)), ii, e->getIntAttribute("outputtermindeces_" + String(ii)), i, inputIndexForTimeParameter));
+							}
+
+							if (e->hasAttribute("outputfrominput_" + String(ii)))
+								rule.outputFromInput.set(ii, e->getDoubleAttribute("outputfrominput_" + String(ii)));
+						}
+
+						rpc->ruleGenerator.rules.add(new Rule(rule));
+					}
+					rpc->updateContent();
+
+					ipc->disconnectTermManagerFromMembershipGraphComponent();
+					opc->disconnectTermManagerFromMembershipGraphComponent();
+				}
+
+				updateWindowTitle();
+			}
+		}
+	}
+
     //==============================================================================
     void closeButtonPressed()
     {
@@ -661,8 +673,19 @@ public:
 			_CrtSetBreakAlloc(7475);
 		#endif  */
 
-
         mainWindow = new MainWindow();
+
+		String path;
+
+		if (commandLine.contains(String("""")))
+			path  = commandLine.substring(1, commandLine.length()-1);
+		else
+			path = commandLine;
+
+		{
+			const MessageManagerLock mmLock;
+			mainWindow->loadRoutine(path);
+		}
 
 		OscManager::getInstance()->startThread();
     }
