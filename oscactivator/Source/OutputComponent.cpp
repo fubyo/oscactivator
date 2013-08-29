@@ -219,6 +219,16 @@ OutputInfo OutputComponent::getOutputInfo()
 
 void OutputComponent::textEditorTextChanged(TextEditor& editor)
 {
+	//sendChangeMessage();
+}
+
+void OutputComponent::textEditorReturnKeyPressed(TextEditor& editor)
+{
+	sendChangeMessage();
+}
+
+void OutputComponent::textEditorFocusLost(TextEditor &editor)
+{
 	sendChangeMessage();
 }
 //[/MiscUserCode]

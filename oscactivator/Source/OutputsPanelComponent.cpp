@@ -332,7 +332,8 @@ void OutputsPanelComponent::sliderValueChanged (Slider* sliderThatWasMoved)
 						<< (float)value
 					<< osc::EndMessage;
 
-					outputs[selectedRow]->socket->Send( p.Data(), p.Size() );
+					if (outputs[selectedRow]->socket)
+						outputs[selectedRow]->socket->Send( p.Data(), p.Size() );
 				}
 				else
 				{
@@ -351,7 +352,8 @@ void OutputsPanelComponent::sliderValueChanged (Slider* sliderThatWasMoved)
 								<< (float)termIndex
 							<< osc::EndMessage;
 
-							outputs[selectedRow]->socket->Send( p.Data(), p.Size() );
+							if (outputs[selectedRow]->socket)
+								outputs[selectedRow]->socket->Send( p.Data(), p.Size() );
 						}
 					}
 				}
@@ -481,7 +483,8 @@ void OutputsPanelComponent::sendOuputValues()
 					<< (float)*outputs[i]->pValue
 				<< osc::EndMessage;
 
-				outputs[i]->socket->Send( p.Data(), p.Size() );
+				if (outputs[i]->socket)
+					outputs[i]->socket->Send( p.Data(), p.Size() );
 
 				outputs[i]->newValue = false;
 			}
@@ -516,7 +519,8 @@ void OutputsPanelComponent::sendOuputValues()
 					<< (float)termIndex
 				<< osc::EndMessage;
 
-				outputs[i]->socket->Send( p.Data(), p.Size() );
+				if (outputs[i]->socket)
+					outputs[i]->socket->Send( p.Data(), p.Size() );
 			}
 		}
 	}

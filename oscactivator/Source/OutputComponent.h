@@ -69,7 +69,20 @@ public:
 		if (socket)
 			delete socket;
 
-		socket = new UdpTransmitSocket(IpEndpointName(host.toUTF8(), port));
+		
+		DatagramSocket tempSock(0);
+		bool result = tempSock.connect(host, port, 10);
+
+		if (result)
+		{
+			tempSock.close();
+			socket = new UdpTransmitSocket(IpEndpointName(host.toUTF8(), port));
+		}
+		else
+			socket = 0;
+		
+
+		// socket = new UdpTransmitSocket(IpEndpointName(host.toUTF8(), port));
 	}
 
 	~Output()
@@ -133,6 +146,8 @@ public:
 	OutputInfo getOutputInfo();
 
 	void textEditorTextChanged (TextEditor& editor);
+	void textEditorReturnKeyPressed (TextEditor& editor);
+	void textEditorFocusLost (TextEditor &editor);
     //[/UserMethods]
 
     void paint (Graphics& g);
