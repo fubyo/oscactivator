@@ -1054,3 +1054,23 @@ void TermManager::sortTerms()
         }
      }
 }
+
+void TermManager::moveBtoTheLeft(int termIndex)
+{
+
+}
+
+void TermManager::moveBtoTheRight(int termIndex)
+{
+
+}
+
+void TermManager::moveCtoTheLeft(int termIndex)
+{
+
+}
+
+void TermManager::moveCtoTheRight(int termIndex)
+{
+
+}

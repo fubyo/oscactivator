@@ -30,6 +30,11 @@ public:
 	void removeTerm(int index);
 	
 	int getIndex(double value);
+
+	void moveBtoTheLeft(int termIndex);
+	void moveBtoTheRight(int termIndex);
+	void moveCtoTheLeft(int termIndex);
+	void moveCtoTheRight(int termIndex);
 	
 	TermManager(void);
 	~TermManager(void);
