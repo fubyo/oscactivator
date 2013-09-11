@@ -1057,20 +1057,90 @@ void TermManager::sortTerms()
 
 void TermManager::moveBtoTheLeft(int termIndex)
 {
+	double range = max-min;
+	double targetValue = terms[termIndex]->b()-0.01*range;
 
+	if (termIndex>0 && targetValue>terms[termIndex-1]->c())
+	{
+		terms[termIndex]->setB(targetValue);
+		terms[termIndex-1]->setD(targetValue);
+	}
+	else if (termIndex==0 && targetValue>=min)
+	{
+		terms[termIndex]->setB(targetValue);
+	}
+	else if (targetValue<min)
+	{
+		terms[termIndex]->setB(min);
+	} 
 }
 
 void TermManager::moveBtoTheRight(int termIndex)
 {
+	double range = max-min;
+	double targetValue = terms[termIndex]->b()+0.01*range;
 
+	if (targetValue>terms[termIndex]->c())
+		targetValue = terms[termIndex]->c();
+
+	if (termIndex>0)
+	{
+		terms[termIndex]->setB(targetValue);
+		terms[termIndex-1]->setD(targetValue);
+	}
+	else if (targetValue<=terms[termIndex]->c() && terms[termIndex]->b()!=min)
+	{
+		terms[termIndex]->setB(targetValue);
+	}
+	else if (targetValue<=terms[termIndex]->c() && terms[termIndex]->b()==min && terms[termIndex]->c()==max)
+	{
+		terms[termIndex]->setB(targetValue);
+	}
+	else if (targetValue>terms[termIndex]->c() && terms[termIndex]->b()!=min)
+	{
+		terms[termIndex]->setB(terms[termIndex]->c());
+	}
 }
 
 void TermManager::moveCtoTheLeft(int termIndex)
 {
+	double range = max-min;
+	double targetValue = terms[termIndex]->c()-0.01*range;
 
+	if (targetValue<terms[termIndex]->b())
+		targetValue = terms[termIndex]->b();
+
+	if (terms.size()>termIndex+1)
+	{
+		terms[termIndex]->setC(targetValue);
+		terms[termIndex+1]->setA(targetValue);
+	}
+	else if (terms[termIndex]->c()!=max)
+	{
+		terms[termIndex]->setC(targetValue);
+	}
+	else if (terms[termIndex]->c()==max && terms[termIndex]->b()==min)
+	{
+		terms[termIndex]->setC(targetValue);
+	}
 }
 
 void TermManager::moveCtoTheRight(int termIndex)
 {
+	double range = max-min;
+	double targetValue = terms[termIndex]->c()+0.01*range;
 
+	if (terms.size()>termIndex+1 && targetValue<terms[termIndex+1]->b())
+	{
+		terms[termIndex]->setC(targetValue);
+		terms[termIndex+1]->setA(targetValue);
+	}
+	else if (terms.size()<=termIndex+1 && targetValue<=max)
+	{
+		terms[termIndex]->setC(targetValue);
+	}
+	else if (targetValue>max)
+	{
+		terms[termIndex]->setC(max);
+	}
 }

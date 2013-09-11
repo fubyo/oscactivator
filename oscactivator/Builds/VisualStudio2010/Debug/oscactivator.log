@@ -1,25 +1,11 @@
-﻿Build started 10.09.2013 17:26:44.
+﻿Build started 11.09.2013 12:42:58.
      1>Project "C:\Users\marinos\Promotion\Tools\oscactivator\oscactivator\Builds\VisualStudio2010\oscactivator.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating ".\Debug\oscactivator.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I..\..\JuceLibraryCode /ZI /nologo /W4 /WX- /MP /Od /Oy- /D WIN32 /D _WINDOWS /D DEBUG /D _DEBUG /D JUCER_VS2010_78A501D=1 /D _MBCS /Gm- /EHsc /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo".\Debug\\" /Fd".\Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\Source\MembershipGraphComponent.cpp
-         MembershipGraphComponent.cpp
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I..\..\JuceLibraryCode /ZI /nologo /W4 /WX- /MP /Od /Oy- /D WIN32 /D _WINDOWS /D DEBUG /D _DEBUG /D JUCER_VS2010_78A501D=1 /D _MBCS /Gm- /EHsc /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo".\Debug\\" /Fd".\Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\Source\TermManager.cpp
+         TermManager.cpp
      1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\oscpack\osc\oscreceivedelements.h(402): warning C4100: 'rhs': Unreferenzierter formaler Parameter
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(83): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(83): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(83): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(84): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(84): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(85): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(85): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(85): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(101): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(101): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(102): warning C4244: 'Argument': Konvertierung von 'double' in 'int', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(102): warning C4244: 'Argument': Konvertierung von 'double' in 'int', möglicher Datenverlust
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(160): warning C4800: 'int': Variable wird auf booleschen Wert ('True' oder 'False') gesetzt (Auswirkungen auf Leistungsverhalten möglich)
-     1>c:\users\marinos\promotion\tools\oscactivator\oscactivator\source\membershipgraphcomponent.cpp(163): warning C4800: 'TermManager *': Variable wird auf booleschen Wert ('True' oder 'False') gesetzt (Auswirkungen auf Leistungsverhalten möglich)
        ResourceCompile:
          All outputs are up-to-date.
        ManifestResourceCompile:
@@ -90,4 +76,4 @@
 
 Das Erstellen war erfolgreich.
 
-Time Elapsed 00:00:09.37
+Time Elapsed 00:00:08.42

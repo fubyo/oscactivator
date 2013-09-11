@@ -244,18 +244,22 @@ bool MembershipGraphComponent::keyPressed (const KeyPress& key)
 	else if (key.isKeyCode(juce::KeyPress::leftKey) && key.getModifiers().isCtrlDown()  && termManager && selectionIndex!=-1)
 	{
 		termManager->moveBtoTheLeft(selectionIndex);
+		repaint();
 	}
 	else if (key.isKeyCode(juce::KeyPress::rightKey) && key.getModifiers().isCtrlDown()  && termManager && selectionIndex!=-1)
 	{
 		termManager->moveBtoTheRight(selectionIndex);
+		repaint();
 	}
 	else if (key.isKeyCode(juce::KeyPress::leftKey) && key.getModifiers().isAltDown()  && termManager && selectionIndex!=-1)
 	{
 		termManager->moveCtoTheLeft(selectionIndex);
+		repaint();
 	}
 	else if (key.isKeyCode(juce::KeyPress::rightKey) && key.getModifiers().isAltDown()  && termManager && selectionIndex!=-1)
 	{
 		termManager->moveCtoTheRight(selectionIndex);
+		repaint();
 	}
 
     return true;  // Return true if your handler uses this key event, or false to allow it to be passed-on.
